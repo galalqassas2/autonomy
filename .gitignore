@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+**/node_modules/
+.pnpm-store/
+**/.pnpm-store/
+
+# Next.js build outputs & temp files
+.next/
+**/.next/
+out/
+build/
+dist/
+
+# Logs
+*.log
+**/*.log
+
+# Python bytecode
+__pycache__/
+**/__pycache__/
+*.pyc
+
+# Environment & local files
+.env*
+!.env.example
+
+# OS metadata
+.DS_Store
+Thumbs.db
