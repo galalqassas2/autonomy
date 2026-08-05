@@ -35,7 +35,13 @@
   --glow-strong:
     0 0 0 1px rgba(62, 207, 142, 0.7), 0 0 56px rgba(62, 207, 142, 0.45);
   --glow-text:
-    0 0 12px rgba(62, 207, 142, 0.4), 0 0 34px rgba(62, 207, 142, 0.55);
+    0 1px 0 rgba(32, 140, 90, 0.9),
+    0 2px 0 rgba(20, 95, 60, 0.85),
+    0 3px 0 rgba(14, 68, 42, 0.8),
+    0 4px 8px rgba(0, 0, 0, 0.5),
+    0 0 4px rgba(167, 243, 208, 0.6),
+    0 0 16px rgba(62, 207, 142, 0.35),
+    0 0 36px rgba(62, 207, 142, 0.18);
 
   /* Elevation reads as depth of black on a dark track, not softness. */
   --elev-1: 0 1px 2px rgba(0, 0, 0, 0.5);

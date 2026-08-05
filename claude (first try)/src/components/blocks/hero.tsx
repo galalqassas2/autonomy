@@ -36,7 +36,14 @@ export function Hero() {
     )
     const chars = splits.flatMap((split) => split.chars)
 
-    const timeline = createTimeline({ defaults: { ease: "outExpo" } })
+    const timeline = createTimeline({
+      defaults: { ease: "outExpo" },
+      onComplete: () => {
+        lines.forEach((line) => {
+          line.style.overflow = "visible"
+        })
+      },
+    })
       .add(chars, {
         opacity: [0, 1],
         translateY: ["110%", "0%"],
@@ -80,11 +87,11 @@ export function Hero() {
       <div className="shell">
         <div className="grid items-center gap-12 min-[1000px]:grid-cols-[1.02fr_0.98fr] min-[1000px]:gap-[72px]">
           <div style={{ perspective: "1000px" }}>
-            <h1 className="t-display-xxl text-ink">
-              <span className="hero-line block overflow-hidden pb-[0.06em]">
+            <h1 className="t-display-xxl text-ink overflow-visible">
+              <span className="hero-line block overflow-hidden p-6 -m-6">
                 Your team stops doing the work.
               </span>
-              <span className="hero-line block overflow-hidden pb-[0.06em] text-primary glow-text">
+              <span className="hero-line block overflow-hidden p-6 -m-6 text-primary glow-text">
                 The work still gets done.
               </span>
             </h1>
