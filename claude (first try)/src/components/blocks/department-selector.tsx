@@ -19,7 +19,9 @@ type Dept = {
   id: string
   tab: string
   icon: Icon3DName
-  outcome: string
+  headline: string
+  tasks: string[]
+  stat: { value: string; label: string }
   panel: () => React.ReactNode
 }
 
@@ -28,28 +30,56 @@ const DEPTS: Dept[] = [
     id: "finance",
     tab: "Finance",
     icon: "receipt",
-    outcome: "issues and chases every invoice without opening a spreadsheet",
+    headline: "Issue, chase and reconcile every invoice. Hands off.",
+    tasks: [
+      "Issue invoices the moment a deal closes",
+      "Chase overdue accounts on schedule",
+      "Match supplier invoices to purchase orders",
+      "Reconcile bank transactions overnight",
+    ],
+    stat: { value: "4x", label: "faster month-end close" },
     panel: () => <LedgerPanel />,
   },
   {
     id: "sales",
     tab: "Sales",
     icon: "funnel",
-    outcome: "routes and enriches every lead the minute it lands",
+    headline: "Every lead captured, enriched and routed. In seconds.",
+    tasks: [
+      "Route new leads to the right rep instantly",
+      "Enrich contacts from public data sources",
+      "Log every call and email in your CRM",
+      "Send quotes the minute a deal is agreed",
+    ],
+    stat: { value: "90%", label: "less manual data entry" },
     panel: () => <PipelinePanel />,
   },
   {
     id: "operations",
     tab: "Operations",
     icon: "crates",
-    outcome: "keeps stock, orders and suppliers in agreement",
+    headline: "Stock, orders and suppliers. Always in agreement.",
+    tasks: [
+      "Reorder stock before it runs out",
+      "Reconcile deliveries against purchase orders",
+      "Track supplier SLAs and flag breaches",
+      "Sync inventory across every system",
+    ],
+    stat: { value: "0", label: "missed reorders last quarter" },
     panel: () => <ReconcilePanel />,
   },
   {
     id: "support",
     tab: "Support",
     icon: "bubbles",
-    outcome: "answers the same forty questions without a person",
+    headline: "Answer, triage and escalate. Across every channel.",
+    tasks: [
+      "Reply to FAQs on WhatsApp, email and web",
+      "Triage tickets by urgency in real time",
+      "Escalate to a person only when needed",
+      "Log every interaction for full visibility",
+    ],
+    stat: { value: "24/7", label: "response coverage" },
     panel: () => (
       <div className="mx-auto w-full max-w-[380px]">
         <CapabilityStage item={CAPABILITIES[0]} />
@@ -60,7 +90,14 @@ const DEPTS: Dept[] = [
     id: "hr",
     tab: "HR",
     icon: "badge",
-    outcome: "onboards a new starter across six systems in one go",
+    headline: "Onboard across six systems from one trigger.",
+    tasks: [
+      "Provision accounts the day the offer is signed",
+      "Collect documents before day one",
+      "Assign permissions scoped to the role",
+      "Schedule the first week automatically",
+    ],
+    stat: { value: "6", label: "systems provisioned at once" },
     panel: () => <ChecklistPanel />,
   },
 ]
@@ -185,17 +222,48 @@ export function DepartmentSelector() {
           })}
         </div>
 
-        <p className="t-display-md mt-10 max-w-[30ch] text-ink">
-          <span className="text-primary">{current.tab}</span> {current.outcome}.
-        </p>
-
         <div
           id="department-panel"
           role="tabpanel"
-          className="relative mt-8 min-h-[420px] overflow-hidden"
+          className="relative mt-8 overflow-hidden"
         >
           <div ref={panelRef} key={current.id}>
-            {current.panel()}
+            <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
+              {/* Left: headline, use cases, stat */}
+              <div className="flex flex-col gap-6">
+                <p className="t-display-md max-w-[26ch] text-ink">
+                  {current.headline}
+                </p>
+
+                <ul className="flex flex-col gap-3">
+                  {current.tasks.map((task) => (
+                    <li key={task} className="flex items-start gap-3">
+                      <span
+                        className="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary"
+                        style={{ boxShadow: "var(--glow-soft)" }}
+                      />
+                      <span className="text-sm text-ink-mute">{task}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="flex items-baseline gap-3 border-t border-hairline pt-5">
+                  <span className="text-2xl font-semibold text-primary">
+                    {current.stat.value}
+                  </span>
+                  <span className="t-body-md text-ink-mute">
+                    {current.stat.label}
+                  </span>
+                </div>
+
+                <p className="t-caption text-ink-mute-2">
+                  Connected to 1,000+ tools. Runs inside the ones you already use.
+                </p>
+              </div>
+
+              {/* Right: animated demo panel */}
+              <div>{current.panel()}</div>
+            </div>
           </div>
         </div>
       </div>

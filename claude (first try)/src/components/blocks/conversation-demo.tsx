@@ -90,7 +90,7 @@ export function ConversationDemo() {
           One list at every size. Stage on top through tablet, flanked by the
           two card groups above 1280px.
         */}
-        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-[1fr_380px_1fr] xl:items-start xl:gap-7">
+        <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-[1fr_380px_1fr] xl:items-start xl:gap-7">
           <div className="order-1 sm:col-span-2 xl:order-2 xl:col-span-1 xl:sticky xl:top-24">
             <div className="mx-auto w-full max-w-[380px]">
               <CapabilityStage key={active.id} item={active} />
@@ -100,8 +100,8 @@ export function ConversationDemo() {
             </div>
           </div>
 
-          {cards(CAPABILITIES.slice(0, 5), "order-2 xl:order-1")}
-          {cards(CAPABILITIES.slice(5), "order-3")}
+          {cards(CAPABILITIES.slice(0, 5), "order-2 xl:order-1 xl:justify-between")}
+          {cards(CAPABILITIES.slice(5), "order-3 xl:justify-between")}
         </div>
       </div>
     </section>

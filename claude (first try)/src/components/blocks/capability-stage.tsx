@@ -32,7 +32,7 @@ export function CapabilityStage({ item }: { item: Capability }) {
   return (
     <div
       aria-hidden="true"
-      className="relative flex h-[520px] w-full flex-col overflow-hidden rounded-xl border border-hairline bg-canvas-night shadow-[var(--elev-3)] sm:h-[540px]"
+      className="relative flex h-[400px] w-full flex-col overflow-hidden rounded-xl border border-hairline bg-canvas-night shadow-[var(--elev-3)] sm:h-[420px]"
     >
       {w.kind === "chat" ? (
         <ChatWidget w={w} shown={shown} thinking={thinking} reduce={reduce} />
