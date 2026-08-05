@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyberpunk Text Scramble - Anime.js v4</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #050505;
+      color: #00ffcc;
+      font-family: 'Courier New', Courier, monospace;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+
+    .console-header {
+      font-size: clamp(1.2rem, 4vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-shadow: 0 0 12px rgba(0, 255, 204, 0.6), 0 0 24px rgba(0, 255, 204, 0.2);
+      min-width: 32ch;
+      text-align: center;
+    }
+
+    .scramble-btn {
+      padding: 1rem 2.5rem;
+      font-size: 1.1rem;
+      font-family: inherit;
+      font-weight: 700;
+      background: transparent;
+      color: #00ffcc;
+      border: 2px solid #00ffcc;
+      border-radius: 4px;
+      cursor: pointer;
+      letter-spacing: 0.08em;
+      box-shadow: 0 0 20px rgba(0, 255, 204, 0.15), inset 0 0 20px rgba(0, 255, 204, 0.05);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .scramble-btn:hover {
+      background: #00ffcc;
+      color: #050505;
+      box-shadow: 0 0 30px rgba(0, 255, 204, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="console-header" id="status">NEURAL LINK DISCONNECTED</div>
+  <button class="scramble-btn" id="trigger">INITIALIZE PROTOCOL</button>
+
+  <script type="module">
+    import { scrambleText } from 'https://esm.sh/animejs';
+
+    const $status  = document.querySelector('#status');
+    const $btn     = document.querySelector('#trigger');
+    let   isOnline = false;
+
+    $btn.addEventListener('click', () => {
+      isOnline = !isOnline;
+
+      const targetText = isOnline
+        ? 'NEURAL LINK ONLINE [100%]'
+        : 'NEURAL LINK DISCONNECTED';
+
+      scrambleText($status, {
+        text: targetText,
+        chars: '!@#$%^&*()_+-=0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        duration: 1800,
+        revealDelay: 200,
+        settleDuration: 400
+      });
+
+      scrambleText($btn, {
+        text: isOnline ? 'TERMINATE SYSTEM' : 'INITIALIZE PROTOCOL',
+        chars: '01',
+        duration: 900
+      });
+    });
+  </script>
+</body>
+</html>

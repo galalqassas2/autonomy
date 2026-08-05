@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Draggable Physics Cards - Anime.js v4</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #090d16;
+      color: #f8fafc;
+      font-family: system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      overflow: hidden;
+    }
+
+    p { color: #64748b; font-size: 0.9rem; }
+
+    .drag-bounds {
+      width: min(80vw, 700px);
+      height: min(65vh, 500px);
+      border: 2px dashed rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      position: relative;   /* Required for Anime.js container bounds */
+      background: rgba(255,255,255,0.02);
+    }
+
+    .drag-card {
+      width: 220px;
+      height: 140px;
+      background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+      border-radius: 18px;
+      padding: 1.5rem;
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      cursor: grab;
+      box-shadow: 0 20px 40px -10px rgba(236, 72, 153, 0.45);
+      user-select: none;
+      touch-action: none;   /* Required for touch drag */
+      position: absolute;   /* Required - createDraggable positions absolutely */
+      top: 50%;
+      left: 50%;
+      translate: -50% -50%;
+    }
+
+    .drag-card:active { cursor: grabbing; }
+  </style>
+</head>
+<body>
+
+  <div class="drag-bounds" id="bounds">
+    <div class="drag-card" id="card">Drag me &amp; snap!</div>
+  </div>
+
+  <p>Drag within the dashed boundary — release to see spring snap-back physics</p>
+
+  <script type="module">
+    import { createDraggable } from 'https://esm.sh/animejs';
+
+    createDraggable('#card', {
+      container:          '#bounds',      // Constrain to bounds div
+      containerPadding:   16,             // Inner padding from boundary edges
+      x: { snap: 0 },                     // No X snapping (free drag)
+      y: { snap: 0 },                     // No Y snapping (free drag)
+      releaseStiffness:   220,            // Spring stiffness on release
+      releaseDamping:     18,             // Spring damping on release
+      // onGrab / onRelease handled via CSS :active above
+    });
+  </script>
+</body>
+</html>

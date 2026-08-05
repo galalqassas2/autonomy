@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll-Driven Parallax - Anime.js v4</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: #020617;
+      color: #f8fafc;
+      font-family: system-ui, sans-serif;
+    }
+
+    .spacer {
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      color: #64748b;
+    }
+
+    .scroll-hint {
+      font-size: 2rem;
+      animation: bounce 1.5s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(10px); }
+    }
+
+    .scroll-section {
+      min-height: 150vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      perspective: 1200px;
+    }
+
+    .reveal-card {
+      width: min(680px, 90vw);
+      padding: 3.5rem;
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 28px;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+
+    .reveal-card h2 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .reveal-card p { color: #94a3b8; font-size: 1.1rem; line-height: 1.7; }
+
+    .end-spacer {
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #334155;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="spacer">
+    <p>Scroll down to see the scroll observer in action</p>
+    <div class="scroll-hint">↓</div>
+  </div>
+
+  <section class="scroll-section" id="scroll-target">
+    <div class="reveal-card" id="card">
+      <h2>Scroll Observer</h2>
+      <p>Scale, opacity, and 3D rotation are tightly coupled 1:1 with scroll progress using <code>onScroll({ sync: true })</code>.</p>
+    </div>
+  </section>
+
+  <div class="end-spacer">End of page</div>
+
+  <script type="module">
+    import { onScroll, animate } from 'https://esm.sh/animejs';
+
+    animate('#card', {
+      scale:     [0.65, 1],
+      opacity:   [0, 1],
+      rotateX:   [30, 0],
+      autoplay: onScroll({
+        target:    '#scroll-target',
+        container: window,
+        axis:      'y',
+        enter:     'top 90%',   // start when section top hits 90% down from viewport top
+        leave:     'top 10%',   // finish when section top reaches 10% from viewport top
+        sync:      true          // 1:1 scrub with scroll position
+      })
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "loadMs": 14657.885999999999,
+  "timing": {
+    "domContentLoaded": 4035.2999999998137,
+    "loadEventEnd": 4481.600000000559,
+    "paints": [
+      {
+        "name": "first-paint",
+        "startTime": 4156
+      },
+      {
+        "name": "first-contentful-paint",
+        "startTime": 4156
+      }
+    ]
+  },
+  "lcpMs": 4156,
+  "clsVal": 0.00002834849691194762
+}

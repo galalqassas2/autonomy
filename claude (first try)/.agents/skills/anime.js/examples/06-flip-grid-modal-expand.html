@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FLIP Grid Layout - Anime.js v4</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0f172a;
+      color: #f8fafc;
+      font-family: system-ui, sans-serif;
+      min-height: 100vh;
+      padding: 3rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    h1 { font-size: 1.5rem; color: #94a3b8; }
+
+    .controls { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      background: #3b82f6;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .btn:hover { background: #2563eb; }
+    .btn.danger { background: #ef4444; }
+    .btn.danger:hover { background: #dc2626; }
+
+    /* Default: 3-column grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      width: 100%;
+      max-width: 720px;
+      transition: none; /* FLIP handles transitions, not CSS */
+    }
+
+    /* List view override */
+    .grid.list-view {
+      grid-template-columns: 1fr;
+    }
+
+    .card {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 1.75rem 1.5rem;
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .card-num {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>FLIP Layout — Smooth Grid ↔ List Transitions</h1>
+
+  <div class="controls">
+    <button class="btn" id="toggle-view">Toggle Grid / List</button>
+    <button class="btn" id="add-card">+ Add Card</button>
+    <button class="btn danger" id="remove-card">− Remove Card</button>
+  </div>
+
+  <div class="grid" id="grid">
+    <div class="card"><div class="card-num">01</div>Item Alpha</div>
+    <div class="card"><div class="card-num">02</div>Item Beta</div>
+    <div class="card"><div class="card-num">03</div>Item Gamma</div>
+    <div class="card"><div class="card-num">04</div>Item Delta</div>
+    <div class="card"><div class="card-num">05</div>Item Epsilon</div>
+    <div class="card"><div class="card-num">06</div>Item Zeta</div>
+  </div>
+
+  <script type="module">
+    import { createLayout } from 'https://esm.sh/animejs';
+
+    const $grid = document.querySelector('#grid');
+    let cardCount = 6;
+
+    const layout = createLayout($grid, {
+      children: '.card',
+      duration: 550,
+      ease: 'outExpo'
+    });
+
+    // ── Toggle grid ↔ list ──────────────────────────────────────────────
+    document.querySelector('#toggle-view').addEventListener('click', () => {
+      layout.record();
+      $grid.classList.toggle('list-view');
+      layout.animate();
+    });
+
+    // ── Add card ────────────────────────────────────────────────────────
+    document.querySelector('#add-card').addEventListener('click', () => {
+      cardCount++;
+      const labels = ['Alpha','Beta','Gamma','Delta','Epsilon','Zeta','Eta','Theta','Iota','Kappa'];
+      const label  = labels[(cardCount - 1) % labels.length];
+      const num    = String(cardCount).padStart(2, '0');
+
+      layout.record();
+
+      const $card = document.createElement('div');
+      $card.className = 'card';
+      $card.innerHTML = `<div class="card-num">${num}</div>Item ${label}`;
+      $grid.appendChild($card);
+
+      layout.animate();
+    });
+
+    // ── Remove last card ────────────────────────────────────────────────
+    document.querySelector('#remove-card').addEventListener('click', () => {
+      const cards = $grid.querySelectorAll('.card');
+      if (cards.length <= 1) return;
+
+      layout.record();
+      cards[cards.length - 1].remove();
+      layout.animate();
+    });
+  </script>
+</body>
+</html>

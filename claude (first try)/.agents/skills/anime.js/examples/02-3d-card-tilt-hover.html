@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Card Tilt Reactive Physics - Anime.js v4</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0f172a;
+      color: #f8fafc;
+      font-family: system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      perspective: 1000px;
+    }
+
+    p { color: #94a3b8; font-size: 0.9rem; }
+
+    .tilt-card {
+      width: 320px;
+      height: 420px;
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .card-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-text {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="tilt-card" id="card">
+    <div class="card-icon">⚡</div>
+    <div>
+      <h2 class="card-title">Direct Driver</h2>
+      <p class="card-text">Driven by Anime.js <code>createAnimatable()</code> for zero-lag pointer tracking with spring snap-back.</p>
+    </div>
+  </div>
+  <p>Move your pointer over the card &uarr;</p>
+
+  <script type="module">
+    import { createAnimatable, utils } from 'https://esm.sh/animejs';
+
+    const [ $card ] = utils.$('#card');
+
+    // createAnimatable creates a zero-overhead direct property driver
+    const driver = createAnimatable($card, {
+      rotateX: { value: 0, unit: 'deg', duration: 600, ease: 'outExpo' },
+      rotateY: { value: 0, unit: 'deg', duration: 600, ease: 'outExpo' },
+      scale:   { value: 1, duration: 400, ease: 'outExpo' }
+    });
+
+    $card.addEventListener('pointermove', (e) => {
+      const rect = $card.getBoundingClientRect();
+      const cx = e.clientX - rect.left - rect.width / 2;
+      const cy = e.clientY - rect.top - rect.height / 2;
+
+      const rotX = utils.mapRange(-cy, -rect.height / 2, rect.height / 2, -18, 18);
+      const rotY = utils.mapRange(cx,  -rect.width  / 2, rect.width  / 2, -18, 18);
+
+      driver.rotateX(rotX);
+      driver.rotateY(rotY);
+      driver.scale(1.06);
+    });
+
+    $card.addEventListener('pointerleave', () => {
+      driver.rotateX(0);
+      driver.rotateY(0);
+      driver.scale(1);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,306 @@
+export type ChatTurn =
+  | { kind: "them"; text: string }
+  | { kind: "us"; text: string }
+  | { kind: "card"; title: string; meta: string; value: string }
+  | { kind: "chips"; options: [string, string] }
+
+export type Widget =
+  /* A conversation. Only for jobs that really are a conversation. */
+  | {
+      kind: "chat"
+      channel: "whatsapp" | "telegram" | "web"
+      account: string
+      turns: ChatTurn[]
+    }
+  /* The document itself, drawn and then stamped paid. */
+  | {
+      kind: "invoice"
+      billedTo: string
+      lines: { desc: string; detail: string; amount: string }[]
+      totals: { label: string; value: string; strong?: boolean }[]
+      stamp: string
+    }
+  /* Something unstructured in, structured fields out. */
+  | {
+      kind: "extract"
+      source: { tool: string; title: string; meta: string }
+      raw: string
+      fields: { label: string; value: string }[]
+      filedTo: { tool: string; text: string }
+    }
+  /* A record being classified, enriched and handed to someone. */
+  | {
+      kind: "record"
+      header: { tool: string; title: string; meta: string }
+      chips: { label: string; value: string; hot?: boolean }[]
+      fields: { label: string; value: string }[]
+      handoff: { tool: string; text: string }
+    }
+  /* Stock levels crossing a reorder point, then the order that follows. */
+  | {
+      kind: "stock"
+      rows: { sku: string; on: number; reorder: number }[]
+      order: { tool: string; title: string; detail: string }
+    }
+  /* Numbers posted into a channel. */
+  | {
+      kind: "report"
+      tool: string
+      title: string
+      metrics: {
+        label: string
+        value: string
+        delta: string
+        up: boolean
+        /* Whether that direction is good news, which drives the colour. */
+        good: boolean
+      }[]
+      note: string
+    }
+
+export type Capability = {
+  id: string
+  label: string
+  team: string
+  /* Shown as a logo stack on the card. This is the breadth argument. */
+  tools: string[]
+  impact: string
+  widget: Widget
+}
+
+export const CHANNEL_TINT: Record<string, string> = {
+  whatsapp: "37,211,102",
+  telegram: "42,171,222",
+  web: "62,207,142",
+}
+
+/*
+  Ten jobs, eighteen tools. Every party is a role rather than a name and no
+  figure describes a real customer, so nothing here can be read as a claim.
+  Swap in a reference account by editing the account and billedTo strings.
+*/
+export const CAPABILITIES: Capability[] = [
+  {
+    id: "answer",
+    label: "Answer a customer at 11pm",
+    team: "Support",
+    tools: ["whatsapp", "shopify"],
+    impact: "Answered in seconds on a Sunday night, from live stock.",
+    widget: {
+      kind: "chat",
+      channel: "whatsapp",
+      account: "Your store",
+      turns: [
+        { kind: "them", text: "Do you ship the walnut desk to Galway?" },
+        {
+          kind: "card",
+          title: "Walnut standing desk",
+          meta: "In stock, two day delivery",
+          value: "Held",
+        },
+        { kind: "us", text: "We do, and there is one left. Want me to hold it?" },
+        { kind: "chips", options: ["Hold it for me", "Other finishes"] },
+      ],
+    },
+  },
+  {
+    id: "quote-to-cash",
+    label: "Turn a won deal into an invoice",
+    team: "Finance",
+    tools: ["pipedrive", "xero", "stripe"],
+    impact: "Invoiced the minute the deal closes, not the following Friday.",
+    widget: {
+      kind: "invoice",
+      billedTo: "Trade customer",
+      lines: [
+        { desc: "Design and survey", detail: "Fixed fee", amount: "1,200.00" },
+        { desc: "Installation", detail: "Two days on site", amount: "2,400.00" },
+      ],
+      totals: [
+        { label: "Subtotal", value: "3,600.00" },
+        { label: "VAT at 23%", value: "828.00" },
+        { label: "Total due", value: "4,428.00", strong: true },
+      ],
+      stamp: "Payment link sent",
+    },
+  },
+  {
+    id: "supplier-invoice",
+    label: "File every supplier invoice",
+    team: "Finance",
+    tools: ["outlook", "anthropic", "xero", "google-drive"],
+    impact: "No more keying in PDFs. Coded and filed before you open it.",
+    widget: {
+      kind: "extract",
+      source: {
+        tool: "outlook",
+        title: "Invoice attached",
+        meta: "From a supplier, PDF",
+      },
+      raw: "Please find attached our invoice for materials supplied this month, payable within 30 days of the date shown.",
+      fields: [
+        { label: "Supplier", value: "Matched to your contacts" },
+        { label: "Net", value: "1,845.00" },
+        { label: "VAT", value: "424.35" },
+        { label: "Due", value: "In 30 days" },
+      ],
+      filedTo: { tool: "xero", text: "Bill drafted and coded to materials" },
+    },
+  },
+  {
+    id: "chase",
+    label: "Chase what you are owed",
+    team: "Finance",
+    tools: ["xero", "whatsapp"],
+    impact: "Polite, on time, every time. Nobody has to be the bad guy.",
+    widget: {
+      kind: "chat",
+      channel: "whatsapp",
+      account: "Your accounts team",
+      turns: [
+        { kind: "us", text: "Quick one, your invoice fell due on Friday." },
+        {
+          kind: "card",
+          title: "Outstanding invoice",
+          meta: "Card, bank transfer or a payment plan",
+          value: "Due",
+        },
+        { kind: "them", text: "Sorry, missed it. Paying now." },
+        { kind: "us", text: "Got it, thanks. Receipt is on its way." },
+      ],
+    },
+  },
+  {
+    id: "lead",
+    label: "Route a new lead in seconds",
+    team: "Sales",
+    tools: ["typeform", "anthropic", "hubspot", "slack"],
+    impact: "First response beats every competitor still checking the inbox.",
+    widget: {
+      kind: "record",
+      header: {
+        tool: "typeform",
+        title: "Website enquiry",
+        meta: "Office fit out, Dublin 8",
+      },
+      chips: [
+        { label: "Intent", value: "Ready to buy", hot: true },
+        { label: "Fit", value: "Strong" },
+      ],
+      fields: [
+        { label: "Company", value: "Matched and verified" },
+        { label: "Size", value: "Mid market" },
+        { label: "Territory", value: "Leinster" },
+        { label: "Owner", value: "Assigned automatically" },
+      ],
+      handoff: { tool: "slack", text: "Rep pinged with the full context" },
+    },
+  },
+  {
+    id: "call-notes",
+    label: "Turn a call into CRM notes",
+    team: "Sales",
+    tools: ["zoom", "anthropic", "hubspot"],
+    impact: "The pipeline is accurate on Friday because nobody wrote it up.",
+    widget: {
+      kind: "extract",
+      source: { tool: "zoom", title: "Call ended", meta: "Transcript collected" },
+      raw: "…so the budget is signed off, but we cannot start until the new floor goes in. Send the revised scope and we will get it back to you.",
+      fields: [
+        { label: "Decision", value: "Budget approved" },
+        { label: "Blocker", value: "Waiting on flooring" },
+        { label: "Next step", value: "Send revised scope" },
+        { label: "Stage", value: "Moved to proposal" },
+      ],
+      filedTo: { tool: "hubspot", text: "Deal updated and a task raised" },
+    },
+  },
+  {
+    id: "triage",
+    label: "Triage a support ticket",
+    team: "Support",
+    tools: ["zendesk", "anthropic", "slack"],
+    impact: "The urgent one surfaces in seconds instead of sitting behind forty.",
+    widget: {
+      kind: "record",
+      header: {
+        tool: "zendesk",
+        title: "Damaged on delivery",
+        meta: "New ticket, unassigned",
+      },
+      chips: [
+        { label: "Priority", value: "Urgent", hot: true },
+        { label: "Type", value: "Warranty" },
+      ],
+      fields: [
+        { label: "Order", value: "Found and linked" },
+        { label: "Under warranty", value: "Yes" },
+        { label: "Action", value: "Fitter required" },
+        { label: "Reply", value: "Drafted, awaiting approval" },
+      ],
+      handoff: { tool: "slack", text: "Escalated to the operations channel" },
+    },
+  },
+  {
+    id: "reorder",
+    label: "Reorder before you run out",
+    team: "Operations",
+    tools: ["shopify", "google-sheets", "sendgrid"],
+    impact: "You stop selling things you cannot ship.",
+    widget: {
+      kind: "stock",
+      rows: [
+        { sku: "Brushed brass handle", on: 12, reorder: 40 },
+        { sku: "Soft close hinge", on: 88, reorder: 50 },
+        { sku: "Oak worktop, 3m", on: 31, reorder: 25 },
+      ],
+      order: {
+        tool: "sendgrid",
+        title: "Purchase order drafted",
+        detail: "Sent to the usual supplier for approval",
+      },
+    },
+  },
+  {
+    id: "book",
+    label: "Book the job without the back and forth",
+    team: "Operations",
+    tools: ["telegram", "google-calendar"],
+    impact: "Six messages become one. The diary is never double booked.",
+    widget: {
+      kind: "chat",
+      channel: "telegram",
+      account: "Your bookings line",
+      turns: [
+        { kind: "them", text: "Can someone come out to look at the worktop?" },
+        { kind: "us", text: "Yes. Thursday morning or Friday afternoon?" },
+        { kind: "them", text: "Thursday, if that suits." },
+        {
+          kind: "card",
+          title: "Site visit, Thursday",
+          meta: "Fitter assigned, details sent to the customer",
+          value: "Booked",
+        },
+      ],
+    },
+  },
+  {
+    id: "monday",
+    label: "Send Monday's numbers",
+    team: "Management",
+    tools: ["xero", "shopify", "slack"],
+    impact: "One place, every Monday at eight, with no spreadsheet to build.",
+    widget: {
+      kind: "report",
+      tool: "slack",
+      title: "Last week, at a glance",
+      metrics: [
+        { label: "Sales", value: "42,180", delta: "8.4%", up: true, good: true },
+        { label: "Overdue", value: "6,240", delta: "12.1%", up: true, good: false },
+        { label: "Orders", value: "318", delta: "5.2%", up: true, good: true },
+        { label: "Returns", value: "11", delta: "2.0%", up: false, good: true },
+      ],
+      note: "Overdue is up. That is the one to look at.",
+    },
+  },
+]

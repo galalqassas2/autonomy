@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG Path Drawing & Motion Path - Anime.js v4</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0d1117;
+      color: #c9d1d9;
+      font-family: system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    h2 { font-size: 1.2rem; color: #58a6ff; letter-spacing: 0.05em; }
+
+    svg {
+      width: 300px;
+      height: 300px;
+      overflow: visible;
+      display: block;
+    }
+
+    .btn {
+      padding: 0.6rem 1.6rem;
+      background: #238636;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .btn:hover { background: #2ea043; }
+  </style>
+</head>
+<body>
+
+  <h2>SVG Line Draw &amp; Motion Path</h2>
+
+  <svg viewBox="0 0 100 100">
+    <!-- Circular motion path orbit -->
+    <ellipse id="orbit" cx="50" cy="50" rx="40" ry="40"
+             fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" />
+
+    <!-- Signature path for line drawing demo -->
+    <path id="signature"
+          d="M 15 60 Q 25 25 40 55 Q 55 80 70 50 Q 82 25 90 45"
+          fill="none" stroke="#58a6ff" stroke-width="3"
+          stroke-linecap="round" stroke-linejoin="round" />
+
+    <!-- Motion follower: a small arrow polygon -->
+    <polygon id="follower" points="0,-5 10,0 0,5" fill="#f78166" />
+  </svg>
+
+  <button class="btn" id="replay">↺ Replay Line Draw</button>
+
+  <script type="module">
+    import { createDrawable, createMotionPath, animate } from 'https://esm.sh/animejs';
+
+    // ─── 1. Stroke Line Drawing ───────────────────────────────────────
+    const drawable = createDrawable('#signature');
+
+    function drawLine() {
+      // Reset draw position first
+      animate(drawable, { draw: ['0% 0%', '0% 0%'], duration: 0 });
+      // Then animate the draw
+      animate(drawable, {
+        draw: ['0% 0%', '0% 100%'],
+        duration: 2000,
+        ease: 'inOutCubic'
+      });
+    }
+
+    drawLine();
+    document.querySelector('#replay').addEventListener('click', drawLine);
+
+    // ─── 2. Motion Path Following ─────────────────────────────────────
+    // Convert the ellipse element to a path-compatible element
+    // We use a path instead for motion path
+    const orbitPath = createMotionPath('#orbit');
+
+    animate('#follower', {
+      x: orbitPath('x'),
+      y: orbitPath('y'),
+      rotate: orbitPath('angle'),
+      duration: 3500,
+      loop: true,
+      ease: 'linear'
+    });
+  </script>
+</body>
+</html>
