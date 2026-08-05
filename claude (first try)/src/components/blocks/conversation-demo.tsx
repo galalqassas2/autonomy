@@ -6,6 +6,7 @@ import { CAPABILITIES, type Capability } from "@/lib/capabilities"
 import { cn } from "@/lib/utils"
 
 import { CapabilityStage } from "./capability-stage"
+import { ToolMark } from "./capability-widgets/tool-mark"
 
 function ToolStack({ tools }: { tools: string[] }) {
   return (
@@ -15,9 +16,7 @@ function ToolStack({ tools }: { tools: string[] }) {
           key={slug}
           className="grid size-7 place-items-center rounded-full border border-hairline bg-canvas-night"
         >
-          <svg className="size-4" aria-hidden="true" focusable="false">
-            <use href={`#tool-${slug}`} />
-          </svg>
+          <ToolMark slug={slug} className="size-4" />
         </span>
       ))}
     </span>

@@ -3,6 +3,8 @@
 import * as React from "react"
 import { MagnifyingGlassIcon, XIcon } from "@phosphor-icons/react/dist/ssr"
 
+import { ToolMark } from "./capability-widgets/tool-mark"
+
 type Tool = { name: string; slug: string }
 
 const ROW_DURATIONS = ["60s", "75s", "90s"]
@@ -13,13 +15,7 @@ function Tile({ tool, hidden }: { tool: Tool; hidden?: boolean }) {
   return (
     <li className="px-2" aria-hidden={hidden || undefined}>
       <span className="tool-tile" tabIndex={hidden ? -1 : 0}>
-        <svg
-          className="size-6 md:size-7 lg:size-8"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <use href={`#tool-${tool.slug}`} />
-        </svg>
+        <ToolMark slug={tool.slug} className="size-6 md:size-7 lg:size-8" />
         <span className="tool-tip">{tool.name}</span>
         <span className="sr-only">{tool.name}</span>
       </span>
@@ -58,9 +54,7 @@ export function MarqueeRows({ tools }: { tools: Tool[] }) {
             {matches.slice(0, MAX_RESULTS).map((tool) => (
               <li key={tool.slug} className="flex w-[92px] flex-col items-center gap-2">
                 <span className="tool-tile">
-                  <svg className="size-7" aria-hidden="true" focusable="false">
-                    <use href={`#tool-${tool.slug}`} />
-                  </svg>
+                  <ToolMark slug={tool.slug} className="size-7" />
                 </span>
                 <span className="t-micro text-center text-ink-mute-2">
                   {tool.name}
