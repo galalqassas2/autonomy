@@ -296,11 +296,18 @@ section[id] {
   to { opacity: 0; transform: translate(-50%, -48%) scale(0.98); }
 }
 
+@keyframes hover-orb {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.65); }
+  16% { opacity: 0.78; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(3); }
+}
+
 .animate-accordion-down { animation: accordion-down 380ms var(--ease-out); }
 .animate-accordion-up { animation: accordion-up 300ms var(--ease-out); }
 .animate-canvas-in { animation: canvas-in 700ms var(--ease-out) 600ms both; }
 .animate-message-in { animation: message-in 260ms var(--ease-out) both; }
 .animate-status { animation: status-pulse 1.8s ease-in-out infinite; }
+.animate-hover-orb { animation: hover-orb 1.4s var(--ease-out) forwards; }
 .dialog-overlay[data-state="open"] { animation: dialog-overlay-in var(--dur-fast) ease-out; }
 .dialog-overlay[data-state="closed"] { animation: dialog-overlay-out var(--dur-fast) ease-in; }
 .dialog-content[data-state="open"] { animation: dialog-content-in var(--dur-base) var(--ease-out); }

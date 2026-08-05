@@ -2,6 +2,11 @@
 
 import dynamic from "next/dynamic";
 
+export const DeferredKineticGrid = dynamic(
+  () => import("@/components/ui/kinetic-grid"),
+  { ssr: false },
+);
+
 function InstrumentSkeleton({ height = 420, label }: { height?: number; label: string }) {
   return (
     <div

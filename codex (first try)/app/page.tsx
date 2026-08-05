@@ -1,7 +1,14 @@
 import { AutomationCanvas } from "@/components/automation-canvas";
 import { BrandMark } from "@/components/brand-mark";
 import { ChapterRail } from "@/components/chapter-rail";
-import { DeferredBuildProgress, DeferredConstellation, DeferredFAQ, DeferredJobPicker, DeferredTimeCalculator } from "@/components/dynamic-widgets";
+import {
+  DeferredBuildProgress,
+  DeferredConstellation,
+  DeferredFAQ,
+  DeferredJobPicker,
+  DeferredKineticGrid,
+  DeferredTimeCalculator,
+} from "@/components/dynamic-widgets";
 import { FeatureIcon } from "@/components/feature-icon";
 import { Header } from "@/components/header";
 import { LeadButton, LeadProvider } from "@/components/lead-dialog";
@@ -180,15 +187,22 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="trust" className="section-pad bg-ink text-white">
-          <div className="shell">
+        <section id="trust" className="relative overflow-hidden bg-ink text-white">
+          <DeferredKineticGrid globalColor="monochrome" className="absolute inset-0 min-h-0" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,transparent_0%,rgba(12,21,18,0.18)_52%,rgba(12,21,18,0.76)_100%)]" aria-hidden="true" />
+          <div className="shell section-pad relative z-[1]">
             <Reveal className="section-heading">
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.15em] text-[#8fd8bd]">Your data</p>
+              <div className="mb-4 flex items-center justify-between gap-6">
+                <p className="m-0 text-xs font-semibold uppercase tracking-[0.15em] text-[#8fd8bd]">Your data</p>
+                <span className="hidden items-center gap-2 text-xs font-medium text-[#9fb0a9] md:flex" aria-hidden="true">
+                  <Icon name="cursor-click" size={16} aria-hidden /> Move across the grid. Click to trace a ripple.
+                </span>
+              </div>
               <h2 className="section-title text-white">Four things we put in writing.</h2>
             </Reveal>
             <div className="mt-12 grid gap-px overflow-hidden rounded-[16px] border border-white/12 bg-white/12 sm:grid-cols-2 lg:grid-cols-4">
               {securityStats.map(([value, label]) => (
-                <div key={label} className="bg-ink p-6"><strong className="block text-xl font-semibold tracking-[-0.02em] text-white">{value}</strong><span className="mt-2 block text-sm leading-5 text-[#9fb0a9]">{label}</span></div>
+                <div key={label} className="bg-ink/85 p-6 backdrop-blur-[2px]"><strong className="block text-xl font-semibold tracking-[-0.02em] text-white">{value}</strong><span className="mt-2 block text-sm leading-5 text-[#9fb0a9]">{label}</span></div>
               ))}
             </div>
             <div className="mt-14 grid gap-x-12 gap-y-10 md:grid-cols-2">
