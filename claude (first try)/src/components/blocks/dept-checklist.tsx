@@ -46,14 +46,14 @@ export function ChecklistPanel() {
               className="flex items-start gap-3 rounded-md border border-hairline bg-canvas-night-2 p-3"
               style={{
                 opacity: done ? 1 : 0.4,
-                borderColor: done ? "rgba(62,207,142,0.28)" : undefined,
+                borderColor: done ? "var(--primary-a28)" : undefined,
                 transition: `opacity 300ms var(--ease-out) ${i * 50}ms, border-color 300ms var(--ease-out)`,
               }}
             >
               <span
                 className="mt-0.5 grid size-4 shrink-0 place-items-center rounded-full transition-colors duration-300"
                 style={{
-                  background: done ? "var(--primary)" : "rgba(255,255,255,0.08)",
+                  background: done ? "var(--primary)" : "var(--white-a08)",
                 }}
               >
                 {done ? (

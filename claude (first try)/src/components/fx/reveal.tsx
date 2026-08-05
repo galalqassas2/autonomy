@@ -40,7 +40,7 @@ export function Reveal({
 
   return (
     <Tag
-      ref={ref as React.RefObject<never>}
+      ref={ref as React.Ref<never>}
       data-shown={shown}
       className={cn("reveal", className)}
       style={{ "--reveal-delay": `${Math.min(index, 5) * 80}ms` } as React.CSSProperties}

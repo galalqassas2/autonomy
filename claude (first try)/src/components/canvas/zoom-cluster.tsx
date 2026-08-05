@@ -31,59 +31,34 @@ export function ZoomCluster({
   onZoomOut,
   onFit,
 }: Props) {
+  const Tag = interactive ? "button" : "span"
+
   const shell = (
     <div className="flex items-center gap-0.5 rounded-full border border-white/[0.10] bg-[color-mix(in_srgb,var(--canvas-night)_86%,transparent)] p-1 backdrop-blur-sm">
-      {interactive ? (
-        <>
-          <button
-            type="button"
-            className={button}
-            onClick={onZoomOut}
-            disabled={!canZoomOut}
-            aria-label="Zoom out"
-          >
-            <MinusIcon size={14} weight="bold" />
-          </button>
-          <span
-            className="t-micro tabular w-11 text-center text-ink-mute-2"
-            aria-live="polite"
-          >
-            {percent}%
-          </span>
-          <button
-            type="button"
-            className={button}
-            onClick={onZoomIn}
-            disabled={!canZoomIn}
-            aria-label="Zoom in"
-          >
-            <PlusIcon size={14} weight="bold" />
-          </button>
-          <button
-            type="button"
-            className={button}
-            onClick={onFit}
-            aria-label="Fit to view at 100 percent"
-          >
-            <CornersOutIcon size={14} weight="bold" />
-          </button>
-        </>
-      ) : (
-        <>
-          <span className={cn(button, "pointer-events-none")}>
-            <MinusIcon size={14} weight="bold" />
-          </span>
-          <span className="t-micro tabular w-11 text-center text-ink-mute-2">
-            {percent}%
-          </span>
-          <span className={cn(button, "pointer-events-none")}>
-            <PlusIcon size={14} weight="bold" />
-          </span>
-          <span className={cn(button, "pointer-events-none")}>
-            <CornersOutIcon size={14} weight="bold" />
-          </span>
-        </>
-      )}
+      <Tag
+        {...(interactive ? { type: "button" as const, onClick: onZoomOut, disabled: !canZoomOut, "aria-label": "Zoom out" } : {})}
+        className={cn(button, !interactive && "pointer-events-none")}
+      >
+        <MinusIcon size={14} weight="bold" />
+      </Tag>
+      <span
+        className="t-micro tabular w-11 text-center text-ink-mute-2"
+        {...(interactive ? { "aria-live": "polite" as const } : {})}
+      >
+        {percent}%
+      </span>
+      <Tag
+        {...(interactive ? { type: "button" as const, onClick: onZoomIn, disabled: !canZoomIn, "aria-label": "Zoom in" } : {})}
+        className={cn(button, !interactive && "pointer-events-none")}
+      >
+        <PlusIcon size={14} weight="bold" />
+      </Tag>
+      <Tag
+        {...(interactive ? { type: "button" as const, onClick: onFit, "aria-label": "Fit to view at 100 percent" } : {})}
+        className={cn(button, !interactive && "pointer-events-none")}
+      >
+        <CornersOutIcon size={14} weight="bold" />
+      </Tag>
     </div>
   )
 

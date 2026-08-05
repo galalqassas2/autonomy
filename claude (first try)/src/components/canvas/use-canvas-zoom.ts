@@ -1,10 +1,7 @@
 "use client"
 
 import * as React from "react"
-
-const MIN = 0.5
-const MAX = 1.5
-const STEP = 0.1
+import { MIN_ZOOM, MAX_ZOOM, ZOOM_STEP } from "./constants"
 
 type Options = {
   worldW: number
@@ -86,7 +83,7 @@ export function useCanvasZoom({
   const zoomAt = React.useCallback(
     (nextScale: number, px: number, py: number) => {
       const v = viewRef.current
-      const scale = round(Math.min(MAX, Math.max(MIN, nextScale)))
+      const scale = round(Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, nextScale)))
       if (scale === v.scale) return
       touched.current = true
       const k = scale / v.scale
@@ -98,7 +95,7 @@ export function useCanvasZoom({
   const zoomByStep = React.useCallback(
     (direction: 1 | -1) => {
       const { w, h } = frameSize.current
-      zoomAt(viewRef.current.scale + direction * STEP, w / 2, h / 2)
+      zoomAt(viewRef.current.scale + direction * ZOOM_STEP, w / 2, h / 2)
     },
     [zoomAt],
   )
@@ -253,8 +250,8 @@ export function useCanvasZoom({
     frameRef,
     view,
     percent: Math.round(view.scale * 100),
-    canZoomIn: view.scale < MAX,
-    canZoomOut: view.scale > MIN,
+    canZoomIn: view.scale < MAX_ZOOM,
+    canZoomOut: view.scale > MIN_ZOOM,
     zoomIn: () => zoomByStep(1),
     zoomOut: () => zoomByStep(-1),
     fit,

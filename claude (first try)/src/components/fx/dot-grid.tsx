@@ -10,7 +10,7 @@ export function DotGrid({ className }: { className?: string }) {
       className={cn("pointer-events-none absolute inset-0", className)}
       style={{
         backgroundImage:
-          "radial-gradient(rgba(255,255,255,0.10) 1px, transparent 1px)",
+          "radial-gradient(var(--white-a10) 1px, transparent 1px)",
         backgroundSize: "28px 28px",
       }}
     />

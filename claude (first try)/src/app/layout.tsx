@@ -17,15 +17,15 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Autonomy, we build the automations your business runs on",
     description:
-      "We connect the tools you already own so the work your team repeats every day happens without anyone doing it.",
+      "Your tools, your data, your process. We connect them so the work your team repeats every day happens without anyone doing it. Our own AI, hosted in Ireland.",
     locale: "en_IE",
     type: "website",
   },
 }
 
 export const viewport: Viewport = {
-  themeColor: "#ffffff",
-  colorScheme: "light",
+  themeColor: "#0a0b0c",
+  colorScheme: "dark",
 }
 
 export default function RootLayout({

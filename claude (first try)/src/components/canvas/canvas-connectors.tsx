@@ -1,8 +1,7 @@
 import type { CanvasLayout } from "./layout"
+import { EDGE_DRAW_MS } from "./constants"
 
 export type EdgeState = "idle" | "drawing" | "drawn"
-
-const DRAW_MS = 520
 
 export function CanvasConnectors({
   layout,
@@ -29,7 +28,7 @@ export function CanvasConnectors({
           <g key={edge.id}>
             <path
               d={edge.d}
-              stroke="rgba(255,255,255,0.16)"
+              stroke="var(--white-a16)"
               strokeWidth={1.5}
               strokeLinecap="round"
             />
@@ -45,9 +44,9 @@ export function CanvasConnectors({
                 opacity: state === "drawing" ? 1 : state === "drawn" ? 0.45 : 0,
                 filter:
                   state === "drawing"
-                    ? "drop-shadow(0 0 6px rgba(62,207,142,0.55))"
+                    ? "drop-shadow(0 0 6px var(--primary-a55))"
                     : "none",
-                transition: `stroke-dashoffset ${DRAW_MS}ms linear, opacity 300ms linear`,
+                transition: `stroke-dashoffset ${EDGE_DRAW_MS}ms linear, opacity 300ms linear`,
               }}
             />
             {edge.ports.map((port, p) => (
@@ -57,7 +56,7 @@ export function CanvasConnectors({
                 cy={port.y}
                 r={3}
                 fill="var(--canvas-night-2)"
-                stroke={live ? "var(--primary)" : "rgba(255,255,255,0.28)"}
+                stroke={live ? "var(--primary)" : "var(--white-a28)"}
                 strokeWidth={1.5}
                 style={{ transition: "stroke 300ms linear" }}
               />

@@ -91,7 +91,7 @@ function FlipCard({ option }: { option: Option }) {
               className="pointer-events-none absolute inset-0"
               style={{
                 background:
-                  "radial-gradient(ellipse at 50% 0%, rgba(62,207,142,0.14), transparent 62%)",
+                  "radial-gradient(ellipse at 50% 0%, var(--primary-a14), transparent 62%)",
               }}
             />
           ) : null}

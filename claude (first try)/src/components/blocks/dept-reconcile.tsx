@@ -43,10 +43,10 @@ export function ReconcilePanel() {
               className="t-micro flex items-center gap-1.5 rounded-full px-2.5 py-1 transition-colors duration-300"
               style={{
                 background: flagged
-                  ? "rgba(224,176,90,0.12)"
+                  ? "var(--amber-a12)"
                   : done
-                    ? "rgba(62,207,142,0.12)"
-                    : "rgba(255,255,255,0.05)",
+                    ? "var(--primary-a12)"
+                    : "var(--white-a05)",
                 color: flagged
                   ? "#e0b05a"
                   : done

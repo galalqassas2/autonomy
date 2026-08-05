@@ -3,8 +3,8 @@
 import * as React from "react"
 
 import type { CanvasNode } from "@/lib/flows"
+import { EDGE_DRAW_MS } from "./constants"
 
-const EDGE_MS = 520
 const BASE_RUN = 900
 const SETTLE_MS = 200
 const LOOP_HOLD_MS = 1600
@@ -51,7 +51,7 @@ function buildTimeline(nodes: CanvasNode[], edges: boolean[]) {
       drawnCount: drawn,
       finished: false,
     })
-    t += EDGE_MS
+    t += EDGE_DRAW_MS
     drawn = index + 1
   }
 

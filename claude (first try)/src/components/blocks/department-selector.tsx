@@ -20,7 +20,7 @@ type Dept = {
   tab: string
   icon: Icon3DName
   outcome: string
-  panel: React.ReactNode
+  panel: () => React.ReactNode
 }
 
 const DEPTS: Dept[] = [
@@ -29,28 +29,28 @@ const DEPTS: Dept[] = [
     tab: "Finance",
     icon: "receipt",
     outcome: "issues and chases every invoice without opening a spreadsheet",
-    panel: <LedgerPanel />,
+    panel: () => <LedgerPanel />,
   },
   {
     id: "sales",
     tab: "Sales",
     icon: "funnel",
     outcome: "routes and enriches every lead the minute it lands",
-    panel: <PipelinePanel />,
+    panel: () => <PipelinePanel />,
   },
   {
     id: "operations",
     tab: "Operations",
     icon: "crates",
     outcome: "keeps stock, orders and suppliers in agreement",
-    panel: <ReconcilePanel />,
+    panel: () => <ReconcilePanel />,
   },
   {
     id: "support",
     tab: "Support",
     icon: "bubbles",
     outcome: "answers the same forty questions without a person",
-    panel: (
+    panel: () => (
       <div className="mx-auto w-full max-w-[380px]">
         <CapabilityStage item={CAPABILITIES[0]} />
       </div>
@@ -61,7 +61,7 @@ const DEPTS: Dept[] = [
     tab: "HR",
     icon: "badge",
     outcome: "onboards a new starter across six systems in one go",
-    panel: <ChecklistPanel />,
+    panel: () => <ChecklistPanel />,
   },
 ]
 
@@ -195,7 +195,7 @@ export function DepartmentSelector() {
           className="relative mt-8 min-h-[420px] overflow-hidden"
         >
           <div ref={panelRef} key={current.id}>
-            {current.panel}
+            {current.panel()}
           </div>
         </div>
       </div>

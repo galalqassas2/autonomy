@@ -24,7 +24,7 @@ export function CanvasTerminal({
         width: TERM,
         height: TERM,
         background: "var(--canvas-night-2)",
-        borderColor: active ? "rgba(62,207,142,0.35)" : "rgba(255,255,255,0.10)",
+        borderColor: active ? "var(--primary-a35)" : "var(--white-a10)",
       }}
     >
       <Glyph

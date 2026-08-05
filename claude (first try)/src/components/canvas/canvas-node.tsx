@@ -31,8 +31,8 @@ export function CanvasNodeCard({
         height: NODE_H,
         background: "var(--canvas-night-2)",
         borderColor: running
-          ? "rgba(62,207,142,0.35)"
-          : "rgba(255,255,255,0.10)",
+          ? "var(--primary-a35)"
+          : "var(--white-a10)",
         boxShadow: running ? "var(--glow-edge)" : "none",
       }}
     >

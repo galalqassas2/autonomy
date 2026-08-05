@@ -71,7 +71,7 @@ export function Chip({ done, children }: { done: boolean; children: React.ReactN
     <span
       className="t-micro rounded-full px-2.5 py-1 transition-colors duration-300"
       style={{
-        background: done ? "rgba(62,207,142,0.12)" : "rgba(255,255,255,0.05)",
+        background: done ? "var(--primary-a12)" : "var(--white-a05)",
         color: done ? "var(--primary)" : "var(--ink-mute-2)",
       }}
     >

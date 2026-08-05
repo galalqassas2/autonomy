@@ -129,7 +129,7 @@ function Cell({
         className="pointer-events-none absolute inset-0 rounded-lg opacity-100 transition-opacity duration-300 group-hover:opacity-0"
         style={{
           background:
-            "radial-gradient(ellipse at 20% 0%, rgba(62,207,142,0.07), transparent 65%)",
+            "radial-gradient(ellipse at 20% 0%, var(--primary-a07), transparent 65%)",
         }}
       />
       <span
@@ -137,15 +137,15 @@ function Cell({
         className="pointer-events-none absolute inset-0 rounded-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         style={{
           background:
-            "radial-gradient(ellipse at 20% 0%, rgba(62,207,142,0.20), transparent 65%)",
+            "radial-gradient(ellipse at 20% 0%, var(--primary-a20), transparent 65%)",
         }}
       />
 
       <span
         className="relative z-10 grid size-10 place-items-center rounded-md text-primary"
         style={{
-          background: "rgba(62,207,142,0.10)",
-          boxShadow: "inset 0 0 0 1px rgba(62,207,142,0.22)",
+          background: "var(--primary-a10)",
+          boxShadow: "inset 0 0 0 1px var(--primary-a22)",
         }}
       >
         <item.icon size={18} weight="duotone" />
@@ -160,7 +160,7 @@ function Cell({
         aria-hidden="true"
         className="absolute bottom-0 left-0 h-px w-0 transition-all duration-500 group-hover:w-full"
         style={{
-          background: "linear-gradient(to right, rgba(62,207,142,0.7), transparent)",
+          background: "linear-gradient(to right, var(--primary-a70), transparent)",
         }}
       />
     </div>

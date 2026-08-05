@@ -40,8 +40,7 @@ export function TrustChapter() {
   return (
     <section
       id="in-writing"
-      className="py-20 lg:py-24"
-      style={{ background: "var(--canvas-soft)" }}
+      className="py-20 lg:py-24 bg-canvas-soft"
     >
       <div className="shell">
         <h2 className="t-display-xl max-w-[16ch] text-on-dark">

@@ -101,7 +101,7 @@ export const FlowCanvas = React.forwardRef<FlowCanvasHandle, Props>(
         <div className="flex h-14 items-center gap-3 border-b border-white/[0.08] px-4">
           <span
             className="t-micro rounded-full px-2 py-1 text-primary"
-            style={{ background: "rgba(62,207,142,0.10)" }}
+            style={{ background: "var(--primary-a10)" }}
           >
             Automation
           </span>
@@ -134,7 +134,7 @@ export const FlowCanvas = React.forwardRef<FlowCanvasHandle, Props>(
             className="pointer-events-none absolute inset-0"
             style={{
               backgroundImage:
-                "radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px)",
+                "radial-gradient(var(--white-a06) 1px, transparent 1px)",
               backgroundSize: "24px 24px",
             }}
           />
@@ -143,7 +143,7 @@ export const FlowCanvas = React.forwardRef<FlowCanvasHandle, Props>(
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(680px 420px at 12% 0%, rgba(62,207,142,0.06), transparent 70%)",
+                "radial-gradient(680px 420px at 12% 0%, var(--primary-a06), transparent 70%)",
             }}
           />
 

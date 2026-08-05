@@ -15,8 +15,6 @@ type Circle = {
 const MAX_CIRCLES = 12
 const THROTTLE_MS = 100
 
-let nextId = 0
-
 type HoverButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   /* Renders an anchor instead, for CTAs that navigate. */
   href?: string
@@ -38,6 +36,7 @@ export function HoverButton({
   const [trails, setTrails] = React.useState(false)
   const lastAdded = React.useRef(0)
   const timers = React.useRef<number[]>([])
+  const nextId = React.useRef(0)
 
   /* No hover on touch, and nothing to trail under reduced motion. */
   React.useEffect(() => {
@@ -73,7 +72,7 @@ export function HoverButton({
   const createCircle = (x: number, y: number) => {
     const width = buttonRef.current?.offsetWidth ?? 0
     const stop = width ? (x / width) * 100 : 50
-    const id = nextId++
+    const id = nextId.current++
     const circle: Circle = {
       id,
       x,
@@ -135,8 +134,8 @@ export function HoverButton({
       className,
     ),
     style: {
-      "--circle-start": "rgba(62, 207, 142, 0.90)",
-      "--circle-end": "rgba(36, 180, 126, 0.90)",
+      "--circle-start": "var(--primary-a90)",
+      "--circle-end": "var(--primary-deep-a90)",
     } as React.CSSProperties,
   }
 

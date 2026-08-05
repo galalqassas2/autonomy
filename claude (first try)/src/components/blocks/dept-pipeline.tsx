@@ -35,7 +35,7 @@ export function PipelinePanel() {
                 style={{
                   background: done
                     ? "var(--primary)"
-                    : "rgba(255,255,255,0.08)",
+                    : "var(--white-a08)",
                   boxShadow: active ? "var(--glow-soft)" : "none",
                 }}
               />

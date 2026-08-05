@@ -26,7 +26,7 @@ export function RunLog({
             <span className="t-caption truncate text-on-dark/80">{line.event}</span>
             <span
               className="t-mono rounded-full px-2 py-0.5 text-primary"
-              style={{ background: "rgba(62,207,142,0.10)" }}
+              style={{ background: "var(--primary-a10)" }}
             >
               {line.delta}
             </span>
