@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer-core');
 
-const CHROME_PATH = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
+const CHROME_PATH = process.env.CHROME_PATH || 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 
 async function measurePerf() {
   const browser = await puppeteer.launch({

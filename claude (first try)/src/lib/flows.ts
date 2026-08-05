@@ -1,30 +1,5 @@
-export type CanvasRow = {
-  label: string
-  value: string
-  tone?: "default" | "warn"
-}
-
-export type CanvasNode = {
-  id: string
-  type: string
-  chip?: string
-  rows: CanvasRow[]
-  chips?: string[]
-  ms: number
-}
-
-export type CanvasFlow = {
-  id: string
-  title: string
-  nodes: CanvasNode[]
-  totalLabel: string
-}
-
-export type RunLogLine = {
-  clock: string
-  event: string
-  delta: string
-}
+import type { CanvasFlow, CanvasNode, CanvasRow, Department, RunLogLine } from "@/types/flows"
+export type { CanvasFlow, CanvasNode, CanvasRow, Department, RunLogLine } from "@/types/flows"
 
 /* The flow that plays in the automation stage, and the one the hero teases. */
 export const orderToInvoice: CanvasFlow = {
@@ -88,13 +63,6 @@ export const orderToInvoiceLog: RunLogLine[] = [
   { clock: "09:41:03", event: "Invoice created and sent", delta: "+0.2s" },
   { clock: "09:41:03", event: "Operations notified", delta: "+0.3s" },
 ]
-
-export type Department = {
-  id: string
-  tab: string
-  outcome: string
-  flow: CanvasFlow | null
-}
 
 export const departments: Department[] = [
   {

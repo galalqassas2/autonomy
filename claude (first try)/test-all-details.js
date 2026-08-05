@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer-core');
 const fs = require('fs');
 const path = require('path');
 
-const CHROME_PATH = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
+const CHROME_PATH = process.env.CHROME_PATH || 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 const URL = 'http://localhost:3000';
 const OUT_DIR = path.join(__dirname, 'qa-screenshots');
 
