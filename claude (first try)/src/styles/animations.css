@@ -1,0 +1,142 @@
+@keyframes caption-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Pegtop loader. Three shapes rising through the same arc, offset in time. */
+@keyframes pegtop-rise {
+  0% {
+    transform: scale(0.5) translateY(-64px);
+    opacity: 0;
+  }
+  25% {
+    transform: scale(0.75) translateY(-32px);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  75% {
+    transform: scale(0.5) translateY(16px);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0) translateY(32px);
+    opacity: 0;
+  }
+}
+
+@keyframes word-cycle {
+  10%,
+  25% {
+    transform: translateY(-100%);
+  }
+  35%,
+  50% {
+    transform: translateY(-200%);
+  }
+  60%,
+  75% {
+    transform: translateY(-300%);
+  }
+  85%,
+  100% {
+    transform: translateY(-400%);
+  }
+}
+
+@keyframes typing {
+  0%,
+  60%,
+  100% {
+    opacity: 0.3;
+    transform: none;
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes marquee-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@layer utilities {
+  .glow-text {
+    text-shadow: var(--glow-text);
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+      opacity var(--dur-slow) var(--ease-out),
+      transform var(--dur-slow) var(--ease-out);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .reveal[data-shown="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .word-cycle > span {
+    animation: none !important;
+  }
+
+  .pegtop-loader .pegtop {
+    animation: none !important;
+  }
+
+  .pegtop-loader .pegtop[data-index="0"] {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
