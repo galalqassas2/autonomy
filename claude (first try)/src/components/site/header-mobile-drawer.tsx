@@ -11,6 +11,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { cn } from "@/lib/utils"
+import { RobotMark } from "./robot-mark"
 import { Wordmark } from "./wordmark"
 
 type Chapter = { id: string; label: string }
@@ -45,7 +46,8 @@ export function MobileDrawer({
         className="w-[min(88vw,340px)] gap-0 border-l border-hairline bg-canvas-night p-0"
       >
         <SheetHeader className="flex-row items-center justify-between border-b border-hairline px-5 py-4">
-          <SheetTitle className="text-ink">
+          <SheetTitle className="flex items-center gap-2 text-ink">
+            <RobotMark size={24} />
             <Wordmark />
           </SheetTitle>
           <SheetClose

@@ -1,3 +1,4 @@
+import { RobotMark } from "./robot-mark"
 import { Wordmark } from "./wordmark"
 import { footerColumns as columns } from "@/lib/nav"
 
@@ -7,7 +8,10 @@ export function SiteFooter() {
       <div className="shell py-14 lg:py-16">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.2fr_repeat(4,1fr)]">
           <div className="flex flex-col gap-3">
-            <Wordmark className="text-ink" />
+            <div className="flex items-center gap-2">
+              <RobotMark size={24} />
+              <Wordmark className="text-ink" />
+            </div>
             <p className="t-caption max-w-[26ch] text-ink-mute">
               We build the automations your business runs on. Our own AI, hosted in
               Ireland.

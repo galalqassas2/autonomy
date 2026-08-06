@@ -6,6 +6,7 @@ import { MobileDrawer } from "./header-mobile-drawer"
 import { chapters } from "@/lib/nav"
 import { cn } from "@/lib/utils"
 
+import { RobotMark } from "./robot-mark"
 import { Wordmark } from "./wordmark"
 
 type Underline = { left: number; width: number }
@@ -114,7 +115,8 @@ export function SiteHeader() {
             scrolled ? "h-[52px]" : "h-[60px]",
           )}
         >
-          <a href="#hero" className="shrink-0 text-ink">
+          <a href="#hero" className="flex shrink-0 items-center gap-2 text-ink">
+            <RobotMark size={26} />
             <Wordmark />
             <span className="sr-only">Autonomy, back to the top</span>
           </a>
