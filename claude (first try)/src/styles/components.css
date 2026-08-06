@@ -167,12 +167,20 @@
   }
 
   /*
-    The one navigation bar. Transparent over the hero, glass once scrolled,
-    inverted while it sits over a dark island. Only background, border-color
-    and box-shadow transition, never backdrop-filter.
+    The one navigation bar. Glass once scrolled, inverted while it sits over
+    a dark island. Only background, border-color and box-shadow transition,
+    never backdrop-filter.
+
+    Used to rest fully transparent over the hero and only pick up a
+    background once scrolled — but the logo carries its own flat
+    rgb(22,24,26) background baked into the image, and against a truly
+    transparent bar that shows as a visible box the moment the page loads,
+    before any scrolling happens. Resting on the same solid colour as the
+    scrolled state keeps the logo seamless at every scroll position,
+    including the very top.
   */
   .site-glass {
-    background: transparent;
+    background: rgb(22, 24, 26);
     border: 1px solid transparent;
     box-shadow: none;
     backdrop-filter: none;
