@@ -6,6 +6,7 @@ import {
   ArrowUpRightIcon,
 } from "@phosphor-icons/react/dist/ssr"
 
+import { KineticGridMount } from "@/components/fx/kinetic-grid-mount"
 import { Reveal } from "@/components/fx/reveal"
 import { cn } from "@/lib/utils"
 
@@ -251,7 +252,9 @@ export function DashboardPreview() {
             aria-hidden="true"
             className="relative overflow-hidden rounded-xl border border-hairline bg-canvas-night shadow-[var(--elev-3)]"
           >
-            <header className="flex items-center justify-between gap-3 border-b border-hairline px-5 py-4">
+            <KineticGridMount />
+
+            <header className="relative z-10 flex items-center justify-between gap-3 border-b border-hairline px-5 py-4">
               <div className="flex items-center gap-2.5">
                 <span className="size-1.5 rounded-full bg-primary" style={{ boxShadow: "var(--glow-soft)" }} />
                 <span className="text-sm font-medium text-ink">Overview</span>
@@ -262,7 +265,7 @@ export function DashboardPreview() {
               </span>
             </header>
 
-            <div className="flex flex-col gap-4 p-5">
+            <div className="relative z-10 flex flex-col gap-4 p-5">
               <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
                 {stats.map((stat, i) => (
                   <StatCard key={stat.label} stat={stat} index={i} shown={shown} />
