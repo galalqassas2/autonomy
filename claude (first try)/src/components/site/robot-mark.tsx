@@ -1,39 +1,28 @@
+import Image from "next/image"
+
 import { cn } from "@/lib/utils"
 
 /*
-  The logo mark: the same humanoid silhouette as the robot elsewhere on the
-  page (see ui/splite.tsx, ui/robot-placeholder.tsx) — head, visor, torso,
-  arms, legs — flattened to solid rounded rects instead of a 3D render, so
-  it stays legible at header/footer/favicon sizes and never depends on a
-  third-party scene loading. Emerald body with a near-black visor reads the
-  same way the primary button does: "lit" emerald with dark contrast, not a
-  colour choice made twice in the same brand.
-
-  Kept in sync by hand with app/icon.svg, which draws the identical shapes
-  in hard-coded hex for the static favicon — that file cannot read CSS
-  custom properties, so the two are not allowed to share this component.
+  The logo: a cropped, transparent-background capture of the actual Spline
+  robot (public/robot-logo.png) — not a drawn icon. Captured with the arms
+  down rather than the scene's wide T-pose keyframe, since the wide pose
+  reads as a short, compressed silhouette; arms-down is the standing, tall
+  read this is meant to have. Its own render is almost entirely near-black,
+  which read as invisible directly on the site's dark chrome, so it sits on
+  a small white backing plate for contrast rather than floating free.
 */
-export function RobotMark({ className, size = 28 }: { className?: string; size?: number }) {
+export function RobotMark({ className, size = 36 }: { className?: string; size?: number }) {
+  const imgSize = size - 8
+  const imgWidth = Math.round(imgSize * (299 / 359))
   return (
-    <svg
-      width={size}
-      height={(size * 36) / 32}
-      viewBox="0 0 32 36"
-      fill="none"
-      className={cn("shrink-0", className)}
-      aria-hidden="true"
+    <span
+      className={cn(
+        "inline-flex shrink-0 items-center justify-center rounded-md bg-white",
+        className,
+      )}
+      style={{ width: size, height: size }}
     >
-      {/* head + visor */}
-      <rect x={11} y={3} width={10} height={9} rx={4.5} fill="var(--primary)" />
-      <rect x={12.5} y={6.2} width={7} height={2.6} rx={1.3} fill="var(--on-primary)" />
-      {/* torso */}
-      <rect x={8} y={13} width={16} height={13} rx={6} fill="var(--primary)" />
-      {/* arms */}
-      <rect x={2} y={14} width={5} height={10} rx={2.5} fill="var(--primary)" />
-      <rect x={25} y={14} width={5} height={10} rx={2.5} fill="var(--primary)" />
-      {/* legs */}
-      <rect x={10} y={25} width={5} height={9} rx={2.5} fill="var(--primary)" />
-      <rect x={17} y={25} width={5} height={9} rx={2.5} fill="var(--primary)" />
-    </svg>
+      <Image src="/robot-logo.png" alt="" width={imgWidth} height={imgSize} className="object-contain" priority />
+    </span>
   )
 }

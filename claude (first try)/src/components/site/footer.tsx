@@ -9,7 +9,7 @@ export function SiteFooter() {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.2fr_repeat(4,1fr)]">
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-2">
-              <RobotMark size={24} />
+              <RobotMark size={34} />
               <Wordmark className="text-ink" />
             </div>
             <p className="t-caption max-w-[26ch] text-ink-mute">

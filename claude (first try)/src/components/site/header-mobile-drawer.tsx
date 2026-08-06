@@ -47,7 +47,7 @@ export function MobileDrawer({
       >
         <SheetHeader className="flex-row items-center justify-between border-b border-hairline px-5 py-4">
           <SheetTitle className="flex items-center gap-2 text-ink">
-            <RobotMark size={24} />
+            <RobotMark size={34} />
             <Wordmark />
           </SheetTitle>
           <SheetClose

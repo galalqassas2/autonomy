@@ -116,7 +116,7 @@ export function SiteHeader() {
           )}
         >
           <a href="#hero" className="flex shrink-0 items-center gap-2 text-ink">
-            <RobotMark size={26} />
+            <RobotMark size={38} />
             <Wordmark />
             <span className="sr-only">Autonomy, back to the top</span>
           </a>
