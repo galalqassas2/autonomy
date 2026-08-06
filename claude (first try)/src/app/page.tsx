@@ -2,6 +2,7 @@ import { AutomationStage } from "@/components/blocks/automation-stage"
 import { CapabilityGrid } from "@/components/blocks/capability-grid"
 import { ClosingCta } from "@/components/blocks/closing-cta"
 import { ConversationDemo } from "@/components/blocks/conversation-demo"
+import { DashboardPreview } from "@/components/blocks/dashboard-preview"
 import { DataSovereignty } from "@/components/blocks/data-sovereignty"
 import { DepartmentSelector } from "@/components/blocks/department-selector"
 import { Faq } from "@/components/blocks/faq"
@@ -37,6 +38,7 @@ export default function Page() {
         <DepartmentSelector />
         <TheWork />
         <CapabilityGrid />
+        <DashboardPreview />
         <TimeCalculator />
         <TheBuild />
         <IntegrationMarquee />
