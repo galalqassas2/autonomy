@@ -332,6 +332,18 @@
     animation-delay: 0.9s;
   }
 
+  /* A held breath, not a spinner: reads as "the scene is arriving", not "something is broken". */
+  .robot-placeholder {
+    animation: robot-breathe 2.6s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .robot-placeholder {
+      animation: none;
+      opacity: 0.85;
+    }
+  }
+
   /*
     Vertical word spinner. The window is exactly one line tall and each word
     is the same height, so a 100% translate advances by one word. Animating

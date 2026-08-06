@@ -33,6 +33,19 @@
   }
 }
 
+/* The robot placeholder's idle breathing, while the real scene loads behind it. */
+@keyframes robot-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.985);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 @keyframes word-cycle {
   10%,
   25% {
