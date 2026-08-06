@@ -3,26 +3,24 @@ import Image from "next/image"
 import { cn } from "@/lib/utils"
 
 /*
-  The logo: a cropped, transparent-background capture of the actual Spline
-  robot (public/robot-logo.png) — not a drawn icon. Captured with the arms
-  down rather than the scene's wide T-pose keyframe, since the wide pose
-  reads as a short, compressed silhouette; arms-down is the standing, tall
-  read this is meant to have. Its own render is almost entirely near-black,
-  which read as invisible directly on the site's dark chrome, so it sits on
-  a small white backing plate for contrast rather than floating free.
+  The logo: the client's exact reference capture (public/robot-logo.png),
+  used as supplied rather than re-cropped or re-composed — a close head-
+  and-shoulders framing with its own dark vignette background. That
+  background is why this no longer sits on the white backing plate earlier
+  versions used: the image already carries its own contrast and setting
+  a plate behind it would fight the photo instead of framing it.
 */
 export function RobotMark({ className, size = 36 }: { className?: string; size?: number }) {
-  const imgSize = size - 8
-  const imgWidth = Math.round(imgSize * (299 / 359))
+  const width = Math.round(size * (595 / 378))
   return (
-    <span
-      className={cn(
-        "inline-flex shrink-0 items-center justify-center rounded-md bg-white",
-        className,
-      )}
-      style={{ width: size, height: size }}
-    >
-      <Image src="/robot-logo.png" alt="" width={imgWidth} height={imgSize} className="object-contain" priority />
-    </span>
+    <Image
+      src="/robot-logo.png"
+      alt=""
+      width={width}
+      height={size}
+      className={cn("shrink-0 rounded-md object-cover", className)}
+      style={{ height: size, width }}
+      priority
+    />
   )
 }
