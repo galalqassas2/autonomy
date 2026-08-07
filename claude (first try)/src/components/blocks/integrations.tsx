@@ -1,6 +1,6 @@
 import { ArrowRightIcon } from "@phosphor-icons/react/dist/ssr"
 
-import { toolIndex } from "@/lib/tools"
+import { TOOLS } from "@/lib/tools"
 
 import { ToolBrowser } from "./tool-browser"
 
@@ -27,7 +27,7 @@ export function Integrations() {
             everything else.
           </p>
 
-          <ToolBrowser tools={toolIndex} />
+          <ToolBrowser tools={TOOLS} />
 
           <dl className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {stats.map((stat) => (

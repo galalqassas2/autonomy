@@ -1,9 +1,9 @@
-import { tools } from "@/lib/tools"
+import { TOOL_MARKS } from "@/lib/tools/marks"
 
 /*
-  Every brand mark defined once as a symbol. Tiles reference them with
-  <use>, so 58 marks ship as markup a single time rather than per tile,
-  and none of the path data reaches the client bundle.
+  Every brand mark defined once as a <symbol>. Tiles reference them with
+  <use>, so the artwork ships as markup a single time however many tiles are
+  on screen, and none of it reaches the client bundle.
 */
 export function ToolSprite() {
   return (
@@ -13,12 +13,12 @@ export function ToolSprite() {
       style={{ position: "absolute", width: 0, height: 0, overflow: "hidden" }}
     >
       <defs>
-        {tools.map((tool) => (
+        {Object.entries(TOOL_MARKS).map(([slug, mark]) => (
           <symbol
-            key={tool.slug}
-            id={`tool-${tool.slug}`}
-            viewBox={tool.viewBox}
-            dangerouslySetInnerHTML={{ __html: tool.body }}
+            key={slug}
+            id={`tool-${slug}`}
+            viewBox={mark.viewBox}
+            dangerouslySetInnerHTML={{ __html: mark.body }}
           />
         ))}
       </defs>

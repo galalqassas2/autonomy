@@ -49,13 +49,6 @@ export const orderToInvoice: CanvasFlow = {
   ],
 }
 
-export const heroFlow: CanvasFlow = {
-  id: "hero",
-  title: "Order to invoice",
-  totalLabel: "",
-  nodes: orderToInvoice.nodes.slice(0, 3),
-}
-
 /* Deltas add up to the 1.2 seconds the stage reports. */
 export const orderToInvoiceLog: RunLogLine[] = [
   { clock: "09:41:02", event: "Order received from your store", delta: "+0.3s" },
