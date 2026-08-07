@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "autonomy",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["-C", "C:/Users/PC/Desktop/autonomy.ai/claude (first try)", "dev"],
+      "port": 3000,
+      "autoPort": true
+    }
+  ]
+}
