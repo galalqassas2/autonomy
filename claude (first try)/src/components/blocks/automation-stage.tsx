@@ -83,13 +83,16 @@ export function AutomationStage() {
   return (
     <section id="watch-it-run" ref={sectionRef} className="section-y">
       <div className="shell">
-        <h2 className="t-display-xl mb-8 max-w-[20ch] text-ink">
-          One real automation.
-          <br />
-          <span className="glow-text text-primary">
-            Start to finish in 1.2 seconds.
-          </span>
-        </h2>
+        <div className="mb-8 max-w-4xl">
+          <p className="t-caption mb-3 font-medium text-primary">See it work</p>
+          <h2 className="t-display-xl text-ink">
+            An order comes in.{" "}
+            <span className="glow-text inline-block py-1 text-primary">The rest runs itself.</span>
+          </h2>
+          <p className="t-body-lg mt-4 text-ink-mute">
+            From order to invoice, without anyone touching it.
+          </p>
+        </div>
 
         <div className="island island-bleed relative overflow-hidden">
           <KineticGridMount />
@@ -147,7 +150,7 @@ export function AutomationStage() {
                 ) : null}
 
                 <HoverButton href="#start">
-                  Start your first automation
+                  Find your first automation
                   <ArrowRightIcon size={15} weight="bold" />
                 </HoverButton>
               </div>
