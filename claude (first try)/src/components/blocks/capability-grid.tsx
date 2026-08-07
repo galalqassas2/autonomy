@@ -27,38 +27,35 @@ const CAPABILITIES: Capability[] = [
   {
     icon: BellSimpleIcon,
     title: "It notices",
-    description:
-      "An order, an email, a form, a row changing in a sheet. The moment it happens, not the next morning.",
+    description: "An order, an email, a form, a new row. The moment it happens.",
   },
   {
     icon: GitBranchIcon,
     title: "It decides",
     description:
-      "Your rules, written down once and applied the same way every time. No judgement calls at five on a Friday.",
+      "Your rules, written down once and applied the same way every time.",
   },
   {
     icon: DatabaseIcon,
     title: "It reads and writes",
     description:
-      "Across every system you already pay for. The same record, correct in all of them, without anyone retyping it.",
+      "The same record, correct in every system, without anyone retyping it.",
   },
   {
     icon: BrainIcon,
     title: "It reads language",
-    description:
-      "Our own model, running in Ireland. It handles the messy sentences people actually write, and never learns from them.",
+    description: "It handles the messy sentences people actually write.",
   },
   {
     icon: LightningIcon,
     title: "It acts",
     description:
-      "Issues the invoice, books the slot, updates the CRM, tells the supplier. Inside your tools, under your credentials.",
+      "Issues the invoice, books the slot, updates the CRM. Inside your tools, under your credentials.",
   },
   {
     icon: ChartLineIcon,
     title: "It reports",
-    description:
-      "What ran, what it touched, and what it saved you. Every month, without you asking for it.",
+    description: "What ran, what it touched, and what it saved you. Every month.",
   },
 ]
 
@@ -174,13 +171,13 @@ export function CapabilityGrid() {
     <section id="what-runs-itself" className="section-y">
       <div className="shell">
         <h2 className="t-display-xl max-w-[19ch] text-ink">
-          It is not a chatbot and it is not a macro.
+          Every automation we build
           <br />
-          It is six things, running together.
+          does <span className="glow-text text-primary">six things</span>.
         </h2>
         <p className="t-body-lg mt-5 max-w-[58ch] text-ink-mute">
-          Every automation we build is assembled from these. Nothing else is
-          needed, and nothing here is a template you bend your business around.
+          Combined in whatever order your process needs. Nothing here is a template
+          you bend your business around.
         </p>
 
         <div

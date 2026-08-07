@@ -3,24 +3,20 @@
 import * as React from "react"
 
 import { PegtopLoader } from "@/components/fx/pegtop-loader"
-import { CHANNEL_TINT, type Capability, type ChatTurn, type Widget } from "@/lib/capabilities"
-import { useReducedMotion } from "@/lib/use-media"
-import { cn } from "@/lib/utils"
+import { type Capability } from "@/lib/capabilities"
+import { useRunner } from "@/lib/use-widget-runner"
 
 import {
+  ChecklistWidget,
   ExtractWidget,
   InvoiceWidget,
   RecordWidget,
   ReportWidget,
   StockWidget,
-  ToolMark,
   widgetSteps,
   widgetThinksAt,
 } from "./capability-widgets"
 import { ChatWidget } from "./capability-widgets/chat-widget"
-import { useRunner } from "@/lib/use-widget-runner"
-
-
 
 export function CapabilityStage({ item }: { item: Capability }) {
   const w = item.widget
@@ -44,6 +40,8 @@ export function CapabilityStage({ item }: { item: Capability }) {
         <RecordWidget w={w} shown={shown} />
       ) : w.kind === "stock" ? (
         <StockWidget w={w} shown={shown} />
+      ) : w.kind === "checklist" ? (
+        <ChecklistWidget w={w} shown={shown} />
       ) : (
         <ReportWidget w={w} shown={shown} />
       )}

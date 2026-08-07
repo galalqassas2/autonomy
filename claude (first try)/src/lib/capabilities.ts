@@ -1,4 +1,4 @@
-import type { Capability, ChatTurn, Widget } from "@/types/capabilities"
+import type { Capability } from "@/types/capabilities"
 export type { Capability, ChatTurn, Widget } from "@/types/capabilities"
 
 export const CHANNEL_TINT: Record<string, string> = {
@@ -214,6 +214,29 @@ export const CAPABILITIES: Capability[] = [
           meta: "Fitter assigned, details sent to the customer",
           value: "Booked",
         },
+      ],
+    },
+  },
+  {
+    id: "onboard",
+    label: "Onboard a new starter",
+    team: "HR",
+    tools: ["outlook", "google-calendar", "slack"],
+    impact: "Six systems, one trigger. The offer being signed.",
+    widget: {
+      kind: "checklist",
+      header: {
+        tool: "outlook",
+        title: "Offer signed",
+        meta: "Start date read from the contract",
+      },
+      rows: [
+        { system: "Email", task: "Account created, alias added" },
+        { system: "Payroll", task: "Starter record opened" },
+        { system: "Devices", task: "Laptop ordered, delivery tracked" },
+        { system: "Access", task: "Permissions scoped to the role" },
+        { system: "Calendar", task: "First week booked in" },
+        { system: "Chat", task: "Introduced to the team" },
       ],
     },
   },

@@ -9,8 +9,8 @@ export function SiteFooter() {
           <div className="flex flex-col gap-3">
             <Wordmark className="text-ink" />
             <p className="t-caption max-w-[26ch] text-ink-mute">
-              We build the automations your business runs on. Our own AI, hosted in
-              Ireland.
+              We build the automations your business runs on. Hosted in Ireland,
+              processed inside the EU.
             </p>
           </div>
 
@@ -37,7 +37,7 @@ export function SiteFooter() {
 
         <div className="mt-12 flex flex-col gap-4 border-t border-hairline pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="t-caption text-ink-mute">
-            Autonomy. Processed and stored in Ireland.
+            Autonomy. Hosted in Ireland, processed inside the EU.
           </p>
 
           <p className="t-caption flex items-center gap-2 text-ink-mute">

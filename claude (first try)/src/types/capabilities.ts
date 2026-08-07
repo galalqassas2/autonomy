@@ -42,6 +42,12 @@ export type Widget =
       rows: { sku: string; on: number; reorder: number }[]
       order: { tool: string; title: string; detail: string }
     }
+  /* One trigger provisioning a list of systems. */
+  | {
+      kind: "checklist"
+      header: { tool: string; title: string; meta: string }
+      rows: { system: string; task: string }[]
+    }
   /* Numbers posted into a channel. */
   | {
       kind: "report"

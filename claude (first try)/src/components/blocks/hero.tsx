@@ -88,29 +88,27 @@ export function Hero() {
         <div className="grid items-center gap-12 min-[1000px]:grid-cols-[1.02fr_0.98fr] min-[1000px]:gap-[72px]">
           <div style={{ perspective: "1000px" }}>
             <h1 className="t-display-xxl text-ink overflow-visible">
-              <span className="hero-line block overflow-hidden p-6 -m-6">
-                Your team stops doing the work.
+              <span className="hero-line block overflow-hidden px-6 -mx-6">
+                We automate anything
               </span>
-              <span className="hero-line block overflow-hidden p-6 -m-6 text-primary glow-text">
-                The work still gets done.
+              <span className="hero-line block overflow-hidden px-6 -mx-6 text-primary glow-text">
+                your team repeats.
               </span>
             </h1>
 
-            <p className="hero-sub t-body-lg mt-6 max-w-[54ch] text-ink-mute">
-              Your tools. Your data. Your process. We connect them so the work your
-              team repeats every day happens without anyone doing it.
-            </p>
+            <a
+              href="#what-we-connect"
+              className="hero-sub group mt-6 inline-flex items-center gap-2 t-heading-md text-ink-mute transition-colors hover:text-ink"
+            >
+              <span className="font-semibold text-primary">1,000+</span>
+              tools supported
+              <ArrowRightIcon size={14} weight="bold" className="text-primary" />
+            </a>
 
-            <div className="mt-9 flex flex-wrap items-center gap-3">
+            <div className="mt-8 flex flex-wrap items-center gap-3">
               <a href="#start" className="hero-cta btn btn-primary btn-cta">
-                Start your first automation
+                Get started
                 <ArrowRightIcon size={16} weight="bold" className="arrow" />
-              </a>
-              <a
-                href="#watch-it-run"
-                className="hero-cta btn btn-secondary btn-cta"
-              >
-                Watch one run
               </a>
             </div>
           </div>

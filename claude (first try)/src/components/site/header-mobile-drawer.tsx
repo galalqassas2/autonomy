@@ -101,7 +101,7 @@ export function MobileDrawer({
             Start your first automation
           </a>
           <p className="t-caption mt-3 text-center text-ink-mute-2">
-            Our own AI, hosted in Ireland.
+            Hosted in Ireland, processed inside the EU.
           </p>
         </div>
       </SheetContent>

@@ -2,53 +2,35 @@
 
 import * as React from "react"
 import { animate, onScroll, utils } from "animejs"
-import { MobileDrawer } from "./header-mobile-drawer"
+
 import { chapters } from "@/lib/nav"
 import { cn } from "@/lib/utils"
 
+import { ChapterNav } from "./chapter-nav"
+import { MobileDrawer } from "./header-mobile-drawer"
 import { Wordmark } from "./wordmark"
 
-type Underline = { left: number; width: number }
-
 export function SiteHeader() {
-  const [scrolled, setScrolled] = React.useState(false)
-  const [pastHero, setPastHero] = React.useState(false)
+  const [compact, setCompact] = React.useState(false)
   const [active, setActive] = React.useState<string | null>(null)
-  const [underline, setUnderline] = React.useState<Underline | null>(null)
   const [sheetOpen, setSheetOpen] = React.useState(false)
 
-  const linksRef = React.useRef<HTMLElement>(null)
   const progressRef = React.useRef<HTMLSpanElement>(null)
   const sentinelRef = React.useRef<HTMLDivElement>(null)
 
-  /* A sentinel replaces a scroll listener for the 12px glass threshold. */
+  /* Sentinel shrinks the bar once the page scrolls a few pixels. */
   React.useEffect(() => {
     const sentinel = sentinelRef.current
-    const hero = document.getElementById("hero")
     if (!sentinel) return
-
     const observer = new IntersectionObserver(
-      ([entry]) => setScrolled(!entry.isIntersecting),
+      ([entry]) => setCompact(!entry.isIntersecting),
       { threshold: 0 },
     )
     observer.observe(sentinel)
-
-    let heroObserver: IntersectionObserver | undefined
-    if (hero) {
-      heroObserver = new IntersectionObserver(
-        ([entry]) => setPastHero(!entry.isIntersecting),
-        { threshold: 0 },
-      )
-      heroObserver.observe(hero)
-    }
-
-    return () => {
-      observer.disconnect()
-      heroObserver?.disconnect()
-    }
+    return () => observer.disconnect()
   }, [])
 
-  /* The progress line is scrubbed by scroll position, not by a timer. */
+  /* Progress line scrubbed by scroll position. */
   React.useEffect(() => {
     const bar = progressRef.current
     if (!bar) return
@@ -69,10 +51,10 @@ export function SiteHeader() {
     }
   }, [])
 
-  /* A chapter counts as current while it crosses the header band. */
+  /* A chapter is current while it crosses the header band. */
   React.useEffect(() => {
     const targets = chapters
-      .map((chapter) => document.getElementById(chapter.id))
+      .map((c) => document.getElementById(c.id))
       .filter((el): el is HTMLElement => Boolean(el))
     if (!targets.length) return
 
@@ -87,20 +69,9 @@ export function SiteHeader() {
       },
       { rootMargin: "-64px 0px -85% 0px", threshold: 0 },
     )
-    targets.forEach((target) => observer.observe(target))
+    targets.forEach((t) => observer.observe(t))
     return () => observer.disconnect()
   }, [])
-
-  /* Slide the underline onto whichever chapter is current. */
-  React.useEffect(() => {
-    const container = linksRef.current
-    const link = container?.querySelector<HTMLElement>(
-      `[data-chapter="${active}"]`,
-    )
-    setUnderline(
-      link ? { left: link.offsetLeft, width: link.offsetWidth } : null,
-    )
-  }, [active, pastHero])
 
   return (
     <>
@@ -108,10 +79,9 @@ export function SiteHeader() {
 
       <header className="pointer-events-none fixed inset-x-0 top-3 z-50 px-4">
         <div
-          data-scrolled={scrolled}
           className={cn(
             "site-glass pointer-events-auto relative mx-auto flex w-full max-w-[1200px] items-center gap-4 overflow-hidden rounded-lg px-4 sm:px-5",
-            scrolled ? "h-[52px]" : "h-[60px]",
+            compact ? "h-[52px]" : "h-[60px]",
           )}
         >
           <a href="#hero" className="shrink-0 text-ink">
@@ -119,39 +89,8 @@ export function SiteHeader() {
             <span className="sr-only">Autonomy, back to the top</span>
           </a>
 
-          <nav
-            ref={linksRef}
-            aria-label="Chapters"
-            className={cn(
-              "relative mx-auto hidden items-center gap-6 transition-opacity duration-300 xl:flex",
-              pastHero ? "opacity-100" : "pointer-events-none opacity-0",
-            )}
-          >
-            {chapters.map((chapter) => (
-              <a
-                key={chapter.id}
-                href={`#${chapter.id}`}
-                data-chapter={chapter.id}
-                aria-current={active === chapter.id ? "true" : undefined}
-                className={cn(
-                  "text-sm leading-none transition-colors duration-200",
-                  active === chapter.id
-                    ? "text-ink"
-                    : "text-ink-mute hover:text-ink",
-                )}
-              >
-                {chapter.label}
-              </a>
-            ))}
-            <span
-              aria-hidden="true"
-              className="absolute -bottom-2 h-0.5 rounded-full bg-primary transition-all duration-300 ease-out"
-              style={{
-                left: underline?.left ?? 0,
-                width: underline?.width ?? 0,
-                opacity: underline ? 1 : 0,
-              }}
-            />
+          <nav aria-label="Chapters" className="mx-auto hidden xl:block">
+            <ChapterNav items={chapters} activeId={active} />
           </nav>
 
           <div className="ml-auto flex shrink-0 items-center gap-2">
@@ -159,7 +98,7 @@ export function SiteHeader() {
               href="#start"
               className={cn(
                 "btn btn-primary hidden h-9 px-4 md:inline-flex",
-                scrolled && "h-[34px]",
+                compact && "h-[34px]",
               )}
             >
               <span className="xl:hidden">Get started</span>

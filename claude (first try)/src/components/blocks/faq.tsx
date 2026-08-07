@@ -7,6 +7,10 @@ import { cn } from "@/lib/utils"
 
 const questions = [
   {
+    q: "What can you actually automate?",
+    a: "Any process that follows rules and touches software. If your team does it the same way twice, we can build it.",
+  },
+  {
     q: "What does a project cost?",
     a: "Most first projects land in a range we put in writing after we map the process. Ongoing support is a flat monthly fee agreed up front, with no hourly billing.",
   },
@@ -16,7 +20,7 @@ const questions = [
   },
   {
     q: "Where does our data go?",
-    a: "Onto servers in Ireland, inside the EU. We run our own AI, so nothing is passed to a third party model and nothing is used for training.",
+    a: "Onto servers in Ireland, inside the EU. Where an automation needs AI to read something, that processing stays inside the EU too.",
   },
   {
     q: "Do we have to change our current systems?",
@@ -38,7 +42,9 @@ export function Faq() {
   return (
     <section id="faq" className="section-y bg-canvas-soft">
       <div className="shell">
-        <h2 className="sr-only">Common questions</h2>
+        <h2 className="t-display-xl mb-10 max-w-[16ch] text-ink">
+          Questions we get asked.
+        </h2>
 
         <div className="max-w-[820px]">
           {questions.map((item, i) => {

@@ -16,7 +16,7 @@ const costs: { icon: Icon3DName; title: string; body: string }[] = [
   {
     icon: "quality",
     title: "Quality",
-    body: "Every manual handoff can go wrong, and weeks pass before anyone notices.",
+    body: "Every manual handoff can go wrong. Weeks pass before anyone notices.",
   },
   {
     icon: "inbox",
@@ -29,14 +29,11 @@ export function TheWork() {
   return (
     <section id="the-work" className="section-y">
       <div className="shell">
-        <h2 className="t-display-xl max-w-[17ch] text-ink">
-          Manual work is never free.
+        <h2 className="t-display-xl max-w-[19ch] text-ink">
+          Four costs you pay every week.
           <br />
-          It is billed somewhere else.
+          None of them appear on an invoice.
         </h2>
-        <p className="t-body-lg mt-5 max-w-[58ch] text-ink-mute">
-          Four costs your team pays every week, none of which appear on an invoice.
-        </p>
 
         <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {costs.map((cost, i) => (
@@ -51,7 +48,7 @@ export function TheWork() {
         </ul>
 
         <p className="t-body-lg mt-10 max-w-[62ch] text-ink">
-          These never get fixed because they never get measured. That is where we
+          They never get fixed because they never get measured. That is where we
           start.
         </p>
       </div>

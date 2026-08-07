@@ -1,12 +1,10 @@
 import { AutomationStage } from "@/components/blocks/automation-stage"
 import { CapabilityGrid } from "@/components/blocks/capability-grid"
 import { ClosingCta } from "@/components/blocks/closing-cta"
-import { ConversationDemo } from "@/components/blocks/conversation-demo"
 import { DataSovereignty } from "@/components/blocks/data-sovereignty"
-import { DepartmentSelector } from "@/components/blocks/department-selector"
 import { Faq } from "@/components/blocks/faq"
 import { Hero } from "@/components/blocks/hero"
-import { IntegrationMarquee } from "@/components/blocks/integration-marquee"
+import { Integrations } from "@/components/blocks/integrations"
 import { TheBuild } from "@/components/blocks/the-build"
 import { TheChoice } from "@/components/blocks/the-choice"
 import { TheWork } from "@/components/blocks/the-work"
@@ -14,12 +12,13 @@ import { TimeCalculator } from "@/components/blocks/time-calculator"
 import { ToolSprite } from "@/components/blocks/tool-sprite"
 import { TrustChapter } from "@/components/blocks/trust-chapter"
 import { TrustStrip } from "@/components/blocks/trust-strip"
+import { WhatWeAutomate } from "@/components/blocks/what-we-automate"
 import { SiteFooter } from "@/components/site/footer"
 import { SiteHeader } from "@/components/site/header"
 
 /*
-  See it, feel the cost, understand it, price it yourself, see the path,
-  choose, de-risk, act.
+  Watch one run, see what it covers, understand how it works, feel the cost,
+  price it yourself, see the path, compare, trust, act.
 
   Results and testimonials are absent on purpose: both are marked [CLIENT]
   and get deleted rather than filled with invented case studies or quotes.
@@ -33,13 +32,12 @@ export default function Page() {
         <Hero />
         <TrustStrip />
         <AutomationStage />
-        <ConversationDemo />
-        <DepartmentSelector />
-        <TheWork />
+        <WhatWeAutomate />
         <CapabilityGrid />
+        <TheWork />
         <TimeCalculator />
         <TheBuild />
-        <IntegrationMarquee />
+        <Integrations />
         <TheChoice />
         <DataSovereignty />
         <TrustChapter />

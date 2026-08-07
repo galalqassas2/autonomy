@@ -166,37 +166,21 @@
     }
   }
 
-  /*
-    The one navigation bar. Transparent over the hero, glass once scrolled,
-    inverted while it sits over a dark island. Only background, border-color
-    and box-shadow transition, never backdrop-filter.
-  */
+  /* The one navigation bar. Always glass, height compacts on scroll. */
   .site-glass {
-    background: transparent;
-    border: 1px solid transparent;
-    box-shadow: none;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    transition:
-      background-color var(--dur-base) var(--ease-out),
-      border-color var(--dur-base) var(--ease-out),
-      box-shadow var(--dur-base) var(--ease-out),
-      height var(--dur-base) var(--ease-out);
-  }
-
-  .site-glass[data-scrolled="true"] {
     background: rgba(16, 18, 20, 0.62);
     backdrop-filter: blur(28px) saturate(200%);
     -webkit-backdrop-filter: blur(28px) saturate(200%);
-    border-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.1),
       inset 0 -1px 0 rgba(0, 0, 0, 0.5),
       0 14px 44px -22px rgba(0, 0, 0, 0.9);
+    transition: height var(--dur-base) var(--ease-out);
   }
 
   @supports not (backdrop-filter: blur(1px)) {
-    .site-glass[data-scrolled="true"] {
+    .site-glass {
       background: rgba(14, 16, 18, 0.97);
     }
   }
@@ -247,41 +231,7 @@
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
   }
 
-  /* Integration marquee. Transform only, and each row pauses on its own. */
-  .marquee-row {
-    mask-image: linear-gradient(
-      90deg,
-      transparent,
-      #000 10%,
-      #000 90%,
-      transparent
-    );
-    -webkit-mask-image: linear-gradient(
-      90deg,
-      transparent,
-      #000 10%,
-      #000 90%,
-      transparent
-    );
-  }
-
-  .marquee-track {
-    display: flex;
-    width: max-content;
-    animation-name: marquee-left;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-  }
-
-  .marquee-track[data-direction="right"] {
-    animation-name: marquee-right;
-  }
-
-  .marquee-row:hover .marquee-track,
-  .marquee-row:focus-within .marquee-track {
-    animation-play-state: paused;
-  }
-
+  /* Search results in the tools section. The drifting wall is further down. */
   .tool-tile {
     position: relative;
     display: grid;
@@ -356,30 +306,6 @@
     animation: word-cycle 9s infinite;
   }
 
-  .tool-tip {
-    position: absolute;
-    bottom: calc(100% + 8px);
-    left: 50%;
-    translate: -50% 0;
-    white-space: nowrap;
-    border-radius: 4px;
-    background: var(--canvas-night);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    padding: 4px 8px;
-    font-size: 12px;
-    line-height: 1.2;
-    color: var(--on-dark);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 200ms var(--ease-out);
-    z-index: 5;
-  }
-
-  .tool-tile:hover .tool-tip,
-  .tool-tile:focus-visible .tool-tip {
-    opacity: 1;
-  }
-
   @media (max-width: 767px) {
     .tool-tile {
       width: 56px;
@@ -392,5 +318,410 @@
       width: 64px;
       height: 64px;
     }
+  }
+
+  /* Chapter nav. The lit pill tracks the section you are reading. */
+  .chapter-nav {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .chapter-nav__list {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .chapter-nav__list a {
+    display: inline-block;
+    padding: 7px 12px;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    line-height: 1;
+    color: var(--ink-mute);
+    transition: color var(--dur-base) var(--ease-out);
+  }
+
+  .chapter-nav__list a:hover,
+  .chapter-nav__list a[data-current] {
+    color: var(--ink);
+  }
+
+  /* Geometry is measured, so the pill stretches between links of any width. */
+  .chapter-nav__pill {
+    position: absolute;
+    z-index: 0;
+    border-radius: 6px;
+    background: var(--primary-a10);
+    border: 1px solid var(--primary-a35);
+    box-shadow: var(--glow-soft);
+    transition:
+      left var(--dur-slow) var(--ease-out),
+      top var(--dur-slow) var(--ease-out),
+      width var(--dur-slow) var(--ease-out),
+      height var(--dur-slow) var(--ease-out);
+  }
+
+  @supports (transition-timing-function: linear(0, 1)) {
+    .chapter-nav__pill {
+      transition-duration: 620ms;
+      transition-timing-function: var(--ease-spring);
+    }
+  }
+
+  /* The bloom is what makes it read as lit rather than as a filled chip. */
+  .chapter-nav__pill::before {
+    content: "";
+    position: absolute;
+    inset: -10px;
+    z-index: -1;
+    border-radius: 12px;
+    background: radial-gradient(
+      60% 120% at 50% 50%,
+      var(--primary-a20),
+      transparent 70%
+    );
+    filter: blur(6px);
+  }
+
+  .chapter-nav__spark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    margin: -2px 0 0 -2px;
+    pointer-events: none;
+    animation: spark-fly var(--time) var(--ease-out) both;
+  }
+
+  .chapter-nav__spark::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--primary);
+    box-shadow: 0 0 8px var(--primary-a70);
+    animation: spark-pop var(--time) var(--ease-out) both;
+  }
+
+  /* Logo wall. Decorative, so nothing inside takes focus. */
+  .logo-wall {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    perspective: var(--wall-perspective);
+    -webkit-mask-image:
+      radial-gradient(ellipse 76% 84% at 50% 46%, #000 var(--wall-edge), transparent 100%),
+      linear-gradient(to top, #000 var(--wall-edge), transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      radial-gradient(ellipse 76% 84% at 50% 46%, #000 var(--wall-edge), transparent 100%),
+      linear-gradient(to top, #000 var(--wall-edge), transparent 100%);
+    mask-composite: intersect;
+  }
+
+  .logo-wall__plane {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    transform-style: preserve-3d;
+    transform-origin: 50% 50%;
+    will-change: transform;
+  }
+
+  .logo-wall__column {
+    width: calc(var(--wall-tile) + var(--wall-gap));
+    transform-style: preserve-3d;
+  }
+
+  .logo-wall__track {
+    display: flex;
+    flex-direction: column;
+    will-change: transform;
+  }
+
+  .logo-wall__tile {
+    position: relative;
+    width: 100%;
+    height: calc(var(--wall-tile) + var(--wall-gap));
+    flex: none;
+  }
+
+  /* Tiles are fully visible at rest so every icon reads clearly. */
+  .logo-wall__plate {
+    position: absolute;
+    inset: calc(var(--wall-gap) / 2);
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: var(--canvas-night);
+    border: 1px solid var(--white-a10);
+    transition:
+      transform var(--dur-base) var(--ease-out),
+      background var(--dur-base) var(--ease-out),
+      border-color var(--dur-base) var(--ease-out),
+      box-shadow var(--dur-base) var(--ease-out),
+      opacity var(--dur-base) var(--ease-out);
+  }
+
+  .logo-wall__plate svg {
+    filter: brightness(1.12);
+    transition: filter var(--dur-base) var(--ease-out);
+  }
+
+  .logo-wall__name {
+    position: absolute;
+    inset-inline: 4px;
+    bottom: 7px;
+    text-align: center;
+    font-size: 10px;
+    line-height: 1.2;
+    color: var(--ink-mute-2);
+    opacity: 0;
+    transition: opacity var(--dur-base) var(--ease-out);
+  }
+
+  /* Dim siblings when a tile is focused. */
+  .logo-wall:has(.is-lit) .logo-wall__tile:not(.is-lit) .logo-wall__plate {
+    opacity: 0.45;
+  }
+
+  .logo-wall__tile.is-lit .logo-wall__plate {
+    transform: translateZ(var(--wall-lift)) scale(1.06);
+    background: var(--canvas-lift);
+    border-color: var(--primary-a55);
+    box-shadow:
+      var(--glow-edge),
+      0 0 40px -6px var(--primary-a20),
+      var(--elev-3);
+  }
+
+  .logo-wall__tile.is-lit .logo-wall__plate svg {
+    filter: saturate(1.15) brightness(1.25);
+  }
+
+  .logo-wall__tile.is-lit .logo-wall__name {
+    opacity: 1;
+    color: var(--on-dark);
+  }
+
+  /* Glow card. Lit cards carry an edge that follows the pointer. */
+  .glow-card {
+    position: relative;
+    isolation: isolate;
+    border-radius: 12px;
+    border: 1px solid var(--hairline);
+    background: var(--white-a04);
+    transition: border-color var(--dur-base) var(--ease-out);
+  }
+
+  .glow-card:hover {
+    border-color: var(--hairline-strong);
+  }
+
+  .glow-card[data-lit] {
+    border-color: var(--primary-a55);
+    box-shadow: var(--glow-soft);
+  }
+
+  .glow-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: radial-gradient(
+      280px circle at var(--pointer-x, 50%) var(--pointer-y, 0%),
+      var(--primary-a12),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity var(--dur-base) var(--ease-out);
+  }
+
+  .glow-card:hover::before,
+  .glow-card:focus-within::before,
+  .glow-card[data-lit]::before {
+    opacity: 1;
+  }
+
+  .glow-card[data-lit]::before {
+    background: radial-gradient(
+      320px circle at var(--pointer-x, 50%) var(--pointer-y, 0%),
+      var(--primary-a20),
+      transparent 72%
+    );
+  }
+
+  .glow-card[data-lit]::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    border-radius: inherit;
+    padding: 1px;
+    background: radial-gradient(
+      220px circle at var(--pointer-x, 50%) var(--pointer-y, 0%),
+      var(--primary),
+      var(--primary-a28) 45%,
+      transparent 75%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+  }
+
+  .glow-card__motes {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  .glow-card__motes i {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--primary);
+    box-shadow: 0 0 10px var(--primary-a70);
+    opacity: 0;
+    animation: mote-drift var(--time) linear var(--delay) infinite;
+  }
+
+  /*
+    Build steps. The rail runs down the plates on mobile and across them on
+    desktop, both driven by --rail, which scroll position sets on the list.
+  */
+  .build-steps {
+    --plate-mid: 28px;
+    position: relative;
+    display: grid;
+    gap: 40px;
+    margin-top: 48px;
+  }
+
+  .build-track,
+  .build-rail {
+    position: absolute;
+    inset-block: 0;
+    left: var(--plate-mid);
+    width: 1px;
+  }
+
+  .build-track {
+    background: var(--hairline);
+  }
+
+  .build-rail {
+    background: var(--primary);
+    box-shadow: var(--glow-soft);
+    transform-origin: center top;
+    transform: scaleY(var(--rail, 0));
+  }
+
+  .build-step {
+    position: relative;
+    padding-left: 76px;
+    opacity: 0.45;
+    transition: opacity var(--dur-slow) var(--ease-out);
+  }
+
+  .build-step[data-lit] {
+    opacity: 1;
+  }
+
+  /* The plate sits on the rail, so the line reads as passing through it. */
+  .build-step .icon-plate {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--canvas);
+  }
+
+  .build-step[data-lit] .icon-plate {
+    border-color: var(--primary-a35);
+    box-shadow: var(--glow-soft);
+  }
+
+  @media (min-width: 768px) {
+    .build-steps {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+
+    .build-track,
+    .build-rail {
+      inset-block: auto;
+      inset-inline: 0;
+      top: var(--plate-mid);
+      width: auto;
+      height: 1px;
+    }
+
+    .build-rail {
+      transform-origin: left center;
+      transform: scaleX(var(--rail, 0));
+    }
+
+    .build-step {
+      padding-left: 0;
+    }
+
+    .build-step .icon-plate {
+      position: relative;
+    }
+  }
+
+  /* The data loop and its hops, both switched by [data-shown] on the band. */
+  .sovereignty-path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 1600ms ease-in-out;
+  }
+
+  .sovereignty-hop {
+    opacity: 0;
+    transform: translateY(18px) scale(0.94);
+    transition:
+      opacity var(--dur-slow) var(--ease-out) var(--hop-delay),
+      transform var(--dur-slow) var(--ease-out) var(--hop-delay);
+  }
+
+  .sovereignty-hop:nth-child(2) {
+    box-shadow: var(--glow-edge);
+  }
+
+  [data-shown="true"] .sovereignty-path {
+    stroke-dashoffset: 0;
+  }
+
+  [data-shown="true"] .sovereignty-hop {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Filaments. The only WebGL surface, mounted only when its band is near. */
+  .filaments,
+  .filaments canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
   }
 }

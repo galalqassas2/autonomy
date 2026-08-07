@@ -6,17 +6,17 @@ const items: { icon: Icon3DName; headline: string; sub: string }[] = [
   {
     icon: "hub",
     headline: "1,000+ tools connected",
-    sub: "If it has an API, we automate it",
+    sub: "If it has an API, we can automate it",
   },
   {
-    icon: "chip",
-    headline: "Our own AI, never trained on your data",
-    sub: "Your records never leave your workspace to teach a model",
+    icon: "gauge",
+    headline: "Live in 2 to 6 weeks",
+    sub: "From the first conversation to a working automation",
   },
   {
     icon: "pin",
     headline: "Hosted in Ireland",
-    sub: "Processed and stored inside the EU, under GDPR",
+    sub: "Your automations run in Ireland, inside the EU",
   },
 ]
 

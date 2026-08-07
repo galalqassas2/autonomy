@@ -1,10 +1,10 @@
 export const chapters = [
-  { id: "watch-it-run", label: "Watch it run" },
-  { id: "every-channel", label: "Every channel" },
-  { id: "the-work", label: "The work" },
-  { id: "your-time", label: "Your time" },
-  { id: "what-we-connect", label: "What we connect" },
-  { id: "your-data", label: "Your data" },
+  { id: "watch-it-run", label: "Demo" },
+  { id: "what-we-automate", label: "Automate" },
+  { id: "the-work", label: "Impact" },
+  { id: "the-build", label: "Process" },
+  { id: "what-we-connect", label: "Tools" },
+  { id: "your-data", label: "Trust" },
 ] as const
 
 export type ChapterId = (typeof chapters)[number]["id"]
@@ -18,29 +18,25 @@ export const darkSections: readonly ChapterId[] = [
 
 export const footerColumns = [
   {
-    heading: "What it does",
+    heading: "What we automate",
     links: [
       { label: "Watch it run", href: "#watch-it-run" },
-      { label: "The work", href: "#the-work" },
-      { label: "Your time", href: "#your-time" },
-      { label: "The build", href: "#the-build" },
+      { label: "What it costs you", href: "#the-work" },
+      { label: "What you get back", href: "#your-time" },
+      { label: "How we build it", href: "#the-build" },
     ],
   },
   {
-    heading: "By department",
-    links: [
-      { label: "Finance", href: "#departments" },
-      { label: "Sales", href: "#departments" },
-      { label: "Operations", href: "#departments" },
-      { label: "Support", href: "#departments" },
-      { label: "HR", href: "#departments" },
-    ],
+    heading: "By team",
+    links: ["Finance", "Sales", "Operations", "Support", "HR", "Management"].map(
+      (label) => ({ label, href: "#what-we-automate" }),
+    ),
   },
   {
-    heading: "What we connect",
+    heading: "Tools",
     links: [
-      { label: "Every integration", href: "#what-we-connect" },
-      { label: "Request a connector", href: "#start" },
+      { label: "Connected tools", href: "#what-we-connect" },
+      { label: "Ask us about a tool", href: "#start" },
       { label: "Custom API work", href: "#what-we-connect" },
     ],
   },

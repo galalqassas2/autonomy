@@ -1,4 +1,4 @@
-import type { CanvasFlow, CanvasNode, CanvasRow, Department, RunLogLine } from "@/types/flows"
+import type { CanvasFlow, Department, RunLogLine } from "@/types/flows"
 export type { CanvasFlow, CanvasNode, CanvasRow, Department, RunLogLine } from "@/types/flows"
 
 /* The flow that plays in the automation stage, and the one the hero teases. */

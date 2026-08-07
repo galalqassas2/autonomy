@@ -3,11 +3,22 @@
 import * as React from "react"
 import { ArrowRightIcon, CheckCircleIcon } from "@phosphor-icons/react/dist/ssr"
 
-const fields = [
+import { WordCycle } from "@/components/fx/word-cycle"
+
+type Field = {
+  name: string
+  label: string
+  placeholder: string
+  examples?: readonly [string, string, string, string]
+}
+
+const fields: Field[] = [
   {
     name: "process",
     label: "What process",
     placeholder: "The one your team repeats every week",
+    /* The spinner shows what a good answer looks like, so nobody stalls here. */
+    examples: ["invoicing", "onboarding", "stock counts", "order updates"] as const,
   },
   {
     name: "tools",
@@ -30,13 +41,15 @@ export function ClosingCta() {
         <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-20">
           <div>
             <h2 className="t-display-xl max-w-[17ch] text-ink">
-              Small enough to start Monday.
+              Tell us one process.
               <br />
-              Big enough to never do it again.
+              <span className="glow-text text-primary">
+                We will show you what it costs.
+              </span>
             </h2>
             <p className="t-body-lg mt-5 max-w-[52ch] text-ink-mute">
-              Tell us one process your team repeats. We come back with a map of it,
-              a number attached, and what it would take to remove it.
+              Describe something your team repeats. We come back with a map of it,
+              the hours it is costing you, and what it would take to remove.
             </p>
           </div>
 
@@ -72,6 +85,11 @@ export function ClosingCta() {
                     placeholder={field.placeholder}
                     className="field"
                   />
+                  {field.examples ? (
+                    <p className="t-caption text-ink-mute-2">
+                      Something like <WordCycle words={field.examples} />
+                    </p>
+                  ) : null}
                 </div>
               ))}
 

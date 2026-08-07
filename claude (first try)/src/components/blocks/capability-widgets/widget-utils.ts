@@ -15,6 +15,8 @@ export function widgetSteps(w: Widget) {
       return 2 + w.fields.length + 1
     case "stock":
       return w.rows.length + 1
+    case "checklist":
+      return w.rows.length + 1
     case "report":
       return w.metrics.length + 1
   }

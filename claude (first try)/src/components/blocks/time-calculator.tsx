@@ -76,10 +76,10 @@ export function TimeCalculator() {
         <h2 className="t-display-xl max-w-[18ch] text-ink">
           You are not buying software.
           <br />
-          You are buying back hours.
+          <span className="glow-text text-primary">You are buying back hours.</span>
         </h2>
         <p className="t-body-lg mt-5 max-w-[56ch] text-ink-mute">
-          Put in your own numbers. The answer below is yours, we did not choose it.
+          Put in your own numbers. The answer is yours, not ours.
         </p>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-2 lg:gap-16">
@@ -164,8 +164,7 @@ export function TimeCalculator() {
             <WeekGrid hoursPerWeek={hoursPerWeek} />
 
             <p className="t-caption text-ink-mute">
-              These are your numbers, not ours. We will check them with you in the
-              first hour.
+              We will check them with you in the first hour.
             </p>
           </div>
         </div>

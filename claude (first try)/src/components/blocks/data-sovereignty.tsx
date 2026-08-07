@@ -1,84 +1,70 @@
 "use client"
 
 import * as React from "react"
-import { animate, onScroll, stagger, svg, utils } from "animejs"
 
-import { useIsoLayoutEffect } from "@/lib/use-iso-layout-effect"
+import { Filaments } from "@/components/fx/filaments"
 import { cn } from "@/lib/utils"
+
+/*
+  The loop draws itself as the band arrives, then the three hops land on it.
+  Both are CSS transitions switched by one data attribute. An earlier version
+  drove them from two scroll-linked animations that never fired, which left
+  the hops invisible and the line permanently drawn.
+*/
 
 const HOPS = [
   { label: "Your systems", note: "Where the record already lives" },
-  { label: "Our AI, in Ireland", note: "Reads it, never learns from it" },
+  { label: "Autonomy, in Ireland", note: "Runs the steps, reads what it needs" },
   { label: "Back to your systems", note: "Written, logged, done" },
 ]
 
 const FACTS = [
-  { k: "Ireland", v: "Processed and stored inside the EU" },
-  { k: "Our own model", v: "No third party ever sees the data" },
-  { k: "Never trained on", v: "Your records do not become weights" },
+  { k: "Ireland", v: "Where your automations run and your data is stored" },
+  { k: "EU only", v: "AI processing stays inside the EU" },
   { k: "Scoped access", v: "Only what the automation needs, only while it needs it" },
+  { k: "Yours", v: "Export or delete at any time" },
 ]
 
 export function DataSovereignty() {
-  const root = React.useRef<HTMLDivElement>(null)
+  const root = React.useRef<HTMLElement>(null)
+  const [shown, setShown] = React.useState(false)
 
-  useIsoLayoutEffect(() => {
-    const container = root.current
-    if (!container) return
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
-
-    const path = container.querySelector<SVGPathElement>(".sovereignty-path")
-    const hops = Array.from(
-      container.querySelectorAll<HTMLElement>(".sovereignty-hop"),
+  React.useEffect(() => {
+    const section = root.current
+    if (!section) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        setShown(true)
+        observer.disconnect()
+      },
+      { threshold: 0.2 },
     )
-    if (!path) return
-
-    utils.set(hops, { opacity: 0 })
-    const enter = { target: container, enter: "top 78%", repeat: false }
-
-    /* The loop draws itself as the section arrives, then the hops land on it. */
-    const line = animate(svg.createDrawable(path), {
-      draw: ["0% 0%", "0% 100%"],
-      duration: 1600,
-      ease: "inOutQuad",
-      autoplay: onScroll(enter),
-    })
-
-    const marks = animate(hops, {
-      opacity: [0, 1],
-      translateY: [18, 0],
-      scale: [0.94, 1],
-      duration: 700,
-      delay: stagger(180, { start: 400 }),
-      ease: "outBack",
-      autoplay: onScroll(enter),
-    })
-
-    return () => {
-      line.revert()
-      marks.revert()
-      utils.set(hops, { opacity: 1 })
-    }
+    observer.observe(section)
+    return () => observer.disconnect()
   }, [])
 
   return (
     <section
       id="your-data"
       ref={root}
-      className="py-20 lg:py-28"
+      data-shown={shown}
+      className="relative overflow-hidden py-20 lg:py-28"
       style={{ background: "var(--canvas-night)" }}
     >
-      <div className="shell">
+      <Filaments className="opacity-40" />
+
+      <div className="shell relative">
         <div className="grid gap-14 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-20">
           <div>
-            <h2 className="t-display-xl max-w-[16ch] text-ink">
-              Your data goes to Ireland.
+            <h2 className="t-display-xl max-w-[17ch] text-ink">
+              Your automations run in Ireland.
               <br />
-              <span className="glow-text text-primary">Then it comes back.</span>
+              <span className="glow-text text-primary">Your data stays in the EU.</span>
             </h2>
             <p className="t-body-lg mt-5 max-w-[46ch] text-ink-mute">
-              That is the whole journey. It is not copied to a model vendor, it is
-              not used for training, and it does not leave the EU on the way.
+              It leaves your systems, it does the work, it comes back. That is the
+              whole journey.
             </p>
 
             <dl className="mt-10 grid gap-x-8 gap-y-5 sm:grid-cols-2">
@@ -92,15 +78,12 @@ export function DataSovereignty() {
           </div>
 
           <div className="relative">
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 420 260"
-              className="w-full"
-              fill="none"
-            >
+            <svg aria-hidden="true" viewBox="0 0 420 260" className="w-full" fill="none">
+              {/* pathLength normalises the dash maths, so the CSS needs no measurement. */}
               <path
                 className="sovereignty-path"
                 d="M74 62 H346 A32 32 0 0 1 346 126 H74 A32 32 0 0 0 74 190 H346"
+                pathLength={1}
                 stroke="var(--primary)"
                 strokeWidth={1.6}
                 strokeLinecap="round"
@@ -112,11 +95,11 @@ export function DataSovereignty() {
               {HOPS.map((hop, i) => (
                 <li
                   key={hop.label}
+                  style={{ "--hop-delay": `${400 + i * 180}ms` } as React.CSSProperties}
                   className={cn(
                     "sovereignty-hop flex w-fit items-center gap-3 rounded-lg border border-hairline bg-canvas-night-2 px-4 py-3",
                     i === 1 && "ml-auto",
                   )}
-                  style={i === 1 ? { boxShadow: "var(--glow-edge)" } : undefined}
                 >
                   <span
                     className="size-2 shrink-0 rounded-full bg-primary"

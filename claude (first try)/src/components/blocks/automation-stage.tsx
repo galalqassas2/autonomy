@@ -15,9 +15,9 @@ import { useMediaQuery, useReducedMotion } from "@/lib/use-media"
 
 const CAPTIONS = [
   "An order arrives from your store.",
-  "Stock is checked. Nobody asked it to.",
+  "Stock is checked automatically.",
   "The invoice writes itself.",
-  "Your team is told. Elapsed: 1.2 seconds.",
+  "Your team is notified. Total: 1.2 seconds.",
 ]
 
 const TOTAL_SECONDS = 1.2
@@ -83,6 +83,14 @@ export function AutomationStage() {
   return (
     <section id="watch-it-run" ref={sectionRef} className="section-y">
       <div className="shell">
+        <h2 className="t-display-xl mb-8 max-w-[20ch] text-ink">
+          One real automation.
+          <br />
+          <span className="glow-text text-primary">
+            Start to finish in 1.2 seconds.
+          </span>
+        </h2>
+
         <div className="island island-bleed relative overflow-hidden">
           <KineticGridMount />
 
@@ -148,7 +156,7 @@ export function AutomationStage() {
         </div>
 
         <p className="t-body-lg mt-8 text-ink-mute">
-          That is one process. Most teams have twelve, and yours probably starts
+          That is one process. Most teams have a dozen, and yours probably starts
           with{" "}
           <WordCycle
             words={["invoicing", "onboarding", "stock counts", "order updates"]}

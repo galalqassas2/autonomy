@@ -65,21 +65,68 @@
   }
 }
 
-@keyframes marquee-left {
-  from {
-    transform: translateX(0);
+/* Chapter nav burst. The spark travels, the dot inside it swells and dies. */
+@keyframes spark-fly {
+  0% {
+    transform: rotate(0deg) translate(var(--start-x), var(--start-y));
+    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45);
   }
-  to {
-    transform: translateX(-50%);
+  70% {
+    transform: rotate(calc(var(--rotate) * 0.5))
+      translate(calc(var(--end-x) * 1.2), calc(var(--end-y) * 1.2));
+  }
+  100% {
+    transform: rotate(var(--rotate))
+      translate(calc(var(--end-x) * 0.5), calc(var(--end-y) * 0.5));
   }
 }
 
-@keyframes marquee-right {
-  from {
-    transform: translateX(-50%);
+@keyframes spark-pop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
   }
-  to {
-    transform: translateX(0);
+  35% {
+    opacity: 1;
+  }
+  65% {
+    transform: scale(var(--scale));
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes mote-drift {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  20%,
+  70% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-38px);
+  }
+}
+
+@keyframes shiny-sweep {
+  0% {
+    opacity: 0;
+    background-position: 150% 0;
+  }
+  6%,
+  22% {
+    opacity: 1;
+  }
+  28%,
+  100% {
+    opacity: 0;
+    background-position: -50% 0;
   }
 }
 
@@ -89,6 +136,36 @@
     filter: drop-shadow(0 2px 8px rgba(62, 207, 142, 0.25));
     -webkit-text-stroke: 0.3px rgba(167, 243, 208, 0.3);
     overflow: visible;
+  }
+
+  /*
+    A sheen that crosses the neon rather than replacing it. Painting the sweep
+    on the element itself needs a transparent fill, which would drop the text
+    shadow that makes the phrase glow, so it rides on a copy above. The delay
+    clears the headline entrance before the first pass.
+  */
+  .shiny-text {
+    position: relative;
+  }
+
+  .shiny-text::after {
+    content: attr(data-shine);
+    position: absolute;
+    inset: 0;
+    padding: inherit;
+    background: linear-gradient(
+      100deg,
+      transparent 38%,
+      rgba(255, 255, 255, 0.75) 50%,
+      transparent 62%
+    );
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    pointer-events: none;
+    opacity: 0;
+    animation: shiny-sweep 7s var(--ease-out) 2.1s infinite;
   }
 
   .reveal {
@@ -107,13 +184,19 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track {
+  /* The spinner renders <b>, so a span selector here never matched. */
+  .word-cycle b {
     animation: none !important;
-    transform: none !important;
   }
 
-  .word-cycle > span {
-    animation: none !important;
+  .chapter-nav__spark,
+  .glow-card__motes,
+  .shiny-text::after {
+    display: none;
+  }
+
+  .chapter-nav__pill {
+    transition: none;
   }
 
   .pegtop-loader .pegtop {
