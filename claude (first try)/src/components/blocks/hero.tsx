@@ -4,14 +4,12 @@ import * as React from "react"
 import { createTimeline, spring, splitText, stagger, utils } from "animejs"
 import { ArrowRightIcon } from "@phosphor-icons/react/dist/ssr"
 
-import { FlowCanvas } from "@/components/canvas/flow-canvas"
-import { heroFlow } from "@/lib/flows"
 import { useIsoLayoutEffect } from "@/lib/use-iso-layout-effect"
-import { useReducedMotion } from "@/lib/use-media"
+
+import { HeroShowcase } from "./hero-showcase"
 
 export function Hero() {
   const root = React.useRef<HTMLDivElement>(null)
-  const reduce = useReducedMotion()
 
   useIsoLayoutEffect(() => {
     const container = root.current
@@ -88,11 +86,9 @@ export function Hero() {
         <div className="grid items-center gap-12 min-[1000px]:grid-cols-[1.02fr_0.98fr] min-[1000px]:gap-[72px]">
           <div style={{ perspective: "1000px" }}>
             <h1 className="t-display-xxl text-ink overflow-visible">
-              <span className="hero-line block overflow-hidden px-6 -mx-6">
-                We automate anything
-              </span>
-              <span className="hero-line block overflow-hidden px-6 -mx-6 text-primary glow-text">
-                your team repeats.
+              <span className="hero-line block overflow-hidden px-6 -mx-6 py-3 -my-3">
+                We automate anything{" "}
+                <span className="text-primary glow-text">your team repeats.</span>
               </span>
             </h1>
 
@@ -114,16 +110,7 @@ export function Hero() {
           </div>
 
           <div className="hero-canvas w-full min-[1000px]:justify-self-end">
-            <FlowCanvas
-              flow={heroFlow}
-              mode="cascade"
-              playing
-              loop
-              still={reduce}
-              fitMode="contain"
-              frameHeight={452}
-              className="w-full"
-            />
+            <HeroShowcase />
           </div>
         </div>
       </div>

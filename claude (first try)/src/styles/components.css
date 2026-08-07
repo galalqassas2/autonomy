@@ -511,6 +511,107 @@
     color: var(--on-dark);
   }
 
+  /* Dome. Tiles on the inside of a sphere, turning on their own. */
+  .hero-showcase {
+    position: relative;
+    width: 100%;
+    height: 520px;
+  }
+
+  .hero-showcase__hint {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    text-align: center;
+    color: var(--ink-mute-2);
+    pointer-events: none;
+  }
+
+  .hero-showcase__panel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    width: min(340px, 92%);
+    translate: -50% -50%;
+    padding: 20px;
+    border-radius: 12px;
+    background: var(--canvas-night);
+    border: 1px solid var(--primary-a35);
+    box-shadow: var(--glow-soft), var(--elev-3);
+    outline: none;
+    animation: panel-in var(--dur-base) var(--ease-out) both;
+  }
+
+  .dome {
+    position: absolute;
+    inset: 0;
+    perspective: 1100px;
+    cursor: grab;
+    touch-action: none;
+    outline: none;
+    /* Dissolve at the rim so the sphere reads as bigger than its box. */
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 52%, transparent 78%);
+    mask-image: radial-gradient(circle at 50% 50%, #000 52%, transparent 78%);
+  }
+
+  .dome:active {
+    cursor: grabbing;
+  }
+
+  .dome:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: -2px;
+    border-radius: 12px;
+  }
+
+  .dome__sphere {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+
+  /* One element per tile: it both sits on the sphere and is the tile. */
+  .dome__tile {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    width: var(--dome-tile);
+    height: var(--dome-tile);
+    margin: calc(var(--dome-tile) / -2);
+    border-radius: 14px;
+    background: var(--canvas-lift);
+    border: 1px solid var(--white-a10);
+    transition:
+      border-color var(--dur-base) var(--ease-out),
+      box-shadow var(--dur-base) var(--ease-out),
+      background var(--dur-base) var(--ease-out);
+  }
+
+  .dome__tile:hover,
+  .dome__tile[data-lit] {
+    border-color: var(--primary-a55);
+    background: var(--canvas-night-2);
+    box-shadow: var(--glow-edge);
+  }
+
+  /* The dome recedes while a tile is open, so the panel owns the eye. */
+  .dome[data-open] .dome__sphere {
+    opacity: 0.28;
+    filter: blur(2px);
+    transition:
+      opacity var(--dur-base) var(--ease-out),
+      filter var(--dur-base) var(--ease-out);
+  }
+
+  @media (max-width: 999px) {
+    .hero-showcase {
+      height: 420px;
+    }
+  }
+
   /* Glow card. Lit cards carry an edge that follows the pointer. */
   .glow-card {
     position: relative;

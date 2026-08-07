@@ -1,0 +1,128 @@
+/*
+  dome-gallery.css
+  3D hemisphere placing tiles on a sphere surface via inline transforms.
+*/
+
+/* ── Root ────────────────────────────────────────────────── */
+
+.sphere-root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Layout ──────────────────────────────────────────────── */
+
+.sphere-main {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-mask-image: radial-gradient(
+    ellipse 74% 74% at 50% 50%,
+    black 44%,
+    transparent 72%
+  );
+  mask-image: radial-gradient(
+    ellipse 74% 74% at 50% 50%,
+    black 44%,
+    transparent 72%
+  );
+  cursor: grab;
+}
+
+.sphere-main:active {
+  cursor: grabbing;
+}
+
+.sphere-stage {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  perspective: var(--perspective, 600px);
+  perspective-origin: 50% 50%;
+}
+
+.sphere-world {
+  transform-style: preserve-3d;
+  transform: translateZ(calc(var(--radius, 200px) * -1));
+  will-change: transform;
+}
+
+/* ── Tile slot ───────────────────────────────────────────── */
+
+.sphere-slot {
+  position: absolute;
+  transform-style: preserve-3d;
+  transform-origin: 50% 50%;
+  backface-visibility: hidden;
+}
+
+/* ── Tile face ───────────────────────────────────────────── */
+
+.sphere-tile {
+  position: absolute;
+  inset: 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border-radius: 10px;
+  background: var(--canvas-night-2, #1c1f21);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transform: translateZ(0);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: auto;
+  transition:
+    border-color 200ms ease,
+    box-shadow 200ms ease,
+    background-color 200ms ease;
+}
+
+.sphere-tile:hover {
+  border-color: rgba(62, 207, 142, 0.4);
+  box-shadow: 0 4px 16px rgba(62, 207, 142, 0.12);
+  background: var(--canvas-lift, #212527);
+}
+
+.sphere-tile[data-lit] {
+  border-color: rgba(62, 207, 142, 0.55);
+  box-shadow: 0 0 20px rgba(62, 207, 142, 0.2);
+}
+
+.sphere-tile:focus-visible {
+  outline: 2px solid var(--primary, #3ecf8e);
+  outline-offset: 2px;
+}
+
+/* Icon sizing: fill most of the tile */
+.sphere-tile svg {
+  width: 48%;
+  height: 48%;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+/* Label */
+.sphere-tile__label {
+  font-size: 8px;
+  font-weight: 500;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  max-width: 92%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
