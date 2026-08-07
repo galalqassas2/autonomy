@@ -198,7 +198,7 @@ export function DomeGallery({
             const [dirX, dirY] = direction
             if (vMag > 0.1) startInertia(vMag * dirX * 80, vMag * dirY * 80)
           }
-          movedRef.current = false
+          requestAnimationFrame(() => { movedRef.current = false })
         }
       },
     },

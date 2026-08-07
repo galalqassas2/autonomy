@@ -32,6 +32,18 @@ export function HeroShowcase() {
     if (open) panelRef.current?.focus()
   }, [open])
 
+  /* Close when clicking outside the dome */
+  React.useEffect(() => {
+    if (!openId) return
+    const handler = (e: MouseEvent) => {
+      if (domeRef.current && !domeRef.current.contains(e.target as Node)) {
+        setOpenId(null)
+      }
+    }
+    document.addEventListener("mousedown", handler)
+    return () => document.removeEventListener("mousedown", handler)
+  }, [openId])
+
   const close = () => {
     setOpenId(null)
     domeRef.current?.querySelector<HTMLElement>("[role=group]")?.focus()
