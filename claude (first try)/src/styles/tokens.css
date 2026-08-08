@@ -81,7 +81,7 @@
   --ring: var(--primary);
   --radius: 0.5rem;
 
-  /* Alpha tokens — one source for inline-style replacements */
+  /* Alpha tokens: one source for inline-style replacements */
   --primary-a07: rgba(62, 207, 142, 0.07);
   --primary-a09: rgba(62, 207, 142, 0.09);
   --primary-a10: rgba(62, 207, 142, 0.10);

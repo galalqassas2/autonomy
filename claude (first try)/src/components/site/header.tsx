@@ -97,12 +97,11 @@ export function SiteHeader() {
             <a
               href="#start"
               className={cn(
-                "btn btn-primary hidden h-9 px-4 md:inline-flex",
+                "btn btn-primary hidden h-9 px-4 whitespace-nowrap md:inline-flex",
                 compact && "h-[34px]",
               )}
             >
-              <span className="xl:hidden">Get started</span>
-              <span className="hidden xl:inline">Start your first automation</span>
+              Find your first automation
             </a>
 
             <MobileDrawer

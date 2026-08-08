@@ -10,9 +10,9 @@ const inter = Inter({
   variable: "--font-inter",
 })
 
-const title = "Autonomy, we build automations for your business"
+const title = "Autonomy | We automate what your team repeats"
 const description =
-  "We automate the work your team repeats every day, inside the tools you already pay for. 1,000+ tools connected, live in 2 to 6 weeks, hosted in Ireland."
+  "We design, build, and run business automations across 1,000+ tools. Live in 2-6 weeks and hosted in Ireland."
 
 export const metadata: Metadata = {
   title,

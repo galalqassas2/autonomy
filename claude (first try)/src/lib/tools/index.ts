@@ -227,8 +227,8 @@ export const TOOLS: Tool[] = [
     "name": "OpenAI"
   },
   {
-    "slug": "anthropic",
-    "name": "Anthropic"
+    "slug": "ollama",
+    "name": "Ollama"
   },
   {
     "slug": "google-gemini",

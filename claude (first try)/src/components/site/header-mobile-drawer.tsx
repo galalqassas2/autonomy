@@ -98,10 +98,10 @@ export function MobileDrawer({
             onClick={() => onOpenChange(false)}
             className="btn btn-primary btn-cta w-full"
           >
-            Start your first automation
+            Find your first automation
           </a>
           <p className="t-caption mt-3 text-center text-ink-mute-2">
-            Hosted in Ireland, processed inside the EU.
+            Hosted in Ireland. Never trained on your data.
           </p>
         </div>
       </SheetContent>

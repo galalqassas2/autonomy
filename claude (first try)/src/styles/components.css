@@ -703,86 +703,99 @@
     animation: mote-drift var(--time) linear var(--delay) infinite;
   }
 
-  /*
-    Build steps. The rail runs down the plates on mobile and across them on
-    desktop, both driven by --rail, which scroll position sets on the list.
-  */
-  .build-steps {
-    --plate-mid: 28px;
+  /* Judgment rail. Runs down the side on mobile, across the row from 768px. */
+  .judgment-rail {
+    --node: 28px; /* Half the plate, so the line crosses its centre. */
     position: relative;
-    display: grid;
-    gap: 40px;
     margin-top: 48px;
   }
 
-  .build-track,
-  .build-rail {
+  .judgment-track,
+  .judgment-beam {
     position: absolute;
     inset-block: 0;
-    left: var(--plate-mid);
+    left: var(--node);
     width: 1px;
   }
 
-  .build-track {
+  .judgment-track {
     background: var(--hairline);
   }
 
-  .build-rail {
+  /* The beam draws in once, and each step lights as it passes. */
+  .judgment-beam {
     background: var(--primary);
     box-shadow: var(--glow-soft);
-    transform-origin: center top;
-    transform: scaleY(var(--rail, 0));
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 1200ms var(--ease-out);
   }
 
-  .build-step {
+  .judgment-rail[data-shown="true"] .judgment-beam {
+    transform: scaleY(1);
+  }
+
+  .judgment-steps {
+    display: grid;
+    gap: 40px;
+  }
+
+  .judgment-step {
     position: relative;
     padding-left: 76px;
-    opacity: 0.45;
-    transition: opacity var(--dur-slow) var(--ease-out);
+    opacity: 0.4;
+    transition: opacity var(--dur-slow) var(--ease-out) var(--step-delay, 0ms);
   }
 
-  .build-step[data-lit] {
+  .judgment-rail[data-shown="true"] .judgment-step {
     opacity: 1;
   }
 
-  /* The plate sits on the rail, so the line reads as passing through it. */
-  .build-step .icon-plate {
+  /* Opaque, so the rail reads as passing behind the plate. */
+  .judgment-step .icon-plate {
     position: absolute;
     top: 0;
     left: 0;
     background: var(--canvas);
+    transition:
+      border-color var(--dur-base) var(--ease-out) var(--step-delay, 0ms),
+      box-shadow var(--dur-base) var(--ease-out) var(--step-delay, 0ms);
   }
 
-  .build-step[data-lit] .icon-plate {
+  .judgment-rail[data-shown="true"] .icon-plate {
     border-color: var(--primary-a35);
     box-shadow: var(--glow-soft);
   }
 
   @media (min-width: 768px) {
-    .build-steps {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 32px;
-    }
-
-    .build-track,
-    .build-rail {
+    .judgment-track,
+    .judgment-beam {
       inset-block: auto;
       inset-inline: 0;
-      top: var(--plate-mid);
+      top: var(--node);
       width: auto;
       height: 1px;
     }
 
-    .build-rail {
-      transform-origin: left center;
-      transform: scaleX(var(--rail, 0));
+    .judgment-beam {
+      transform: scaleX(0);
+      transform-origin: left;
     }
 
-    .build-step {
+    .judgment-rail[data-shown="true"] .judgment-beam {
+      transform: scaleX(1);
+    }
+
+    .judgment-steps {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+
+    .judgment-step {
       padding-left: 0;
     }
 
-    .build-step .icon-plate {
+    .judgment-step .icon-plate {
       position: relative;
     }
   }
@@ -815,7 +828,7 @@
     transform: none;
   }
 
-  /* Filaments. The only WebGL surface, mounted only when its band is near. */
+  /* WebGL surfaces mount only when their sections are near. */
   .filaments,
   .filaments canvas {
     position: absolute;
@@ -824,5 +837,23 @@
     height: 100%;
     display: block;
     pointer-events: none;
+  }
+
+  .light-rays,
+  .light-rays canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+  }
+
+  .light-rays {
+    background: radial-gradient(
+      ellipse 62% 92% at 94% -14%,
+      var(--primary-a07),
+      transparent 72%
+    );
   }
 }

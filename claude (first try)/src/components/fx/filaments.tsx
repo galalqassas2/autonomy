@@ -7,9 +7,9 @@ import { cn } from "@/lib/utils"
 
 /*
   Forty filaments drifting across a band, thinner and fainter toward the top.
-  The only WebGL on the page. The renderer is imported when the section comes
-  near rather than at the top of the file, so it stays out of the first load,
-  and the context is dropped again on unmount. Colour is read from --primary,
+  The renderer is imported when the section comes near rather than at the top
+  of the file, so it stays out of the first load, and the context is dropped
+  again on unmount. Colour is read from --primary,
   so it follows the palette rather than repeating it.
 */
 

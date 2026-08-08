@@ -5,12 +5,11 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-hairline bg-canvas">
       <div className="shell py-14 lg:py-16">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.2fr_repeat(4,1fr)]">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.4fr_repeat(2,1fr)]">
           <div className="flex flex-col gap-3">
             <Wordmark className="text-ink" />
             <p className="t-caption max-w-[26ch] text-ink-mute">
-              We build the automations your business runs on. Hosted in Ireland,
-              processed inside the EU.
+              We automate anything your team repeats.
             </p>
           </div>
 
@@ -35,18 +34,10 @@ export function SiteFooter() {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-hairline pt-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-2 border-t border-hairline pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="t-caption text-ink-mute">© 2026 Autonomy.</p>
           <p className="t-caption text-ink-mute">
-            Autonomy. Hosted in Ireland, processed inside the EU.
-          </p>
-
-          <p className="t-caption flex items-center gap-2 text-ink-mute">
-            <span
-              aria-hidden="true"
-              className="size-1.5 rounded-full bg-primary"
-              style={{ boxShadow: "var(--glow-soft)" }}
-            />
-            all systems normal
+            Automations run in Ireland. Never trained on your data.
           </p>
         </div>
       </div>

@@ -151,7 +151,7 @@ const CATEGORY: Record<string, Category> = {
   github: "code",
   gitlab: "code",
   openai: "ai",
-  anthropic: "ai",
+  ollama: "ai",
   "google-gemini": "ai",
   webhooks: "custom",
 }
