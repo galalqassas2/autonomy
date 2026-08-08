@@ -9,7 +9,6 @@ import type { RunSnapshot } from "@/components/canvas/use-flow-run"
 import { useCountUp } from "@/components/fx/count-up"
 import { HoverButton } from "@/components/fx/hover-button"
 import { KineticGridMount } from "@/components/fx/kinetic-grid-mount"
-import { WordCycle } from "@/components/fx/word-cycle"
 import { orderToInvoice, orderToInvoiceLog } from "@/lib/flows"
 import { useMediaQuery, useReducedMotion } from "@/lib/use-media"
 
@@ -17,7 +16,7 @@ const CAPTIONS = [
   "An order arrives from your store.",
   "Stock is checked automatically.",
   "The invoice writes itself.",
-  "Your team is notified. Total: 1.2 seconds.",
+  "Your team is notified.",
 ]
 
 const TOTAL_SECONDS = 1.2
@@ -158,13 +157,6 @@ export function AutomationStage() {
           </div>
         </div>
 
-        <p className="t-body-lg mt-8 text-ink-mute">
-          That is one process. Most teams have a dozen, and yours probably starts
-          with{" "}
-          <WordCycle
-            words={["invoicing", "onboarding", "stock counts", "order updates"]}
-          />
-        </p>
       </div>
     </section>
   )

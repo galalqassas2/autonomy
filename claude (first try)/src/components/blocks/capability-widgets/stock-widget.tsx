@@ -13,49 +13,63 @@ export function StockWidget({
   shown: number
 }) {
   const orderAt = w.rows.length
-  const ceiling = Math.max(...w.rows.map((r) => Math.max(r.on, r.reorder))) * 1.25
 
   return (
     <>
-      <WidgetHead tool="shopify" title="Stock on hand" meta="Against each reorder point" />
+      <WidgetHead tool="shopify" title="Stock check" meta="Compared with each reorder point" />
 
-      <div className="flex flex-1 flex-col gap-4 p-4">
-        {w.rows.map((row, i) => {
-          const low = row.on < row.reorder
-          const on = i < shown
-          return (
-            <Step key={row.sku} at={i} shown={shown}>
-              <div className="flex flex-col gap-2">
-                <div className="flex items-baseline justify-between gap-3">
-                  <span className="truncate text-sm text-ink">{row.sku}</span>
-                  <span
-                    className="tabular shrink-0 text-sm"
-                    style={{ color: low ? AMBER : "var(--ink-mute)" }}
-                  >
-                    {row.on}
-                  </span>
-                </div>
+      <article className="flex flex-1 flex-col gap-4 p-5">
+        <table className="w-full border-collapse text-left">
+          <caption className="sr-only">Current stock compared with reorder points</caption>
+          <thead>
+            <tr className="border-b border-hairline">
+              <th scope="col" className="t-micro pb-2 font-normal text-ink-mute-2">
+                Item
+              </th>
+              <th scope="col" className="t-micro pb-2 text-right font-normal text-ink-mute-2">
+                Stock / minimum
+              </th>
+              <th scope="col" className="t-micro pb-2 text-right font-normal text-ink-mute-2">
+                Status
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {w.rows.map((row, i) => {
+              const low = row.on < row.reorder
+              return (
+                <Step
+                  as="tr"
+                  key={row.sku}
+                  at={i}
+                  shown={shown}
+                  className="border-b border-hairline/70"
+                >
+                  <th scope="row" className="py-3 pr-3 text-sm font-normal text-ink">
+                    {row.sku}
+                  </th>
+                  <td className="tabular py-3 text-right text-sm text-ink-mute">
+                    <data value={row.on}>{row.on}</data>
+                    <span className="text-ink-faint"> / {row.reorder}</span>
+                  </td>
+                  <td className="py-3 pl-3 text-right">
+                    <span
+                      className="t-micro inline-flex rounded-full px-2 py-1"
+                      style={{
+                        color: low ? AMBER : "var(--primary)",
+                        background: low ? "var(--amber-a12)" : "var(--primary-a12)",
+                      }}
+                    >
+                      {low ? "Reorder" : "Enough"}
+                    </span>
+                  </td>
+                </Step>
+              )
+            })}
+          </tbody>
+        </table>
 
-                <div className="relative h-1.5 rounded-full bg-white/[0.06]">
-                  <span
-                    className="absolute inset-y-0 left-0 rounded-full transition-[width] duration-700 ease-out"
-                    style={{
-                      width: on ? `${(row.on / ceiling) * 100}%` : "0%",
-                      background: low ? AMBER : "var(--primary)",
-                    }}
-                  />
-                  {/* The reorder point, so the bar means something. */}
-                  <span
-                    className="absolute top-[-3px] bottom-[-3px] w-px bg-white/35"
-                    style={{ left: `${(row.reorder / ceiling) * 100}%` }}
-                  />
-                </div>
-              </div>
-            </Step>
-          )
-        })}
-
-        <Step at={orderAt} shown={shown} className="mt-auto">
+        <Step as="footer" at={orderAt} shown={shown} className="mt-auto">
           <div
             className="flex items-start gap-2.5 rounded-lg border px-3 py-2.5"
             style={{
@@ -70,7 +84,7 @@ export function StockWidget({
             </span>
           </div>
         </Step>
-      </div>
+      </article>
     </>
   )
 }

@@ -13,6 +13,7 @@ import {
   RecordWidget,
   ReportWidget,
   StockWidget,
+  TicketWidget,
   widgetSteps,
   widgetThinksAt,
 } from "./capability-widgets"
@@ -26,9 +27,9 @@ export function CapabilityStage({ item }: { item: Capability }) {
   )
 
   return (
-    <div
-      aria-hidden="true"
-      className="relative flex h-[400px] w-full flex-col overflow-hidden rounded-xl border border-hairline bg-canvas-night shadow-[var(--elev-3)] sm:h-[420px]"
+    <section
+      aria-label={`${item.label} example`}
+      className="relative flex h-[440px] w-full flex-col overflow-hidden rounded-xl border border-hairline bg-canvas-night shadow-[var(--elev-3)] sm:h-[460px]"
     >
       {w.kind === "chat" ? (
         <ChatWidget w={w} shown={shown} thinking={thinking} reduce={reduce} />
@@ -38,6 +39,8 @@ export function CapabilityStage({ item }: { item: Capability }) {
         <ExtractWidget w={w} shown={shown} />
       ) : w.kind === "record" ? (
         <RecordWidget w={w} shown={shown} />
+      ) : w.kind === "ticket" ? (
+        <TicketWidget w={w} shown={shown} />
       ) : w.kind === "stock" ? (
         <StockWidget w={w} shown={shown} />
       ) : w.kind === "checklist" ? (
@@ -55,9 +58,9 @@ export function CapabilityStage({ item }: { item: Capability }) {
 
       {w.kind !== "chat" ? (
         <span className="t-micro absolute top-3 right-3 rounded-full bg-white/[0.06] px-2 py-0.5 text-ink-mute-2">
-          Sample
+          Example
         </span>
       ) : null}
-    </div>
+    </section>
   )
 }

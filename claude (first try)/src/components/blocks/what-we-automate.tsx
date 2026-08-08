@@ -1,83 +1,95 @@
 "use client"
 
 import * as React from "react"
+import { ArrowDownIcon, ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react/dist/ssr"
 import { animate } from "animejs"
 
 import { PegtopLoader } from "@/components/fx/pegtop-loader"
-import { Icon3D } from "@/components/site/icon-3d"
-import type { Icon3DName } from "@/components/site/icon-3d-shapes"
-import { CAPABILITIES, type Capability } from "@/lib/capabilities"
+import { CAPABILITIES } from "@/lib/capabilities"
+import { TOOLS } from "@/lib/tools"
 import { useReducedMotion } from "@/lib/use-media"
 import { cn } from "@/lib/utils"
 
 import { CapabilityStage } from "./capability-stage"
 import { ToolMark } from "./capability-widgets/tool-mark"
 
-/*
-  One question, asked once: pick a team, then pick a job, and watch it run.
-  Departments and jobs used to be two sections with two controls, two
-  headings and two sets of demo components showing the same four scenarios.
-*/
-
 /* Long enough to read as the system picking the job up, short enough to skip. */
 const ARM_MS = 420
 
-const TEAMS: { name: string; icon: Icon3DName }[] = [
-  { name: "Finance", icon: "receipt" },
-  { name: "Sales", icon: "funnel" },
-  { name: "Operations", icon: "crates" },
-  { name: "Support", icon: "bubbles" },
-  { name: "HR", icon: "badge" },
-  { name: "Management", icon: "gauge" },
-]
+const TABLET_FLOW_POSITIONS = [
+  "lg:col-start-1 lg:row-start-1",
+  "lg:col-start-3 lg:row-start-1",
+  "lg:col-start-3 lg:row-start-3",
+  "lg:col-start-1 lg:row-start-3",
+] as const
 
-const jobsFor = (team: string) => CAPABILITIES.filter((job) => job.team === team)
+const TABLET_CONNECTORS = [
+  {
+    icon: ArrowRightIcon,
+    className: "left-full top-1/2 h-11 w-8 -translate-y-1/2",
+  },
+  {
+    icon: ArrowDownIcon,
+    className: "left-1/2 top-full h-6 w-11 -translate-x-1/2",
+  },
+  {
+    icon: ArrowLeftIcon,
+    className: "right-full top-1/2 h-11 w-8 -translate-y-1/2",
+  },
+] as const
 
-const DEFAULT_TEAM = TEAMS[0].name
-const DEFAULT_JOB = jobsFor(DEFAULT_TEAM)[0].id
+const FEATURED_AUTOMATIONS = [
+  {
+    team: "Finance",
+    jobId: "quote-to-cash",
+    title: "Send every invoice when the deal closes.",
+    summary:
+      "Pipedrive marks the deal won. Xero creates the invoice. Stripe sends the payment link.",
+  },
+  {
+    team: "Sales",
+    jobId: "lead",
+    title: "Qualify and route every new lead.",
+    summary:
+      "Typeform captures the lead. Ollama qualifies it. HubSpot assigns it. Slack alerts the rep.",
+  },
+  {
+    team: "Operations",
+    jobId: "reorder",
+    title: "Reorder stock before it runs out.",
+    summary:
+      "Shopify detects low stock. Sheets checks the threshold. Outlook prepares the purchase order.",
+  },
+  {
+    team: "Support",
+    jobId: "triage",
+    title: "Prioritize urgent tickets and prepare the reply.",
+    summary:
+      "Zendesk receives the ticket. Ollama identifies urgency and drafts the reply. Slack alerts the right team.",
+  },
+  {
+    team: "HR",
+    jobId: "onboard",
+    title: "Start onboarding when the offer is signed.",
+    summary:
+      "The signed offer creates the accounts, access, and first-week schedule.",
+  },
+] as const
 
-function JobCard({
-  job,
-  active,
-  onSelect,
-}: {
-  job: Capability
-  active: boolean
-  onSelect: () => void
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onSelect}
-      aria-pressed={active}
-      className={cn(
-        "flex w-full items-center gap-3 rounded-lg border px-3.5 py-3 text-left transition-all duration-200",
-        active
-          ? "border-primary/50 bg-primary/[0.07]"
-          : "border-hairline bg-white/[0.02] hover:border-hairline-strong",
-      )}
-      style={active ? { boxShadow: "var(--glow-soft)" } : undefined}
-    >
-      <span className="min-w-0 flex-1 truncate text-sm font-medium text-ink">
-        {job.label}
-      </span>
-      <span className="flex shrink-0 items-center -space-x-1.5">
-        {job.tools.map((slug) => (
-          <span
-            key={slug}
-            className="grid size-7 place-items-center rounded-full border border-hairline bg-canvas-night"
-          >
-            <ToolMark slug={slug} className="size-4" />
-          </span>
-        ))}
-      </span>
-    </button>
-  )
-}
+type Team = (typeof FEATURED_AUTOMATIONS)[number]["team"]
+
+const TOOL_NAMES = new Map(TOOLS.map((tool) => [tool.slug, tool.name]))
+
+const AUTOMATIONS = FEATURED_AUTOMATIONS.map((automation) => {
+  const job = CAPABILITIES.find((item) => item.id === automation.jobId)
+  if (!job) throw new Error(`Missing featured automation: ${automation.jobId}`)
+  return { ...automation, job }
+})
+
+const DEFAULT_TEAM = FEATURED_AUTOMATIONS[0].team
 
 export function WhatWeAutomate() {
-  const [team, setTeam] = React.useState(DEFAULT_TEAM)
-  const [jobId, setJobId] = React.useState(DEFAULT_JOB)
+  const [team, setTeam] = React.useState<Team>(DEFAULT_TEAM)
   const [arming, setArming] = React.useState(false)
   const reduce = useReducedMotion()
 
@@ -85,8 +97,7 @@ export function WhatWeAutomate() {
   const pillRef = React.useRef<HTMLSpanElement>(null)
   const tabs = React.useRef(new Map<string, HTMLButtonElement>())
 
-  const jobs = React.useMemo(() => jobsFor(team), [team])
-  const job = jobs.find((item) => item.id === jobId) ?? jobs[0]
+  const automation = AUTOMATIONS.find((item) => item.team === team) ?? AUTOMATIONS[0]
 
   /* The pill measures the live tab, so it survives font and width changes. */
   React.useLayoutEffect(() => {
@@ -120,34 +131,41 @@ export function WhatWeAutomate() {
     setArming(true)
     const timer = window.setTimeout(() => setArming(false), ARM_MS)
     return () => window.clearTimeout(timer)
-  }, [job.id, reduce])
+  }, [automation.job.id, reduce])
 
-  const selectTeam = (name: string) => {
+  const selectTeam = (name: Team) => {
     if (name === team) return
     setTeam(name)
-    setJobId(jobsFor(name)[0].id)
   }
 
   const onKeyDown = (event: React.KeyboardEvent) => {
-    const step = event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0
-    if (!step) return
+    const current = AUTOMATIONS.findIndex((item) => item.team === team)
+    const nextIndex =
+      event.key === "Home"
+        ? 0
+        : event.key === "End"
+          ? AUTOMATIONS.length - 1
+          : event.key === "ArrowRight"
+            ? (current + 1) % AUTOMATIONS.length
+            : event.key === "ArrowLeft"
+              ? (current - 1 + AUTOMATIONS.length) % AUTOMATIONS.length
+              : -1
+    if (nextIndex < 0) return
     event.preventDefault()
-    const index = TEAMS.findIndex((item) => item.name === team)
-    selectTeam(TEAMS[(index + step + TEAMS.length) % TEAMS.length].name)
+    const nextTeam = AUTOMATIONS[nextIndex].team
+    selectTeam(nextTeam)
+    requestAnimationFrame(() => tabs.current.get(nextTeam)?.focus())
   }
 
   return (
     <section id="what-we-automate" className="section-y bg-canvas-soft">
       <div className="shell">
-        <div className="mx-auto max-w-[62ch] text-center">
+        <div className="max-w-[64ch]">
           <h2 className="t-display-xl text-ink">
-            Pick a job your team does every day.
-            <br />
-            <span className="glow-text text-primary">Watch it handled.</span>
+            Whatever automation, <span className="text-primary">we finish it.</span>
           </h2>
           <p className="t-body-lg mt-5 text-ink-mute">
-            Choose a team, then a job. Each one runs end to end in the tools you
-            already use.
+            See how one trigger carries a real job from start to finish.
           </p>
         </div>
 
@@ -156,7 +174,7 @@ export function WhatWeAutomate() {
           role="tablist"
           aria-label="Teams"
           onKeyDown={onKeyDown}
-          className="relative mt-10 flex snap-x snap-mandatory gap-1 overflow-x-auto rounded-lg border border-hairline bg-white/[0.02] p-1.5 lg:overflow-visible"
+          className="relative mt-12 flex snap-x snap-mandatory gap-1 overflow-x-auto rounded-lg border border-hairline bg-white/[0.02] p-1.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:overflow-visible"
         >
           <span
             ref={pillRef}
@@ -165,52 +183,117 @@ export function WhatWeAutomate() {
             style={{ boxShadow: "var(--glow-soft)" }}
           />
 
-          {TEAMS.map(({ name, icon }) => {
-            const on = name === team
+          {AUTOMATIONS.map((item) => {
+            const on = item.team === team
+            const tabId = `automation-tab-${item.team.toLowerCase()}`
             return (
               <button
-                key={name}
+                key={item.team}
                 ref={(el) => {
-                  if (el) tabs.current.set(name, el)
-                  else tabs.current.delete(name)
+                  if (el) tabs.current.set(item.team, el)
+                  else tabs.current.delete(item.team)
                 }}
+                id={tabId}
                 role="tab"
                 type="button"
                 aria-selected={on}
-                aria-controls="job-panel"
+                aria-controls="automation-panel"
                 tabIndex={on ? 0 : -1}
-                onClick={() => selectTeam(name)}
+                onClick={() => selectTeam(item.team)}
                 className={cn(
-                  "relative z-10 flex shrink-0 snap-start items-center gap-2.5 rounded-md px-4 py-2.5 transition-colors duration-200",
+                  "relative z-10 flex shrink-0 snap-start items-center rounded-md px-5 py-2.5 transition-colors duration-200",
                   on ? "text-ink" : "text-ink-mute hover:text-ink",
                 )}
               >
-                <Icon3D name={icon} size={26} />
-                <span className="text-sm font-medium">{name}</span>
+                <span className="text-sm font-medium">{item.team}</span>
               </button>
             )
           })}
         </div>
 
         <div
-          id="job-panel"
+          id="automation-panel"
           role="tabpanel"
-          className="mt-8 grid items-start gap-8 lg:grid-cols-[1fr_380px] lg:gap-12"
+          aria-labelledby={`automation-tab-${team.toLowerCase()}`}
+          className="mt-10 grid items-center gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(480px,1.1fr)] lg:gap-12 xl:grid-cols-[minmax(0,1fr)_minmax(500px,0.86fr)] xl:gap-16"
         >
-          <div className="flex flex-col gap-2.5">
-            {jobs.map((item) => (
-              <JobCard
-                key={item.id}
-                job={item}
-                active={item.id === job.id}
-                onSelect={() => setJobId(item.id)}
-              />
-            ))}
-          </div>
+          <article
+            key={automation.job.id}
+            className="max-w-[640px]"
+            style={{ animation: reduce ? undefined : "caption-in 320ms var(--ease-out) both" }}
+          >
+            <h3 className="t-display-md text-ink">{automation.title}</h3>
+            <p className="t-body-md mt-4 max-w-[48ch] text-ink-mute">
+              {automation.summary}
+            </p>
 
-          <div className="mx-auto w-full max-w-[380px]">
+            <ol
+              aria-label="Tools in this automation"
+              className="mt-7 grid w-full grid-cols-2 gap-2 sm:flex sm:max-w-[760px] sm:items-center sm:gap-2 lg:grid lg:max-w-[520px] lg:grid-cols-[minmax(0,1fr)_2rem_minmax(0,1fr)] lg:grid-rows-[auto_1.5rem_auto] lg:gap-0 xl:flex xl:max-w-[760px] xl:items-center xl:gap-2"
+            >
+              {automation.job.tools.map((slug, index) => {
+                const tabletConnector = TABLET_CONNECTORS[index]
+                const TabletConnectorIcon = tabletConnector?.icon
+
+                return (
+                  <li
+                    key={slug}
+                    className={cn(
+                      "relative min-w-0 sm:flex sm:flex-auto sm:items-center sm:gap-2 lg:block xl:flex",
+                      TABLET_FLOW_POSITIONS[index],
+                      automation.job.tools.length === 3 &&
+                        index === 2 &&
+                        "col-span-2 lg:col-span-1",
+                    )}
+                  >
+                    <span className="flex min-h-11 w-full min-w-0 items-center gap-2 overflow-hidden rounded-md border border-hairline bg-white/[0.03] px-2.5 py-2.5 sm:px-3">
+                      <span className="t-micro tabular shrink-0 text-ink-faint sm:hidden">
+                        {index + 1}
+                      </span>
+                      <ToolMark slug={slug} className="size-5 shrink-0" />
+                      <span
+                        title={TOOL_NAMES.get(slug) ?? slug}
+                        className="truncate text-xs font-medium text-ink-secondary sm:text-sm"
+                      >
+                        {TOOL_NAMES.get(slug) ?? slug}
+                      </span>
+                    </span>
+
+                    {index < automation.job.tools.length - 1 ? (
+                      <span
+                        aria-hidden="true"
+                        className="hidden shrink-0 place-items-center sm:grid lg:hidden xl:grid"
+                      >
+                        <ArrowRightIcon size={14} className="text-ink-faint" />
+                      </span>
+                    ) : null}
+
+                    {index < automation.job.tools.length - 1 &&
+                    tabletConnector &&
+                    TabletConnectorIcon ? (
+                      <span
+                        aria-hidden="true"
+                        className={cn(
+                          "pointer-events-none absolute hidden place-items-center text-ink-faint lg:grid xl:hidden",
+                          tabletConnector.className,
+                        )}
+                      >
+                        <TabletConnectorIcon size={14} />
+                      </span>
+                    ) : null}
+                  </li>
+                )
+              })}
+            </ol>
+
+            <p className="mt-7 text-sm text-ink-mute">
+              <span className="font-medium text-primary">1,000+</span> tools supported.
+            </p>
+          </article>
+
+          <div className="mx-auto w-full max-w-[560px]">
             <div className="relative">
-              <CapabilityStage key={job.id} item={job} />
+              <CapabilityStage key={automation.job.id} item={automation.job} />
               {arming ? (
                 <span
                   className="absolute inset-0 grid place-items-center rounded-xl bg-canvas-night"
@@ -220,7 +303,6 @@ export function WhatWeAutomate() {
                 </span>
               ) : null}
             </div>
-            <p className="t-caption mt-4 text-center text-ink-mute">{job.impact}</p>
           </div>
         </div>
       </div>

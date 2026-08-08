@@ -36,6 +36,15 @@ export type Widget =
       fields: { label: string; value: string }[]
       handoff: { tool: string; text: string }
     }
+  /* A support request, its classification and the reply prepared for approval. */
+  | {
+      kind: "ticket"
+      header: { tool: string; title: string; meta: string }
+      message: string
+      fields: { label: string; value: string }[]
+      draft: string
+      handoff: { tool: string; text: string }
+    }
   /* Stock levels crossing a reorder point, then the order that follows. */
   | {
       kind: "stock"

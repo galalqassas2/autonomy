@@ -1,6 +1,6 @@
 import type { Widget } from "@/lib/capabilities"
 
-export const AMBER = "#e0b05a"
+export const AMBER = "var(--amber)"
 
 /* How many reveals each widget has, and where the model does the thinking. */
 export function widgetSteps(w: Widget) {
@@ -13,6 +13,8 @@ export function widgetSteps(w: Widget) {
       return 1 + w.fields.length + 1
     case "record":
       return 2 + w.fields.length + 1
+    case "ticket":
+      return 1 + w.fields.length + 2
     case "stock":
       return w.rows.length + 1
     case "checklist":
@@ -24,6 +26,6 @@ export function widgetSteps(w: Widget) {
 
 export function widgetThinksAt(w: Widget, i: number) {
   if (w.kind === "chat") return w.turns[i].kind !== "them"
-  if (w.kind === "extract" || w.kind === "record") return i === 1
+  if (w.kind === "extract" || w.kind === "record" || w.kind === "ticket") return i === 1
   return false
 }

@@ -19,40 +19,48 @@ export function RecordWidget({
     <>
       <WidgetHead tool={w.header.tool} title={w.header.title} meta={w.header.meta} />
 
-      <div className="flex flex-1 flex-col gap-3 p-4">
-        <Step at={chipsAt} shown={shown}>
-          <div className="flex flex-wrap gap-2">
+      <article className="flex flex-1 flex-col gap-4 p-5">
+        <Step as="section" at={chipsAt} shown={shown}>
+          <h4 className="sr-only">Lead qualification</h4>
+          <dl className="grid grid-cols-2 gap-3">
             {w.chips.map((chip) => (
-              <span
+              <div
                 key={chip.label}
-                className="t-micro flex items-center gap-1.5 rounded-full px-2.5 py-1.5"
+                className="rounded-lg border border-hairline px-3 py-2.5"
                 style={{
                   background: chip.hot
                     ? "var(--primary-a12)"
                     : "var(--white-a05)",
-                  color: chip.hot ? "var(--primary)" : "var(--ink-mute)",
                 }}
               >
-                {chip.label}
-                <span className="font-medium">{chip.value}</span>
-              </span>
+                <dt className="t-micro text-ink-mute-2">{chip.label}</dt>
+                <dd
+                  className="mt-0.5 text-sm font-medium"
+                  style={{ color: chip.hot ? "var(--primary)" : "var(--ink)" }}
+                >
+                  {chip.value}
+                </dd>
+              </div>
             ))}
-          </div>
+          </dl>
         </Step>
 
         <dl className="flex flex-col">
           {w.fields.map((field, i) => (
-            <Step key={field.label} at={fieldsAt + i} shown={shown}>
-              <div className="flex items-baseline justify-between gap-4 border-b border-hairline/70 py-2.5">
-                <dt className="t-micro shrink-0 text-ink-mute-2">{field.label}</dt>
-                <dd className="truncate text-sm text-ink">{field.value}</dd>
-              </div>
+            <Step
+              key={field.label}
+              at={fieldsAt + i}
+              shown={shown}
+              className="flex items-baseline justify-between gap-4 border-b border-hairline/70 py-2.5"
+            >
+              <dt className="t-micro shrink-0 text-ink-mute-2">{field.label}</dt>
+              <dd className="truncate text-sm text-ink">{field.value}</dd>
             </Step>
           ))}
         </dl>
 
-        <Step at={handoffAt} shown={shown} className="mt-auto">
-          <div
+        <Step as="footer" at={handoffAt} shown={shown} className="mt-auto">
+          <p
             className="flex items-center gap-2.5 rounded-lg border px-3 py-2.5"
             style={{
               borderColor: "var(--primary-a35)",
@@ -61,9 +69,9 @@ export function RecordWidget({
           >
             <ToolMark slug={w.handoff.tool} className="size-5 shrink-0" />
             <span className="text-sm text-ink">{w.handoff.text}</span>
-          </div>
+          </p>
         </Step>
-      </div>
+      </article>
     </>
   )
 }
