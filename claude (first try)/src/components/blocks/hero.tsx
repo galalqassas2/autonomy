@@ -24,7 +24,12 @@ export function Hero() {
     const canvas = pick(".hero-canvas")
     const entering = [...sub, ...ctas, ...canvas]
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce), (max-width: 639px)")
+        .matches
+    ) {
+      return
+    }
 
     utils.set(entering, { opacity: 0 })
 
@@ -92,18 +97,13 @@ export function Hero() {
               </span>
             </h1>
 
-            <a
-              href="#what-we-connect"
-              className="hero-sub group mt-6 inline-flex items-center gap-2 t-heading-md text-ink-mute transition-colors hover:text-ink"
-            >
-              <span className="font-semibold text-primary">1,000+</span>
-              tools supported
-              <ArrowRightIcon size={14} weight="bold" className="text-primary" />
-            </a>
+            <p className="hero-sub t-heading-md mt-6 text-ink-mute">
+              <span className="font-semibold text-primary">1,000+</span> tools supported
+            </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <a href="#start" className="hero-cta btn btn-primary btn-cta">
-                Get started
+                Find your first automation
                 <ArrowRightIcon size={16} weight="bold" className="arrow" />
               </a>
             </div>

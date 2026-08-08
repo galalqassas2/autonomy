@@ -4,17 +4,14 @@ const items = [
   {
     headline: "Keep your tools.",
     sub: "We connect what you already use.",
-    href: "#what-we-connect",
   },
   {
-    headline: "Go live in 2–6 weeks.",
+    headline: "Go live in 2-6 weeks.",
     sub: "From first map to working automation.",
-    href: "#the-build",
   },
   {
     headline: "EU hosted.",
     sub: "Your automations run in Ireland.",
-    href: "#your-data",
   },
 ]
 
@@ -30,15 +27,12 @@ export function TrustStrip() {
               index={i}
               className="border-t border-hairline py-5 first:border-t-0 md:border-t-0 md:px-8 md:first:pl-0 md:last:pr-0"
             >
-              <a
-                href={item.href}
-                className="group block rounded-sm py-1 outline-none focus-visible:ring-2 focus-visible:ring-primary"
-              >
-                <span className="block text-base leading-snug font-medium text-ink transition-colors group-hover:text-primary">
+              <div className="py-1">
+                <span className="block text-base leading-snug font-medium text-ink">
                   {item.headline}
                 </span>
                 <span className="t-caption mt-1 block text-ink-mute">{item.sub}</span>
-              </a>
+              </div>
             </Reveal>
           ))}
         </ul>

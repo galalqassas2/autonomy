@@ -13,8 +13,8 @@ const PROMISES = [
     body: "Your automations are built and run on servers in Ireland, inside the EU, under GDPR.",
   },
   {
-    title: "AI processing stays in the EU",
-    body: "When an automation needs to read language, that happens inside the EU. Your data does not leave it.",
+    title: "Never trained on your data",
+    body: "When an automation reads language, nothing it sends is used to train a model. We can run it on your own server.",
   },
   {
     title: "You own what we build",

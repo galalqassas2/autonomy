@@ -19,10 +19,10 @@ const HOPS = [
 ]
 
 const FACTS = [
-  { k: "Ireland", v: "Where your automations run and your data is stored" },
-  { k: "EU only", v: "AI processing stays inside the EU" },
-  { k: "Scoped access", v: "Only what the automation needs, only while it needs it" },
-  { k: "Yours", v: "Export or delete at any time" },
+  { k: "Hosted in Ireland", v: "Your automation server and stored data" },
+  { k: "Never training data", v: "Nothing you send is used to train a model" },
+  { k: "Scoped access", v: "Only the systems and permissions each workflow needs" },
+  { k: "Full ownership", v: "The automation and its documentation belong to you" },
 ]
 
 export function DataSovereignty() {
@@ -52,19 +52,17 @@ export function DataSovereignty() {
       className="relative overflow-hidden py-20 lg:py-28"
       style={{ background: "var(--canvas-night)" }}
     >
-      <Filaments className="opacity-40" />
+      <Filaments className="opacity-30" />
 
       <div className="shell relative">
         <div className="grid gap-14 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-20">
           <div>
             <h2 className="t-display-xl max-w-[17ch] text-ink">
-              Your automations run in Ireland.
-              <br />
-              <span className="glow-text text-primary">Your data stays in the EU.</span>
+              Your data <span className="glow-text text-primary">stays yours.</span>
             </h2>
             <p className="t-body-lg mt-5 max-w-[46ch] text-ink-mute">
-              It leaves your systems, it does the work, it comes back. That is the
-              whole journey.
+              Your automations run in Ireland, and nothing you send is used to
+              train a model.
             </p>
 
             <dl className="mt-10 grid gap-x-8 gap-y-5 sm:grid-cols-2">
