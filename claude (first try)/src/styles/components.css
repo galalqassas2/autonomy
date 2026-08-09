@@ -800,45 +800,7 @@
     }
   }
 
-  /* The data loop and its hops, both switched by [data-shown] on the band. */
-  .sovereignty-path {
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
-    transition: stroke-dashoffset 1600ms ease-in-out;
-  }
-
-  .sovereignty-hop {
-    opacity: 0;
-    transform: translateY(18px) scale(0.94);
-    transition:
-      opacity var(--dur-slow) var(--ease-out) var(--hop-delay),
-      transform var(--dur-slow) var(--ease-out) var(--hop-delay);
-  }
-
-  .sovereignty-hop:nth-child(2) {
-    box-shadow: var(--glow-edge);
-  }
-
-  [data-shown="true"] .sovereignty-path {
-    stroke-dashoffset: 0;
-  }
-
-  [data-shown="true"] .sovereignty-hop {
-    opacity: 1;
-    transform: none;
-  }
-
   /* WebGL surfaces mount only when their sections are near. */
-  .filaments,
-  .filaments canvas {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-    pointer-events: none;
-  }
-
   .light-rays,
   .light-rays canvas {
     position: absolute;

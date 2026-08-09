@@ -69,8 +69,8 @@ export function TheJudgment() {
         </div>
 
         <p className="t-body-md mt-14 border-t border-hairline pt-6 text-ink-mute">
-          <span className="font-medium text-primary">Your data never trains an AI.</span>{" "}
-          You choose which one we use.
+          Your data stays yours.{" "}
+          <span className="font-medium text-primary">The automation does too.</span>
         </p>
       </div>
     </section>

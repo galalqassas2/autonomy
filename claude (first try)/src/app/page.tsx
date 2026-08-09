@@ -1,7 +1,6 @@
 import { AutomationStage } from "@/components/blocks/automation-stage"
 import { ClosingCta } from "@/components/blocks/closing-cta"
 import { CostOfRepetition } from "@/components/blocks/cost-of-repetition"
-import { DataSovereignty } from "@/components/blocks/data-sovereignty"
 import { Faq } from "@/components/blocks/faq"
 import { Hero } from "@/components/blocks/hero"
 import { TheJudgment } from "@/components/blocks/the-judgment"
@@ -23,7 +22,6 @@ export default function Page() {
         <AutomationStage />
         <WhatWeAutomate />
         <TheJudgment />
-        <DataSovereignty />
         <Faq />
         <ClosingCta />
       </main>

@@ -27,6 +27,10 @@ const questions = [
     a: "We monitor, maintain, and improve what we build under an agreed support plan.",
   },
   {
+    q: "Who owns the automation?",
+    a: "You do. The workflows, credentials, and documentation stay with you. If we stop working together, it keeps running.",
+  },
+  {
     q: "How is our data handled?",
     a: "Automations run on servers in Ireland. Nothing you send is used to train a model, and access is limited to what each workflow needs.",
   },

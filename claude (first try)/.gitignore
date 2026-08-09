@@ -41,3 +41,7 @@ vercel.json
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# qa testing
+qa-screenshots/
+
