@@ -703,100 +703,85 @@
     animation: mote-drift var(--time) linear var(--delay) infinite;
   }
 
-  /* Judgment rail. Runs down the side on mobile, across the row from 768px. */
-  .judgment-rail {
-    --node: 28px; /* Half the plate, so the line crosses its centre. */
-    position: relative;
-    margin-top: 48px;
-  }
-
-  .judgment-track,
-  .judgment-beam {
-    position: absolute;
-    inset-block: 0;
-    left: var(--node);
-    width: 1px;
-  }
-
-  .judgment-track {
-    background: var(--hairline);
-  }
-
-  /* The beam draws in once, and each step lights as it passes. */
-  .judgment-beam {
-    background: var(--primary);
-    box-shadow: var(--glow-soft);
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: transform 1200ms var(--ease-out);
-  }
-
-  .judgment-rail[data-shown="true"] .judgment-beam {
-    transform: scaleY(1);
-  }
-
-  .judgment-steps {
+  /* A compact outcome list, adapted from React Bits Animated List. */
+  .judgment-layout {
     display: grid;
+    align-items: center;
     gap: 40px;
   }
 
-  .judgment-step {
-    position: relative;
-    padding-left: 76px;
-    opacity: 0.4;
-    transition: opacity var(--dur-slow) var(--ease-out) var(--step-delay, 0ms);
+  .judgment-list {
+    border-block: 1px solid var(--hairline);
   }
 
-  .judgment-rail[data-shown="true"] .judgment-step {
-    opacity: 1;
+  .judgment-item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 140px;
+    align-items: center;
+    gap: 16px;
+    padding-block: 20px;
   }
 
-  /* Opaque, so the rail reads as passing behind the plate. */
-  .judgment-step .icon-plate {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: var(--canvas);
-    transition:
-      border-color var(--dur-base) var(--ease-out) var(--step-delay, 0ms),
-      box-shadow var(--dur-base) var(--ease-out) var(--step-delay, 0ms);
+  .judgment-item + .judgment-item {
+    border-top: 1px solid var(--hairline);
   }
 
-  .judgment-rail[data-shown="true"] .icon-plate {
-    border-color: var(--primary-a35);
-    box-shadow: var(--glow-soft);
+  .judgment-trigger {
+    color: var(--ink-mute);
   }
 
-  @media (min-width: 768px) {
-    .judgment-track,
-    .judgment-beam {
-      inset-block: auto;
-      inset-inline: 0;
-      top: var(--node);
-      width: auto;
-      height: 1px;
+  .judgment-arrow {
+    display: none;
+    color: var(--ink-faint);
+  }
+
+  .judgment-result {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    color: var(--ink);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .judgment-result svg {
+    flex: none;
+    color: var(--primary);
+  }
+
+  @media (max-width: 359px) {
+    .judgment-item {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      padding-block: 16px;
     }
 
-    .judgment-beam {
-      transform: scaleX(0);
-      transform-origin: left;
+    .judgment-result {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (min-width: 640px) {
+    .judgment-item {
+      grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr);
+      gap: 20px;
+      padding-block: 22px;
     }
 
-    .judgment-rail[data-shown="true"] .judgment-beam {
-      transform: scaleX(1);
+    .judgment-arrow {
+      display: block;
     }
 
-    .judgment-steps {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 32px;
+    .judgment-result {
+      justify-content: flex-start;
     }
+  }
 
-    .judgment-step {
-      padding-left: 0;
-    }
-
-    .judgment-step .icon-plate {
-      position: relative;
+  @media (min-width: 1100px) {
+    .judgment-layout {
+      grid-template-columns: minmax(0, 0.8fr) minmax(560px, 1.2fr);
+      gap: clamp(64px, 7vw, 96px);
     }
   }
 
