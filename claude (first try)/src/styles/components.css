@@ -1,4 +1,22 @@
 @layer components {
+  /*
+    Scope for content sitting directly on a navy "island" (dark card,
+    canvas frame, modal, drawer). The base --ink-* tokens are tuned for
+    the light page track, so anything painting its own
+    --canvas-night/-night-2/-lift background needs this class too, or
+    muted text renders as navy-on-navy.
+  */
+  .dark-scope {
+    --ink: var(--on-dark);
+    --ink-secondary: rgba(244, 241, 232, 0.82);
+    --ink-mute: rgba(244, 241, 232, 0.65);
+    --ink-mute-2: rgba(244, 241, 232, 0.48);
+    --ink-faint: rgba(244, 241, 232, 0.32);
+    --hairline: rgba(255, 255, 255, 0.1);
+    --hairline-strong: rgba(255, 255, 255, 0.16);
+    color: var(--on-dark);
+  }
+
   /* Layout primitives */
   .shell {
     width: 100%;
@@ -29,24 +47,25 @@
     }
   }
 
-  /* Buttons. 6px radius everywhere, never a pill. */
+  /* Buttons. Fully pill-shaped, per the Flexi Boost reference. */
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    height: 40px;
-    padding-inline: 18px;
-    border-radius: 6px;
+    gap: 9px;
+    height: 44px;
+    padding-inline: 26px;
+    border-radius: 999px;
     font-size: 0.875rem;
-    font-weight: 500;
+    font-weight: 700;
     line-height: 1;
     white-space: nowrap;
     transition:
       transform var(--dur-fast) var(--ease-out),
       box-shadow var(--dur-fast) var(--ease-out),
       background-color var(--dur-fast) var(--ease-out),
-      border-color var(--dur-fast) var(--ease-out);
+      border-color var(--dur-fast) var(--ease-out),
+      gap var(--dur-fast) var(--ease-out);
   }
 
   .btn:active {
@@ -60,7 +79,8 @@
 
   .btn-primary:hover {
     background: var(--primary-soft);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    gap: 13px;
     box-shadow: var(--glow-soft);
   }
 
@@ -70,22 +90,32 @@
   }
 
   .btn-secondary {
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--canvas-soft);
     color: var(--ink);
-    border: 1px solid var(--hairline-strong);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    border: 1.5px solid var(--hairline-strong);
   }
 
   .btn-secondary:hover {
-    border-color: rgba(62, 207, 142, 0.5);
-    background: rgba(255, 255, 255, 0.07);
-    transform: translateY(-1px);
+    border-color: var(--primary-a55);
+    background: var(--primary-a07);
+    transform: translateY(-2px);
   }
 
   .btn-secondary:active {
     transform: scale(0.98);
     box-shadow: none;
+  }
+
+  /* Filled navy, for a CTA that needs to read as the "dark" option next
+     to a gold primary (matches the reference's navy secondary button). */
+  .btn-navy {
+    background: var(--canvas-night);
+    color: var(--on-dark);
+  }
+
+  .btn-navy:hover {
+    background: var(--canvas-night-2);
+    transform: translateY(-2px);
   }
 
   .btn-cta {
@@ -101,39 +131,38 @@
     transform: translateX(3px);
   }
 
-  /* Cards and chrome */
+  /* Cards and chrome. Light cards with a navy-tinted border and shadow. */
   .card-light {
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.035),
-      rgba(255, 255, 255, 0.012)
-    );
+    background: var(--canvas-soft);
     border: 1px solid var(--hairline);
-    border-radius: 12px;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(5, 18, 41, 0.08);
     transition:
       border-color var(--dur-base) var(--ease-out),
-      background var(--dur-base) var(--ease-out);
+      box-shadow var(--dur-base) var(--ease-out),
+      transform var(--dur-base) var(--ease-out);
   }
 
   .card-light:hover {
-    border-color: var(--hairline-strong);
+    border-color: var(--primary-a35);
+    box-shadow: 0 20px 44px rgba(5, 18, 41, 0.1);
+    transform: translateY(-4px);
   }
 
-  /* Clearer glass. One inner light line, one blur, one deep shadow. */
+  /* Clearer glass. A light frosted panel with a navy-tinted shadow. */
   .glass {
-    background: rgba(22, 24, 26, 0.55);
-    backdrop-filter: blur(28px) saturate(200%);
-    -webkit-backdrop-filter: blur(28px) saturate(200%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.68);
+    backdrop-filter: blur(28px) saturate(160%);
+    -webkit-backdrop-filter: blur(28px) saturate(160%);
+    border: 1px solid rgba(5, 18, 41, 0.08);
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.09),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6),
       var(--elev-2);
   }
 
   @supports not (backdrop-filter: blur(1px)) {
     .glass {
-      background: rgba(18, 20, 22, 0.96);
+      background: rgba(255, 255, 255, 0.96);
     }
   }
 
@@ -143,7 +172,7 @@
     background: var(--primary);
     color: var(--on-primary);
     font-size: 0.75rem;
-    font-weight: 500;
+    font-weight: 700;
     line-height: 1;
     padding: 5px 10px;
     border-radius: 9999px;
@@ -155,8 +184,17 @@
 
   .island {
     background: var(--canvas-night);
+    border-radius: 20px;
+    /* Same override as .dark-scope: muted ink tokens are tuned for the
+       light page, so redefine them locally on this navy surface. */
+    --ink: var(--on-dark);
+    --ink-secondary: rgba(244, 241, 232, 0.82);
+    --ink-mute: rgba(244, 241, 232, 0.65);
+    --ink-mute-2: rgba(244, 241, 232, 0.48);
+    --ink-faint: rgba(244, 241, 232, 0.32);
+    --hairline: rgba(255, 255, 255, 0.1);
+    --hairline-strong: rgba(255, 255, 255, 0.16);
     color: var(--on-dark);
-    border-radius: 16px;
   }
 
   @media (max-width: 640px) {
@@ -166,32 +204,31 @@
     }
   }
 
-  /* The one navigation bar. Always glass. */
+  /* The one navigation bar. A light glass panel over the page. */
   .site-glass {
-    background: rgba(16, 18, 20, 0.62);
-    backdrop-filter: blur(28px) saturate(200%);
-    -webkit-backdrop-filter: blur(28px) saturate(200%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(28px) saturate(160%);
+    -webkit-backdrop-filter: blur(28px) saturate(160%);
+    border: 1px solid rgba(5, 18, 41, 0.07);
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.1),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.5),
-      0 14px 44px -22px rgba(0, 0, 0, 0.9);
+      inset 0 1px 0 rgba(255, 255, 255, 0.7),
+      0 14px 44px -22px rgba(5, 18, 41, 0.35);
   }
 
   @supports not (backdrop-filter: blur(1px)) {
     .site-glass {
-      background: rgba(14, 16, 18, 0.97);
+      background: rgba(255, 255, 255, 0.97);
     }
   }
 
-  /* Form field. Lifted off the page so the well is visible on a dark track. */
+  /* Form field. A light well with a navy border, gold on focus. */
   .field {
     height: 44px;
     width: 100%;
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    background: var(--canvas-soft);
     border: 1px solid var(--hairline-strong);
-    padding-inline: 12px;
+    padding-inline: 14px;
     font-size: 0.875rem;
     color: var(--ink);
     transition:
@@ -210,7 +247,7 @@
   .field:focus-visible {
     outline: 2px solid var(--primary);
     outline-offset: 1px;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--canvas-soft);
   }
 
   /* Icon plate. Every 3D feature icon sits in this exact container. */
@@ -220,14 +257,10 @@
     flex: none;
     width: 56px;
     height: 56px;
-    border-radius: 8px;
-    background: linear-gradient(
-      160deg,
-      rgba(255, 255, 255, 0.07),
-      rgba(255, 255, 255, 0.02)
-    );
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    background: var(--primary-a12);
+    border: 1px solid var(--primary-a20);
+    color: var(--primary-deep);
   }
 
   /* Search results in the tools section. The drifting wall is further down. */
@@ -238,9 +271,10 @@
     flex: none;
     width: 72px;
     height: 72px;
-    border-radius: 8px;
-    background: var(--canvas-night-2);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    background: var(--canvas-soft);
+    border: 1px solid var(--hairline);
+    box-shadow: 0 4px 14px rgba(5, 18, 41, 0.06);
     transition:
       transform 200ms var(--ease-out),
       border-color 200ms var(--ease-out),
@@ -250,10 +284,10 @@
   .tool-tile:hover,
   .tool-tile:focus-visible {
     transform: translateY(-2px);
-    border-color: rgba(62, 207, 142, 0.4);
+    border-color: var(--primary-a55);
     box-shadow:
-      0 0 0 1px rgba(62, 207, 142, 0.21),
-      0 0 24px rgba(62, 207, 142, 0.13);
+      0 0 0 1px var(--primary-a22),
+      0 12px 28px rgba(5, 18, 41, 0.12);
   }
 
   .pegtop-loader {
@@ -261,7 +295,7 @@
     display: inline-block;
     width: var(--pegtop-size);
     height: var(--pegtop-size);
-    filter: drop-shadow(0 0 10px rgba(62, 207, 142, 0.35));
+    filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.35));
   }
 
   .pegtop-loader .pegtop {
@@ -615,10 +649,13 @@
   .glow-card {
     position: relative;
     isolation: isolate;
-    border-radius: 12px;
+    border-radius: 16px;
     border: 1px solid var(--hairline);
-    background: var(--white-a04);
-    transition: border-color var(--dur-base) var(--ease-out);
+    background: var(--canvas-soft);
+    box-shadow: 0 15px 35px rgba(5, 18, 41, 0.06);
+    transition:
+      border-color var(--dur-base) var(--ease-out),
+      box-shadow var(--dur-base) var(--ease-out);
   }
 
   .glow-card:hover {

@@ -174,7 +174,7 @@ export function WhatWeAutomate() {
           role="tablist"
           aria-label="Teams"
           onKeyDown={onKeyDown}
-          className="relative mt-12 flex snap-x snap-mandatory gap-1 overflow-x-auto rounded-lg border border-hairline bg-white/[0.02] p-1.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:overflow-visible"
+          className="relative mt-12 flex snap-x snap-mandatory gap-1 overflow-x-auto rounded-full border border-hairline bg-canvas p-1.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:overflow-visible"
         >
           <span
             ref={pillRef}
@@ -246,7 +246,7 @@ export function WhatWeAutomate() {
                         "col-span-2 lg:col-span-1",
                     )}
                   >
-                    <span className="flex min-h-11 w-full min-w-0 items-center gap-2 overflow-hidden rounded-md border border-hairline bg-white/[0.03] px-2.5 py-2.5 sm:px-3">
+                    <span className="flex min-h-11 w-full min-w-0 items-center gap-2 overflow-hidden rounded-md border border-hairline bg-canvas px-2.5 py-2.5 sm:px-3">
                       <span className="t-micro tabular shrink-0 text-ink-faint sm:hidden">
                         {index + 1}
                       </span>
@@ -296,7 +296,7 @@ export function WhatWeAutomate() {
               <CapabilityStage key={automation.job.id} item={automation.job} />
               {arming ? (
                 <span
-                  className="absolute inset-0 grid place-items-center rounded-xl bg-canvas-night"
+                  className="dark-scope absolute inset-0 grid place-items-center rounded-xl bg-canvas-night"
                   style={{ animation: "caption-in 160ms var(--ease-out) both" }}
                 >
                   <PegtopLoader size={44} label="Starting the run" />

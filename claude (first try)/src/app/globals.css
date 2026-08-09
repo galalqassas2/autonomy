@@ -29,13 +29,13 @@
   }
 
   ::selection {
-    background: rgba(62, 207, 142, 0.3);
+    background: rgba(212, 175, 55, 0.32);
     color: var(--ink);
   }
 
   /*
-    One ambient emerald wash anchored behind the hero. It is the only
-    gradient on the page track, and it stops the deep base reading flat.
+    One ambient gold wash anchored behind the hero. It is the only
+    gradient on the page track, and it stops the light base reading flat.
   */
   body::before {
     content: "";
@@ -46,12 +46,12 @@
     background:
       radial-gradient(
         900px 620px at 78% -10%,
-        rgba(62, 207, 142, 0.09),
+        rgba(212, 175, 55, 0.1),
         transparent 62%
       ),
       radial-gradient(
         700px 500px at 8% 4%,
-        rgba(62, 207, 142, 0.045),
+        rgba(5, 18, 41, 0.04),
         transparent 60%
       );
   }

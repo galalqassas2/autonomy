@@ -93,7 +93,7 @@ export const FlowCanvas = React.forwardRef<FlowCanvasHandle, Props>(
     return (
       <div
         className={cn(
-          "overflow-hidden rounded-lg border border-white/[0.10] shadow-[0_16px_48px_rgba(0,0,0,0.12)]",
+          "dark-scope overflow-hidden rounded-lg border border-white/[0.10] shadow-[0_16px_48px_rgba(0,0,0,0.12)]",
           className,
         )}
         style={{ background: "var(--canvas-night)" }}

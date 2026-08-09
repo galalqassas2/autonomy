@@ -60,7 +60,7 @@ export function HeroShowcase() {
           aria-label={open.name}
           tabIndex={-1}
           onKeyDown={(event) => event.key === "Escape" && close()}
-          className="hero-showcase__panel"
+          className="hero-showcase__panel dark-scope"
         >
           <div className="flex items-center gap-3">
             <span className="grid size-9 shrink-0 place-items-center rounded-md bg-white/[0.06]">

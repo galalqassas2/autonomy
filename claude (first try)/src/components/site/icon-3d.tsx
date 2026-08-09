@@ -11,7 +11,7 @@ const TONES: Record<Tone, { top: string; from: string; to: string }> = {
   neutral: { top: "#eaeded", from: "#d8dcdc", to: "#b2b8b9" },
   white: { top: "#ffffff", from: "#f7f9f9", to: "#dfe4e4" },
   ink: { top: "#3f4547", from: "#2c3133", to: "#191d1e" },
-  green: { top: "#5ee6a3", from: "#3ecf8e", to: "#1f9d6d" },
+  green: { top: "#f0d879", from: "#d4af37", to: "#8a6b1f" },
 }
 
 const DEPTH = 5

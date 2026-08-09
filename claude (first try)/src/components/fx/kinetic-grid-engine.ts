@@ -11,11 +11,11 @@ const NODE_ACTIVE_RADIUS = 3.2
 const AWAY = -9999
 
 const THEME = {
-  bg: "#1c1c1c",
-  lineActive: { r: 62, g: 207, b: 142, a: 0.85 },
-  nodeActive: { r: 62, g: 207, b: 142, a: 1.0 },
-  glow: "62,207,142",
-  ripple: "62,207,142",
+  bg: "#051229",
+  lineActive: { r: 212, g: 175, b: 55, a: 0.85 },
+  nodeActive: { r: 212, g: 175, b: 55, a: 1.0 },
+  glow: "212,175,55",
+  ripple: "212,175,55",
 }
 
 const lerpN = (a: number, b: number, t: number) => a + (b - a) * t

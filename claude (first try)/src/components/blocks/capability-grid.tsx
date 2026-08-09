@@ -21,7 +21,7 @@ type Capability = { icon: Icon; title: string; description: string }
 /*
   Six capabilities, one accent. The supplied component gave every cell its own
   hue, which would have put six colours on a page that allows one, so the tint
-  is emerald throughout and only the glow intensity changes on hover.
+  is gold throughout and only the glow intensity changes on hover.
 */
 const CAPABILITIES: Capability[] = [
   {
@@ -114,9 +114,9 @@ function Cell({
       onMouseEnter={onEnter}
       onMouseLeave={handleLeave}
       className={cn(
-        "group relative flex flex-col gap-5 overflow-hidden rounded-lg border p-6",
-        "border-hairline bg-white/[0.02]",
-        "transition-[opacity,transform,border-color] duration-200 hover:border-hairline-strong",
+        "group relative flex flex-col gap-5 overflow-hidden rounded-xl border p-6",
+        "border-hairline bg-canvas-soft shadow-[0_15px_35px_rgba(5,18,41,0.06)]",
+        "transition-[opacity,transform,border-color,box-shadow] duration-200 hover:border-hairline-strong hover:shadow-[0_20px_44px_rgba(5,18,41,0.1)]",
         dimmed && "scale-[0.975] opacity-55",
       )}
       style={{ transformStyle: "preserve-3d" }}

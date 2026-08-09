@@ -54,7 +54,7 @@ function ToolModal({
         role="dialog"
         aria-modal="true"
         aria-labelledby="tool-modal-title"
-        className="relative z-10 w-full max-w-lg rounded-md border border-white/10 bg-canvas-night p-6 shadow-2xl sm:p-8"
+        className="dark-scope relative z-10 w-full max-w-lg rounded-md border border-white/10 bg-canvas-night p-6 shadow-2xl sm:p-8"
       >
         <button
           type="button"

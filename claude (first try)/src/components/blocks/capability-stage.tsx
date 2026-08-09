@@ -29,7 +29,7 @@ export function CapabilityStage({ item }: { item: Capability }) {
   return (
     <section
       aria-label={`${item.label} example`}
-      className="relative flex h-[440px] w-full flex-col overflow-hidden rounded-xl border border-hairline bg-canvas-night shadow-[var(--elev-3)] sm:h-[460px]"
+      className="dark-scope relative flex h-[440px] w-full flex-col overflow-hidden rounded-xl border border-hairline bg-canvas-night shadow-[var(--elev-3)] sm:h-[460px]"
     >
       {w.kind === "chat" ? (
         <ChatWidget w={w} shown={shown} thinking={thinking} reduce={reduce} />

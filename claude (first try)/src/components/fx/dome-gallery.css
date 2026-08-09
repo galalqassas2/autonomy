@@ -74,7 +74,7 @@
   justify-content: center;
   gap: 3px;
   border-radius: 10px;
-  background: var(--canvas-night-2, #1c1f21);
+  background: var(--canvas-night-2, #0a2640);
   border: 1px solid rgba(255, 255, 255, 0.08);
   overflow: hidden;
   backface-visibility: hidden;
@@ -90,18 +90,18 @@
 }
 
 .sphere-tile:hover {
-  border-color: rgba(62, 207, 142, 0.4);
-  box-shadow: 0 4px 16px rgba(62, 207, 142, 0.12);
-  background: var(--canvas-lift, #212527);
+  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.12);
+  background: var(--canvas-lift, #123258);
 }
 
 .sphere-tile[data-lit] {
-  border-color: rgba(62, 207, 142, 0.55);
-  box-shadow: 0 0 20px rgba(62, 207, 142, 0.2);
+  border-color: rgba(212, 175, 55, 0.55);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
 }
 
 .sphere-tile:focus-visible {
-  outline: 2px solid var(--primary, #3ecf8e);
+  outline: 2px solid var(--primary, #d4af37);
   outline-offset: 2px;
 }
 

@@ -1,52 +1,54 @@
 /*
   Autonomy design tokens.
-  Palette, type scale, radii and elevation follow DESIGN.md (the Supabase system).
-  Neon shadows are the one documented addition, confined to canvas-night surfaces.
+  Palette follows the Flexi Boost reference: navy + gold, light track by
+  default, navy "islands" for dark sections/cards. Same token names as
+  before so components don't need touching individually — only what each
+  token points at changed.
 */
 
 :root {
-  --primary: #3ecf8e;
-  --primary-deep: #24b47e;
-  --primary-soft: #4ade80;
-  --on-primary: #06130c;
+  --primary: #d4af37;
+  --primary-deep: #b8922f;
+  --primary-soft: #e8c547;
+  --on-primary: #051229;
 
-  /* Dark track. Four steps of lift, none of them pure black. */
-  --canvas: #0a0b0c;
-  --canvas-soft: #101213;
-  --canvas-night: #16181a;
-  --canvas-night-2: #1c1f21;
-  --canvas-lift: #212527;
+  /* Light track. The page lives here; navy is the accent, not the base. */
+  --canvas: #eef1f6;
+  --canvas-soft: #ffffff;
+  --canvas-night: #051229;
+  --canvas-night-2: #0a2640;
+  --canvas-lift: #123258;
 
-  --hairline: #232627;
-  --hairline-strong: #363b3d;
-  --hairline-cool: #1b1e1f;
+  --hairline: rgba(5, 18, 41, 0.09);
+  --hairline-strong: rgba(5, 18, 41, 0.16);
+  --hairline-cool: rgba(5, 18, 41, 0.06);
 
-  --ink: #f2f4f4;
-  --ink-secondary: #dfe3e3;
-  --ink-mute: #98a0a1;
-  --ink-mute-2: #787f80;
-  --ink-faint: #565c5d;
-  --on-dark: #f2f4f4;
+  --ink: #051229;
+  --ink-secondary: rgba(5, 18, 41, 0.82);
+  --ink-mute: rgba(5, 18, 41, 0.65);
+  --ink-mute-2: rgba(5, 18, 41, 0.48);
+  --ink-faint: rgba(5, 18, 41, 0.32);
+  --on-dark: #f4f1e8;
 
-  /* Neon. A shadow, never a colour. Reserved for what must be noticed. */
-  --glow-soft: 0 0 28px rgba(62, 207, 142, 0.3);
+  /* Gold, not neon. A warm bloom instead of a laser edge. */
+  --glow-soft: 0 0 28px rgba(212, 175, 55, 0.28);
   --glow-edge:
-    0 0 0 1px rgba(62, 207, 142, 0.5), 0 0 34px rgba(62, 207, 142, 0.32);
+    0 0 0 1px rgba(212, 175, 55, 0.5), 0 0 34px rgba(212, 175, 55, 0.28);
   --glow-strong:
-    0 0 0 1px rgba(62, 207, 142, 0.7), 0 0 56px rgba(62, 207, 142, 0.45);
+    0 0 0 1px rgba(212, 175, 55, 0.7), 0 0 56px rgba(212, 175, 55, 0.4);
   --glow-text:
-    0 1px 0 rgba(32, 140, 90, 0.9),
-    0 2px 0 rgba(20, 95, 60, 0.85),
-    0 3px 0 rgba(14, 68, 42, 0.8),
-    0 4px 8px rgba(0, 0, 0, 0.5),
-    0 0 4px rgba(167, 243, 208, 0.6),
-    0 0 16px rgba(62, 207, 142, 0.35),
-    0 0 36px rgba(62, 207, 142, 0.18);
+    0 1px 0 rgba(184, 146, 47, 0.9),
+    0 2px 0 rgba(148, 111, 30, 0.85),
+    0 3px 0 rgba(110, 80, 18, 0.8),
+    0 4px 8px rgba(5, 18, 41, 0.35),
+    0 0 4px rgba(232, 197, 71, 0.6),
+    0 0 16px rgba(212, 175, 55, 0.32),
+    0 0 36px rgba(212, 175, 55, 0.16);
 
-  /* Elevation reads as depth of black on a dark track, not softness. */
-  --elev-1: 0 1px 2px rgba(0, 0, 0, 0.5);
-  --elev-2: 0 10px 30px -12px rgba(0, 0, 0, 0.7);
-  --elev-3: 0 24px 60px -20px rgba(0, 0, 0, 0.85);
+  /* Elevation reads as navy-tinted depth, never pure black. */
+  --elev-1: 0 1px 2px rgba(5, 18, 41, 0.08);
+  --elev-2: 0 10px 30px -12px rgba(5, 18, 41, 0.18);
+  --elev-3: 0 24px 60px -20px rgba(5, 18, 41, 0.25);
 
   /* Motion */
   --dur-fast: 180ms;
@@ -64,49 +66,60 @@
   /* shadcn semantic map, pointed at the tokens above */
   --background: var(--canvas);
   --foreground: var(--ink);
-  --card: var(--canvas);
+  --card: var(--canvas-soft);
   --card-foreground: var(--ink);
-  --popover: var(--canvas);
+  --popover: var(--canvas-soft);
   --popover-foreground: var(--ink);
   --primary-foreground: var(--on-primary);
-  --secondary: var(--canvas-night);
+  --secondary: var(--canvas-soft);
   --secondary-foreground: var(--ink);
-  --muted: var(--canvas-night);
+  --muted: var(--canvas-soft);
   --muted-foreground: var(--ink-mute);
-  --accent: var(--canvas-night);
+  --accent: var(--canvas-soft);
   --accent-foreground: var(--ink);
-  --destructive: #f2695a;
+  --destructive: #c0392b;
   --border: var(--hairline);
   --input: var(--hairline);
   --ring: var(--primary);
-  --radius: 0.5rem;
+  --radius: 0.75rem;
 
   /* Alpha tokens: one source for inline-style replacements */
-  --primary-a07: rgba(62, 207, 142, 0.07);
-  --primary-a09: rgba(62, 207, 142, 0.09);
-  --primary-a10: rgba(62, 207, 142, 0.10);
-  --primary-a12: rgba(62, 207, 142, 0.12);
-  --primary-a14: rgba(62, 207, 142, 0.14);
-  --primary-a20: rgba(62, 207, 142, 0.20);
-  --primary-a35: rgba(62, 207, 142, 0.35);
-  --amber: #e0b05a;
-  --amber-a12: rgba(224, 176, 90, 0.12);
-  --amber-a35: rgba(224, 176, 90, 0.35);
-  --white-a04: rgba(255, 255, 255, 0.04);
-  --white-a08: rgba(255, 255, 255, 0.08);
-  --white-a10: rgba(255, 255, 255, 0.10);
-  --white-a16: rgba(255, 255, 255, 0.16);
-  --white-a28: rgba(255, 255, 255, 0.28);
-  --white-a05: rgba(255, 255, 255, 0.05);
-  --white-a06: rgba(255, 255, 255, 0.06);
-  --primary-a06: rgba(62, 207, 142, 0.06);
-  --primary-a22: rgba(62, 207, 142, 0.22);
-  --primary-a28: rgba(62, 207, 142, 0.28);
-  --primary-a55: rgba(62, 207, 142, 0.55);
-  --primary-a70: rgba(62, 207, 142, 0.70);
-  --primary-a90: rgba(62, 207, 142, 0.90);
-  --primary-deep-a90: rgba(36, 180, 126, 0.90);
-  --black-a12: rgba(0, 0, 0, 0.12);
+  --primary-a07: rgba(212, 175, 55, 0.07);
+  --primary-a09: rgba(212, 175, 55, 0.09);
+  --primary-a10: rgba(212, 175, 55, 0.10);
+  --primary-a12: rgba(212, 175, 55, 0.12);
+  --primary-a14: rgba(212, 175, 55, 0.14);
+  --primary-a20: rgba(212, 175, 55, 0.20);
+  --primary-a35: rgba(212, 175, 55, 0.35);
+  --amber: #b8922f;
+  --amber-a12: rgba(184, 146, 47, 0.12);
+  --amber-a35: rgba(184, 146, 47, 0.35);
+  /* "white" alpha tokens now mean "lift on a navy island", not "lift on
+     the page" — the page itself is light, so these stay reserved for
+     content sitting on --canvas-night/-night-2/-lift surfaces. */
+  --white-a04: rgba(255, 255, 255, 0.06);
+  --white-a08: rgba(255, 255, 255, 0.10);
+  --white-a10: rgba(255, 255, 255, 0.12);
+  --white-a16: rgba(255, 255, 255, 0.18);
+  --white-a28: rgba(255, 255, 255, 0.30);
+  --white-a05: rgba(255, 255, 255, 0.08);
+  --white-a06: rgba(255, 255, 255, 0.09);
+  --primary-a06: rgba(212, 175, 55, 0.06);
+  --primary-a22: rgba(212, 175, 55, 0.22);
+  --primary-a28: rgba(212, 175, 55, 0.28);
+  --primary-a55: rgba(212, 175, 55, 0.55);
+  --primary-a70: rgba(212, 175, 55, 0.70);
+  --primary-a90: rgba(212, 175, 55, 0.90);
+  --primary-deep-a90: rgba(184, 146, 47, 0.90);
+  --black-a12: rgba(5, 18, 41, 0.12);
+
+  /* Navy-on-light equivalents for surfaces that sit directly on the page
+     (not inside a navy island) — cards, fields, glass panels. */
+  --navy-a03: rgba(5, 18, 41, 0.03);
+  --navy-a05: rgba(5, 18, 41, 0.05);
+  --navy-a08: rgba(5, 18, 41, 0.08);
+  --navy-a12: rgba(5, 18, 41, 0.12);
+  --navy-a22: rgba(5, 18, 41, 0.22);
 }
 
 @theme inline {
@@ -147,14 +160,14 @@
   --color-ring: var(--ring);
 
   --font-sans: var(--font-inter);
-  --font-heading: var(--font-inter);
+  --font-heading: var(--font-fraunces);
   --font-mono: ui-monospace, Menlo, Monaco, Consolas, monospace;
 
-  --radius-xs: 4px;
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
+  --radius-xs: 8px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
 
   --shadow-elev-1: var(--elev-1);
   --shadow-elev-2: var(--elev-2);

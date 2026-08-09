@@ -126,7 +126,7 @@ export function HoverButton({
       "text-sm leading-none font-medium text-on-dark",
       "bg-white/[0.04] backdrop-blur-lg",
       "before:pointer-events-none before:absolute before:inset-0 before:z-[1] before:rounded-[inherit]",
-      "before:shadow-[inset_0_0_0_1px_rgba(62,207,142,0.2),inset_0_0_16px_0_rgba(62,207,142,0.1),inset_0_-3px_12px_0_rgba(62,207,142,0.15),0_1px_3px_0_rgba(0,0,0,0.50),0_4px_12px_0_rgba(0,0,0,0.45)]",
+      "before:shadow-[inset_0_0_0_1px_rgba(212,175,55,0.25),inset_0_0_16px_0_rgba(212,175,55,0.12),inset_0_-3px_12px_0_rgba(212,175,55,0.18),0_1px_3px_0_rgba(0,0,0,0.50),0_4px_12px_0_rgba(0,0,0,0.45)]",
       "before:transition-transform before:duration-300",
       disabled
         ? "cursor-not-allowed opacity-50"

@@ -1,13 +1,21 @@
 import type { Metadata, Viewport } from "next"
-import { Inter } from "next/font/google"
+import { Inter, Fraunces } from "next/font/google"
 
 import "./globals.css"
 
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
   variable: "--font-inter",
+})
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["600", "700", "900"],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-fraunces",
 })
 
 const title = "Autonomy | We automate what your team repeats"
@@ -21,8 +29,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#0a0b0c",
-  colorScheme: "dark",
+  themeColor: "#eef1f6",
+  colorScheme: "light",
 }
 
 export default function RootLayout({
@@ -31,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en-IE" className={inter.variable}>
+    <html lang="en-IE" className={`${inter.variable} ${fraunces.variable}`}>
       <body>{children}</body>
     </html>
   )

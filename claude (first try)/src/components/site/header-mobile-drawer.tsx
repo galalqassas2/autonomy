@@ -42,7 +42,7 @@ export function MobileDrawer({
       <SheetContent
         side="right"
         showCloseButton={false}
-        className="w-[min(88vw,340px)] gap-0 border-l border-hairline bg-canvas-night p-0"
+        className="dark-scope w-[min(88vw,340px)] gap-0 border-l border-hairline bg-canvas-night p-0"
       >
         <SheetHeader className="flex-row items-center justify-between border-b border-hairline px-5 py-4">
           <SheetTitle className="text-ink">

@@ -4,7 +4,7 @@ export type { Capability, ChatTurn, Widget } from "@/types/capabilities"
 export const CHANNEL_TINT: Record<string, string> = {
   whatsapp: "37,211,102",
   telegram: "42,171,222",
-  web: "62,207,142",
+  web: "5,18,41",
 }
 
 /*
