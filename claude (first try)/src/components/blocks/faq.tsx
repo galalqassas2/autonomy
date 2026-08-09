@@ -7,32 +7,32 @@ import { cn } from "@/lib/utils"
 
 const questions = [
   {
-    q: "What can you automate?",
-    a: "Processes that follow repeatable steps and touch software, from invoicing and onboarding to routing leads and updating records.",
+    q: "What should we automate first?",
+    a: "Start with work that repeats, follows clear steps, and takes time from your team. We help you choose it.",
   },
   {
     q: "Will it work with our tools?",
-    a: "We support 1,000+ tools. If yours has no pre-built connection, we can connect it through an API or webhook.",
+    a: "1,000+ tools supported. If your tool is custom, we build the connection it needs.",
   },
   {
-    q: "What does a project cost?",
-    a: "We price each project after mapping the process. You receive a fixed scope before we build.",
+    q: "What stays under our control?",
+    a: "You set the rules and approvals. Anything outside them waits for you.",
   },
   {
-    q: "How long until it is running?",
-    a: "Most first automations go live in 2-6 weeks. We test on sample data before anything touches your live systems.",
+    q: "How long does it take?",
+    a: "Your first automation usually goes live in 2-6 weeks. We test it before it reaches your live systems.",
+  },
+  {
+    q: "What does it cost?",
+    a: "We map the process first, then give you a clear scope and price to approve.",
   },
   {
     q: "What happens after launch?",
-    a: "We monitor, maintain, and improve what we build under an agreed support plan.",
+    a: "We can monitor and maintain it. You own the workflows, credentials, and documentation. It keeps running without us.",
   },
   {
-    q: "Who owns the automation?",
-    a: "You do. The workflows, credentials, and documentation stay with you. If we stop working together, it keeps running.",
-  },
-  {
-    q: "How is our data handled?",
-    a: "Automations run on servers in Ireland. Nothing you send is used to train a model, and access is limited to what each workflow needs.",
+    q: "How do you protect our data?",
+    a: "Your automations run in Ireland. Data sent to AI is never stored or used for training. For added confidentiality, we can connect directly to your database.",
   },
 ]
 
@@ -43,7 +43,7 @@ export function Faq() {
     <section id="faq" className="section-y bg-canvas-soft">
       <div className="shell">
         <h2 className="t-display-xl mb-10 max-w-[16ch] text-ink">
-          Common questions.
+          What to expect.
         </h2>
 
         <div className="max-w-[820px]">

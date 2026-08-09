@@ -83,7 +83,7 @@ export function AutomationStage() {
     <section id="watch-it-run" ref={sectionRef} className="section-y">
       <div className="shell">
         <div className="mb-8 max-w-4xl">
-          <p className="t-caption mb-3 font-medium text-primary">See it work</p>
+          <p className="t-caption mb-3 font-medium text-primary">See it run</p>
           <h2 className="t-display-xl text-ink">
             An order comes in.{" "}
             <span className="glow-text inline-block py-1 text-primary">The rest runs itself.</span>
