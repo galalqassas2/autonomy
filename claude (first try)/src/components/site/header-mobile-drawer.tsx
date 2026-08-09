@@ -32,7 +32,7 @@ export function MobileDrawer({
         render={
           <button
             type="button"
-            aria-label="Open chapters"
+            aria-label="Open navigation"
             className="grid size-9 place-items-center rounded-sm text-ink transition-colors hover:bg-white/10 xl:hidden"
           />
         }
@@ -52,7 +52,7 @@ export function MobileDrawer({
             render={
               <button
                 type="button"
-                aria-label="Close chapters"
+                aria-label="Close navigation"
                 className="grid size-9 place-items-center rounded-sm text-ink-mute transition-colors hover:bg-white/[0.06] hover:text-ink"
               />
             }
@@ -61,8 +61,8 @@ export function MobileDrawer({
           </SheetClose>
         </SheetHeader>
 
-        <nav aria-label="Chapters" className="flex flex-col p-3">
-          {chapters.map((chapter, i) => (
+        <nav aria-label="Main navigation" className="flex flex-col p-3">
+          {chapters.map((chapter) => (
             <a
               key={chapter.id}
               href={`#${chapter.id}`}
@@ -75,14 +75,6 @@ export function MobileDrawer({
                   : "text-ink-mute hover:bg-white/[0.04] hover:text-ink",
               )}
             >
-              <span
-                className={cn(
-                  "t-mono w-5 shrink-0 text-xs",
-                  active === chapter.id ? "text-primary" : "text-ink-faint",
-                )}
-              >
-                {String(i + 1).padStart(2, "0")}
-              </span>
               <span className="text-[15px] font-medium">{chapter.label}</span>
               <CaretRightIcon
                 size={14}

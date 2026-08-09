@@ -1,7 +1,7 @@
 export const chapters = [
-  { id: "watch-it-run", label: "See it work" },
-  { id: "what-we-automate", label: "Automate" },
-  { id: "the-ai", label: "AI" },
+  { id: "watch-it-run", label: "Demo" },
+  { id: "what-we-automate", label: "Examples" },
+  { id: "the-ai", label: "Control" },
   { id: "faq", label: "FAQ" },
 ] as const
 
@@ -16,15 +16,15 @@ export const footerColumns = [
   {
     heading: "Explore",
     links: [
-      { label: "See it work", href: "#watch-it-run" },
-      { label: "What we automate", href: "#what-we-automate" },
-      { label: "What the AI does", href: "#the-ai" },
+      { label: "Demo", href: "#watch-it-run" },
+      { label: "Examples", href: "#what-we-automate" },
+      { label: "Control", href: "#the-ai" },
     ],
   },
   {
     heading: "Trust",
     links: [
-      { label: "Common questions", href: "#faq" },
+      { label: "FAQ", href: "#faq" },
       { label: "Find your first automation", href: "#start" },
     ],
   },

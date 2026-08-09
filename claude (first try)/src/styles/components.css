@@ -166,7 +166,7 @@
     }
   }
 
-  /* The one navigation bar. Always glass, height compacts on scroll. */
+  /* The one navigation bar. Always glass. */
   .site-glass {
     background: rgba(16, 18, 20, 0.62);
     backdrop-filter: blur(28px) saturate(200%);
@@ -176,7 +176,6 @@
       inset 0 1px 0 rgba(255, 255, 255, 0.1),
       inset 0 -1px 0 rgba(0, 0, 0, 0.5),
       0 14px 44px -22px rgba(0, 0, 0, 0.9);
-    transition: height var(--dur-base) var(--ease-out);
   }
 
   @supports not (backdrop-filter: blur(1px)) {
